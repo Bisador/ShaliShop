@@ -3,18 +3,18 @@ using Shop.Domain.Customers.Rules;
 
 namespace Shop.Domain.Customers.Aggregate;
 
-public sealed class CustomerAggregate : AggregateRoot<Guid>
+public sealed class Customer : AggregateRoot<Guid>
 {
     public string FullName { get; private set; }
     public string Email { get; private set; }
     public bool IsActive { get; private set; }
     public DateTime RegisteredAt { get; private set; }
 
-    private CustomerAggregate()  
+    private Customer()  
     {
     }
 
-    private CustomerAggregate(string fullName, string email):base(Guid.NewGuid())
+    private Customer(string fullName, string email):base(Guid.NewGuid())
     { 
         FullName = fullName;
         Email = email;
@@ -24,10 +24,10 @@ public sealed class CustomerAggregate : AggregateRoot<Guid>
         AddDomainEvent(new CustomerRegistered(Id, FullName, Email));
     }
 
-    public static CustomerAggregate Register(string fullName, string email)
+    public static Customer Register(string fullName, string email)
     {
         CheckRule(new FullNameIsRequired(fullName)); 
-        return new CustomerAggregate(fullName, email);
+        return new Customer(fullName, email);
     }
 
     public void UpdateProfile(string newName, string newEmail)

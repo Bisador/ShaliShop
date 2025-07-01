@@ -13,6 +13,8 @@
 
     <ItemGroup>
       <Folder Include="Carts\Enums\" />
+      <Folder Include="Payments\Repository\" />
+      <Folder Include="Products\Repository\" />
       <Folder Include="SharedValueObjects\" />
     </ItemGroup>
 

@@ -1,4 +1,5 @@
-﻿using Shop.Domain.Orders.DomainEvents;
+﻿using Shop.Domain.Carts.Aggregates;
+using Shop.Domain.Orders.DomainEvents;
 using Shop.Domain.Orders.Enums;
 using Shop.Domain.Orders.Rules;
 using Shop.Domain.Orders.ValueObjects;
@@ -37,7 +38,7 @@ public sealed class Order : AggregateRoot<Guid>
     public static Order Place(Guid customerId, List<OrderItem> items, ShippingAddress address)
     {
         CheckRule(new OrderMustHaveAtLeastOneItem(items));
-         
+
         return new Order(customerId, items, address);
     }
 
@@ -83,8 +84,30 @@ public sealed class Order : AggregateRoot<Guid>
     }
 
     private Money CalculateTotal()
-    {
+    { 
         var total = _items.Sum(i => i.UnitPrice.Amount * i.Quantity);
         return new Money(total, "USD");
+    }
+
+    public static Order CreateFromCart(Cart cart, Guid customerId, ShippingAddress address)
+    {
+        if (cart.IsEmpty)
+            throw new BusinessRuleValidationException("Cannot create order from empty cart.");
+
+        var orderItems = cart.Items.Select(item =>
+            new OrderItem(
+                productId: item.ProductId,
+                productName: item.ProductName,
+                unitPrice: item.UnitPrice,
+                quantity: item.Quantity)).ToList();
+  
+        var order = new Order(
+            customerId: customerId,
+            address: address,
+            items: orderItems);
+
+        order.AddDomainEvent(new OrderPlaced(order.Id, customerId, order.Items, order.TotalAmount));
+
+        return order;
     }
 }
