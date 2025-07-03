@@ -1,6 +1,5 @@
 ﻿using InventoryModule.Domain.Inventories.Aggregates;
-using InventoryModule.Domain.Inventories.DomainEvents;
-using Shared.Domain;
+using InventoryModule.Domain.Inventories.DomainEvents; 
 
 namespace InventoryModule.Domain.Test;
 

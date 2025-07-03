@@ -1,12 +1,28 @@
 using Microsoft.AspNetCore.Mvc;
+using Shared.Application.Behavior;
 using Shop.Application.Orders.Commands.OrderPlace;
 using Shop.Application.Orders.Models;
+using Shop.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi(); 
+builder.Services.AddOpenApi();
+
+
+// builder.Services.RegisterShopApplicationLayer();
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssemblies(
+        typeof(OrderPlaceCommandHandler).Assembly,
+        typeof(DomainExceptionPipelineBehavior<,>).Assembly,
+        typeof(OrderPlaceCommand).Assembly
+    ).AddOpenBehavior( typeof(DomainExceptionPipelineBehavior<,>));
+});
+
+ 
+ 
 
 var app = builder.Build();
 

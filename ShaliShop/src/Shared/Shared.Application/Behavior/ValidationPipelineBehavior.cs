@@ -5,13 +5,13 @@ namespace Shared.Application.Behavior
 {
     public sealed class ValidationPipelineBehavior<TRequest, TResponse>(IEnumerable<IValidator<TRequest>> validators)
         : IPipelineBehavior<TRequest, TResponse>
-        where TRequest : IRequest<TResponse>
+        where TRequest : IRequest<TRequest>
         where TResponse : Result
     {
         public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken ct)
         {
             if (!validators.Any()) 
-                return await next(); 
+                return await next(ct); 
 
             var context = new ValidationContext<TRequest>(request); 
             var errors = validators
@@ -20,7 +20,7 @@ namespace Shared.Application.Behavior
                 .Select(p => new Error(p.ErrorCode, p.ErrorMessage))
                 .DistinctBy(p => p.Message).ToList();
 
-            return errors.Count != 0 ? (TResponse) Result.Failure(errors) : await next();
+            return errors.Count != 0 ? (TResponse) Result.Failure(errors) : await next(ct);
         }
     }
 }
