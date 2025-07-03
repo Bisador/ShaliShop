@@ -15,13 +15,11 @@ builder.Services.AddOpenApi();
 builder.Services.AddMediatR(cfg =>
 {
     cfg.RegisterServicesFromAssemblies(
-        typeof(OrderPlaceCommandHandler).Assembly,
-        typeof(DomainExceptionPipelineBehavior<,>).Assembly,
-        typeof(OrderPlaceCommand).Assembly
-    ).AddOpenBehavior( typeof(DomainExceptionPipelineBehavior<,>));
+        typeof(OrderPlaceCommandHandler).Assembly
+    );
 });
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(DomainExceptionPipelineBehavior<,>)); 
 
- 
  
 
 var app = builder.Build();

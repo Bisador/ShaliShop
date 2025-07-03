@@ -29,8 +29,8 @@ public class Result<T>
 
     public static Result<T> Success(T value) => new(value);
 
-    public static Result<T> Failure(List<Error> error) => new(ImmutableList.Create(error.ToArray()));
     public static Result<T> Failure(Error error) => new([error]);
+    public static Result<T> Failure(List<Error> error) => new(ImmutableList.Create(error.ToArray()));
     public static Result<T> Failure(string errorCode, string errorMessage) => Failure(new Error(errorCode, errorMessage));
     public static Result<T> Failure(string errorMessage) => Failure(new Error(string.Empty, errorMessage));
 }

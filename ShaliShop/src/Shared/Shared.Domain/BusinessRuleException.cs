@@ -2,6 +2,7 @@ namespace Shared.Domain;
 
 public class BusinessRuleValidationException : Exception
 {
+    public static string ErrorCode { get; set; } = "Business_Rule";
     public BusinessRuleValidationException(string message) : base(message)
     {
         
