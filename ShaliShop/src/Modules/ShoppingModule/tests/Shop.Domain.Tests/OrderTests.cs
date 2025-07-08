@@ -5,7 +5,7 @@ using Shop.Domain.Orders.DomainEvents;
 using Shop.Domain.Orders.Enums;
 using Shop.Domain.Orders.ValueObjects; 
 
-namespace Shop.Domain.Test;
+namespace Shop.Domain.Tests;
 
 public class OrderTests
 {

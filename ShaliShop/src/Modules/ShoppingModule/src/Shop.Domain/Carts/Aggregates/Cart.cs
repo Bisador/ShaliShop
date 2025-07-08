@@ -27,7 +27,7 @@ public sealed class Cart : AggregateRoot<Guid>
 
     public static Cart Create(Guid customerId) => new(customerId);
 
-    public void AddItem(Guid productId, string name, decimal unitPrice, int quantity)
+    public void AddItem(Guid productId, string productName, Money unitPrice, int quantity)
     {
         CheckRule(new QuantityMustBeGreaterThanZero(quantity));
 
@@ -40,7 +40,7 @@ public sealed class Cart : AggregateRoot<Guid>
         }
         else
         {
-            var item = new CartItem(productId, name, quantity, Money.Create(unitPrice));
+            var item = new CartItem(productId, productName, quantity, unitPrice);
             _items.Add(item);
             AddDomainEvent(new ItemAddedToCart(Id, item));
         }

@@ -4,7 +4,7 @@ using Shop.Domain.Payments.Aggregates;
 using Shop.Domain.Payments.DomainEvents;
 using Shop.Domain.Payments.Enums;
 
-namespace Shop.Domain.Test;
+namespace Shop.Domain.Tests;
 
 public class PaymentTests
 {

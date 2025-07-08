@@ -25,7 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{4723557D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop.Domain", "src\Modules\ShoppingModule\src\Shop.Domain\Shop.Domain.csproj", "{1396A4FE-C8A7-45FA-8B67-C37D699B153F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop.Domain.Test", "src\Modules\ShoppingModule\tests\Shop.Domain.Test\Shop.Domain.Test.csproj", "{D212E6C2-1FC0-415A-8572-2469488E3B1A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop.Domain.Tests", "src\Modules\ShoppingModule\tests\Shop.Domain.Tests\Shop.Domain.Tests.csproj", "{D212E6C2-1FC0-415A-8572-2469488E3B1A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryModule.Domain", "src\Modules\InventoryModule\src\InventoryModule.Domain\InventoryModule.Domain.csproj", "{1123F90F-7885-411D-BB2B-9193A92DCC96}"
 EndProject
@@ -70,6 +70,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication", "src\Presentations\WebApplication\WebApplication.csproj", "{45E8B8FE-6695-4DC3-84CC-EC6E3C9733D5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop.DependencyInjection", "src\Modules\ShoppingModule\src\Shop.DependencyInjection\Shop.DependencyInjection.csproj", "{CD7F7D2C-8853-4723-B4D1-9D81534318AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop.Application.Tests", "src\Modules\ShoppingModule\tests\Shop.Application.Tests\Shop.Application.Tests.csproj", "{B265D267-FC7E-48B1-B1EE-240640F26675}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -137,6 +139,10 @@ Global
 		{CD7F7D2C-8853-4723-B4D1-9D81534318AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD7F7D2C-8853-4723-B4D1-9D81534318AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD7F7D2C-8853-4723-B4D1-9D81534318AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B265D267-FC7E-48B1-B1EE-240640F26675}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B265D267-FC7E-48B1-B1EE-240640F26675}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B265D267-FC7E-48B1-B1EE-240640F26675}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B265D267-FC7E-48B1-B1EE-240640F26675}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{A4A13A16-106D-4205-8ABF-E7EB35381B98} = {D836EDF8-5846-4D71-8855-37DA492C84D2}
@@ -171,5 +177,6 @@ Global
 		{D556F2CF-D570-4655-9B16-AE1B07179A6D} = {D836EDF8-5846-4D71-8855-37DA492C84D2}
 		{45E8B8FE-6695-4DC3-84CC-EC6E3C9733D5} = {D556F2CF-D570-4655-9B16-AE1B07179A6D}
 		{CD7F7D2C-8853-4723-B4D1-9D81534318AA} = {EBC657BD-DADB-42C8-8B77-B35EB7CCB90C}
+		{B265D267-FC7E-48B1-B1EE-240640F26675} = {690BB367-1B7B-4097-B27F-CB57F34817BB}
 	EndGlobalSection
 EndGlobal
