@@ -1,3 +1,6 @@
 namespace Shop.Application.Orders.Commands.Errors;
 
-public record StockUnavailableError( string ProductName) : Error("STOCK_UNAVAILABLE", $"Insufficient stock for Product {ProductName}");
+public record StockUnavailableError(string ProductName) : Error(ErrorCode, $"Insufficient stock for Product {ProductName}")
+{
+    public static string ErrorCode { get;  } = "STOCK_UNAVAILABLE";
+}
