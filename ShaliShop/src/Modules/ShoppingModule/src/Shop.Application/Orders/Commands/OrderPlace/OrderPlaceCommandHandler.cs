@@ -16,7 +16,8 @@ public class OrderPlaceCommandHandler(
     ICartRepository carts,
     IOrderRepository orders,
     IInventoryService inventory,
-    IIntegrationEventPublisher eventPublisher
+    IIntegrationEventPublisher eventPublisher,
+    IShoppingUnitOfWork unitOfWork
 ) : IRequestHandler<OrderPlaceCommand, CommandResult>
 {
     public async Task<CommandResult> Handle(OrderPlaceCommand command, CancellationToken ct)
@@ -51,8 +52,10 @@ public class OrderPlaceCommandHandler(
             order.CustomerId,
             order.Items,
             order.TotalAmount
-        ); 
+        );
         await eventPublisher.PublishAsync(@event, ct);
+
+        await unitOfWork.CommitAsync(ct);
 
         return CommandResult.Success(new OrderPlacementResult(order.Id, order.TotalAmount));
     }

@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.EntityFrameworkCore"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions"/>
+    </ItemGroup>
+    <ItemGroup>
+        <Using Include="Microsoft.EntityFrameworkCore"/> 
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\ShipmentModule.Application\ShipmentModule.Application.csproj" />
+      <ProjectReference Include="..\ShipmentModule.Domain\ShipmentModule.Domain.csproj" />
+    </ItemGroup>
+
+</Project>

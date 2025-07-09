@@ -2,9 +2,9 @@ using Microsoft.AspNetCore.Mvc;
 using Shared.Application.Behavior;
 using Shop.Application.Orders.Commands.OrderPlace;
 using Shop.Application.Orders.Models;
-using Shop.DependencyInjection;
+using WebApplication;
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = Microsoft.AspNetCore.Builder.WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -64,7 +64,10 @@ app.MapGet("/weatherforecast", () =>
 
 app.Run();
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
+namespace WebApplication
 {
-    public int TemperatureF => 32 + (int) (TemperatureC / 0.5556);
+    record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
+    {
+        public int TemperatureF => 32 + (int) (TemperatureC / 0.5556);
+    }
 }
