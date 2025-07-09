@@ -26,8 +26,8 @@ public class OrderTests
     {
         var items = new List<OrderItem>
         {
-            new(Guid.NewGuid(), "Kettlebell", 30m, Money.Create(2)), // 60
-            new(Guid.NewGuid(), "Pull-up Bar", 80m, Money.Create(1)) // 80
+            new(Guid.NewGuid(), "Kettlebell", 30m, Money.From(2)), // 60
+            new(Guid.NewGuid(), "Pull-up Bar", 80m, Money.From(1)) // 80
         };
         var shipping = new ShippingAddress("Tehran", "Valiasr St", "Zip123");
         var order = Order.Place(Guid.NewGuid(), items, shipping);
@@ -42,7 +42,7 @@ public class OrderTests
         var shipping = new ShippingAddress("Dallas", "Main St", "75201");
         var items = new List<OrderItem>
         {
-            new(Guid.NewGuid(), "Power Rack", 1, Money.Create(500m))
+            new(Guid.NewGuid(), "Power Rack", 1, Money.From(500m))
         };
         var order = Order.Place(customerId, items, shipping);
 
@@ -63,7 +63,7 @@ public class OrderTests
         ShippingAddress shipping = new("Dallas", "Main St", "75201");
         List<OrderItem> items =
         [
-            new(Guid.NewGuid(), "Power Rack", 1, Money.Create(500m))
+            new(Guid.NewGuid(), "Power Rack", 1, Money.From(500m))
         ];
         var order = Order.Place(Guid.NewGuid(), items, shipping);
         order.Cancel("Out of stock");

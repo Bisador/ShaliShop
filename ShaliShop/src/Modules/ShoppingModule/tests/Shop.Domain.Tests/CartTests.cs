@@ -12,7 +12,7 @@ public class CartTests
     {
         var cart = Cart.Create(Guid.NewGuid());
 
-        cart.AddItem(productId: Guid.NewGuid(), productName: "Keyboard", unitPrice: Money.Create(99.99m), quantity: 1);
+        cart.AddItem(productId: Guid.NewGuid(), productName: "Keyboard", unitPrice: Money.From(99.99m), quantity: 1);
 
         Assert.Single(cart.Items);
     }
@@ -23,8 +23,8 @@ public class CartTests
         var cart = Cart.Create(Guid.NewGuid());
         var productId = Guid.NewGuid();
 
-        cart.AddItem(productId, "Mouse", Money.Create(50m), 1);
-        cart.AddItem(productId, "Mouse", Money.Create(50m), 2);
+        cart.AddItem(productId, "Mouse", Money.From(50m), 1);
+        cart.AddItem(productId, "Mouse", Money.From(50m), 2);
 
         var item = cart.Items.First();
         Assert.Equal(3, item.Quantity);
@@ -36,7 +36,7 @@ public class CartTests
         var cart = Cart.Create(Guid.NewGuid());
 
         Assert.Throws<BusinessRuleValidationException>(() =>
-            cart.AddItem(Guid.NewGuid(), "Invalid", Money.Create(10m), 0));
+            cart.AddItem(Guid.NewGuid(), "Invalid", Money.From(10m), 0));
     }
 
     [Fact]
@@ -45,7 +45,7 @@ public class CartTests
         var cart = Cart.Create(Guid.NewGuid());
         var productId = Guid.NewGuid();
 
-        cart.AddItem(productId, "Camera", Money.Create(250m), 1);
+        cart.AddItem(productId, "Camera", Money.From(250m), 1);
         cart.RemoveItem(productId);
 
         Assert.Empty(cart.Items);
@@ -56,8 +56,8 @@ public class CartTests
     {
         var cart = Cart.Create(Guid.NewGuid());
 
-        cart.AddItem(Guid.NewGuid(), "Chair", Money.Create(89m), 1);
-        cart.AddItem(Guid.NewGuid(), "Desk", Money.Create(199m), 1);
+        cart.AddItem(Guid.NewGuid(), "Chair", Money.From(89m), 1);
+        cart.AddItem(Guid.NewGuid(), "Desk", Money.From(199m), 1);
         cart.Clear();
 
         Assert.True(cart.IsEmpty);
@@ -71,8 +71,8 @@ public class CartTests
         var productId = Guid.NewGuid();
 
         // Act
-        cart.AddItem(productId, "Gaming Mouse", Money.Create(49.99m), 1);
-        cart.AddItem(productId, "Ergonomic Mouse", Money.Create(59.99m), 1); // Different name and price
+        cart.AddItem(productId, "Gaming Mouse", Money.From(49.99m), 1);
+        cart.AddItem(productId, "Ergonomic Mouse", Money.From(59.99m), 1); // Different name and price
 
         // Assert
         cart.Items.Should().HaveCount(1);
@@ -101,8 +101,8 @@ public class CartTests
         var cart = Cart.Create(Guid.NewGuid());
         var productId = Guid.NewGuid();
 
-        cart.AddItem(productId, "Bench", Money.Create(299.99m), 1);
-        cart.AddItem(productId, "Bench", Money.Create(299.99m), 2);
+        cart.AddItem(productId, "Bench", Money.From(299.99m), 1);
+        cart.AddItem(productId, "Bench", Money.From(299.99m), 2);
 
         var domainEvents = cart.Events;
 
@@ -117,7 +117,7 @@ public class CartTests
     {
         var cart = Cart.Create(Guid.NewGuid());
 
-        cart.AddItem(Guid.NewGuid(), "Row Machine", Money.Create(450m), 1);
+        cart.AddItem(Guid.NewGuid(), "Row Machine", Money.From(450m), 1);
         cart.Clear();
 
         var domainEvents = cart.Events;
@@ -133,7 +133,7 @@ public class CartTests
 
         Thread.Sleep(10); // Ensure time tick
 
-        cart.AddItem(Guid.NewGuid(), "Yoga Mat", Money.Create(20m), 1);
+        cart.AddItem(Guid.NewGuid(), "Yoga Mat", Money.From(20m), 1);
 
         cart.LastModified.Should().BeAfter(before);
     }
