@@ -11,7 +11,7 @@ public class PaymentTests
     [Fact]
     public void Initiating_payment_should_set_state_and_emit_PaymentInitiated()
     {
-        var payment = Payment.Initiate(Guid.NewGuid(), Guid.NewGuid(), Money.Create(150m));
+        var payment = Payment.Initiate(Guid.NewGuid(), Guid.NewGuid(), Money.From(150m));
 
         payment.Status.Should().Be(PaymentStatus.Pending);
         payment.InitiatedAt.Should().BeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
@@ -24,7 +24,7 @@ public class PaymentTests
     [Fact]
     public void Succeeding_payment_should_set_status_and_raise_PaymentSucceeded()
     {
-        var payment = Payment.Initiate(Guid.NewGuid(), Guid.NewGuid(), Money.Create(250m));
+        var payment = Payment.Initiate(Guid.NewGuid(), Guid.NewGuid(), Money.From(250m));
         var txnId = "stripe_txn_xyz";
 
         payment.Succeed(txnId);
@@ -41,7 +41,7 @@ public class PaymentTests
     [Fact]
     public void Failing_payment_should_set_status_and_raise_PaymentFailed()
     {
-        var payment = Payment.Initiate(Guid.NewGuid(), Guid.NewGuid(), Money.Create(80m));
+        var payment = Payment.Initiate(Guid.NewGuid(), Guid.NewGuid(), Money.From(80m));
 
         payment.Fail("Card declined");
 
@@ -56,7 +56,7 @@ public class PaymentTests
     [Fact]
     public void Refund_should_only_be_allowed_for_succeeded_payments()
     {
-        var payment = Payment.Initiate(Guid.NewGuid(), Guid.NewGuid(), Money.Create(99m));
+        var payment = Payment.Initiate(Guid.NewGuid(), Guid.NewGuid(), Money.From(99m));
 
         Action act = () => payment.IssueRefund("Customer request");
 
@@ -66,7 +66,7 @@ public class PaymentTests
     [Fact]
     public void Refunding_succeeded_payment_should_set_status_and_raise_RefundIssued()
     {
-        var payment = Payment.Initiate(Guid.NewGuid(), Guid.NewGuid(), Money.Create(120m));
+        var payment = Payment.Initiate(Guid.NewGuid(), Guid.NewGuid(), Money.From(120m));
         payment.Succeed("txn-abc");
 
         payment.IssueRefund("Returned item");
@@ -81,7 +81,7 @@ public class PaymentTests
     [Fact]
     public void Cannot_succeed_a_failed_payment()
     {
-        var payment = Payment.Initiate(Guid.NewGuid(), Guid.NewGuid(), Money.Create(60m));
+        var payment = Payment.Initiate(Guid.NewGuid(), Guid.NewGuid(), Money.From(60m));
         payment.Fail("Network error");
 
         Action act = () => payment.Succeed("txn-late");

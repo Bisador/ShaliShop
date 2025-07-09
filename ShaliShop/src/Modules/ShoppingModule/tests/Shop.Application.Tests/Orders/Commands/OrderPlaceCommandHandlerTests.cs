@@ -6,7 +6,7 @@ using Shop.Application.Tests.TestUtils;
 using Shop.Domain.Carts.Aggregates;
 using Shop.Domain.Orders.DomainEvents;
 
-namespace Shop.Application.Tests.Orders.Commands.OrderPlace;
+namespace Shop.Application.Tests.Orders.Commands;
 
 public class OrderPlaceCommandHandlerTests
 {
@@ -15,6 +15,7 @@ public class OrderPlaceCommandHandlerTests
     private readonly Mock<IOrderRepository> _orders = new();
     private readonly Mock<IInventoryService> _inventory = new();
     private readonly Mock<IIntegrationEventPublisher> _eventPublisher = new();
+    private readonly Mock<IShoppingUnitOfWork> _unitOfWork = new();
 
     private readonly OrderPlaceCommandHandler _handler;
 
@@ -25,7 +26,8 @@ public class OrderPlaceCommandHandlerTests
             _carts.Object,
             _orders.Object,
             _inventory.Object,
-            _eventPublisher.Object);
+            _eventPublisher.Object,
+            _unitOfWork.Object);
     }
 
     [Fact]
@@ -96,7 +98,8 @@ public class OrderPlaceCommandHandlerTests
             _carts.Object,
             _orders.Object,
             inventory,
-            _eventPublisher.Object);
+            _eventPublisher.Object,
+            _unitOfWork.Object);
 
         var command = new OrderPlaceCommand(customer.Id, FakeShippingAddressDto.Valid());
 
@@ -136,7 +139,7 @@ public class OrderPlaceCommandHandlerTests
     {
         var customer = FakeCustomer.Registered();
         var productId = Guid.NewGuid();
-        var cart = FakeCart.WithItem("Creatine", productId, quantity: 2, Money.Create(29.99m));
+        var cart = FakeCart.WithItem("Creatine", productId, quantity: 2, Money.From(29.99m));
 
         _customers.Setup(c => c.LoadAsync(customer.Id, It.IsAny<CancellationToken>()))
             .ReturnsAsync(customer);
@@ -160,7 +163,7 @@ public class OrderPlaceCommandHandlerTests
     {
         var productId = Guid.NewGuid();
         var customer = FakeCustomer.Registered();
-        var cart = FakeCart.WithItem("Pre-Workout", productId, quantity: 2, Money.Create(29.99m));
+        var cart = FakeCart.WithItem("Pre-Workout", productId, quantity: 2, Money.From(29.99m));
         var inventory = new FakeInventoryService();
 
         _customers.Setup(c => c.LoadAsync(customer.Id, It.IsAny<CancellationToken>()))
@@ -177,7 +180,8 @@ public class OrderPlaceCommandHandlerTests
             _carts.Object,
             _orders.Object,
             inventory,
-            _eventPublisher.Object
+            _eventPublisher.Object,
+            _unitOfWork.Object
         );
 
         var command = new OrderPlaceCommand(customer.Id, FakeShippingAddressDto.Valid());

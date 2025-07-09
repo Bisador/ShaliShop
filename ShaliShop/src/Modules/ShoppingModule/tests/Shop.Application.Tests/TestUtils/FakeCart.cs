@@ -12,7 +12,7 @@ public static class FakeCart
         cart.AddItem(
             productId: productId,
             productName: productName,
-            unitPrice: money?? Money.Create(25.0m),
+            unitPrice: money?? Money.From(25.0m),
             quantity: quantity
         );
 

@@ -11,7 +11,7 @@ public class Money : ValueObject
     {
     }
 
-    public static Money Create(decimal amount, string? currency = null) =>
+    public static Money From(decimal amount, string? currency = null) =>
         new(amount, currency);
 
     public static Money Empty(string? currency = null) =>
