@@ -1,16 +1,18 @@
+using Shop.Domain.Orders.Enums;
+
 namespace Shop.Domain.Orders.ValueObjects;
 
-public class PaymentInfo : ValueObject
+public class Payment : ValueObject
 {
     public string TransactionId { get; } = null!;
     public PaymentMethod PaymentMethod { get; }
     public DateTime PaidAt { get; }
 
-    private PaymentInfo()
+    private Payment()
     {
     }
 
-    public PaymentInfo(string transactionId, PaymentMethod paymentMethod, DateTime paidAt) : this()
+    public Payment(string transactionId, PaymentMethod paymentMethod, DateTime paidAt) : this()
     {
         TransactionId = transactionId;
         PaymentMethod = paymentMethod;
@@ -23,10 +25,4 @@ public class PaymentInfo : ValueObject
         yield return PaymentMethod;
         yield return PaidAt;
     }
-}
-
-public enum PaymentMethod
-{
-    Cash,
-    Check
 }

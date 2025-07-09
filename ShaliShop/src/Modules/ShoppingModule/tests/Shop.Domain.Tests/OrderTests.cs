@@ -46,7 +46,7 @@ public class OrderTests
         };
         var order = Order.Place(customerId, items, shipping);
 
-        var paymentInfo = new PaymentInfo("txn-123", PaymentMethod.Cash, DateTime.UtcNow);
+        var paymentInfo = new Payment("txn-123", PaymentMethod.Cash, DateTime.UtcNow);
         order.Pay(paymentInfo);
 
         order.Status.Should().Be(OrderStatus.Paid);
@@ -68,7 +68,7 @@ public class OrderTests
         var order = Order.Place(Guid.NewGuid(), items, shipping);
         order.Cancel("Out of stock");
 
-        var paymentInfo = new PaymentInfo("txn-123", PaymentMethod.Cash, DateTime.UtcNow);
+        var paymentInfo = new Payment("txn-123", PaymentMethod.Cash, DateTime.UtcNow);
         var act = () => order.Pay(paymentInfo);
         act.Should().Throw<InvalidOperationException>();
     }

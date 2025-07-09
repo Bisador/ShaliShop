@@ -1,5 +1,4 @@
 using Shared.Domain;
-using Shop.Domain;
 
 namespace SharedModule.Domain.ValueObjects;
 

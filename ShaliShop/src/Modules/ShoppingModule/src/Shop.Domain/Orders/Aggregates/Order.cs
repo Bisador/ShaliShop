@@ -17,7 +17,7 @@ public sealed class Order : AggregateRoot<Guid>
     public IReadOnlyCollection<OrderItem> Items => _items.AsReadOnly();
 
     public Money TotalAmount { get; } = null!;
-    public PaymentInfo? PaymentInfo { get; private set; }
+    public Payment? PaymentInfo { get; private set; }
 
     private Order() : base()
     {
@@ -42,7 +42,7 @@ public sealed class Order : AggregateRoot<Guid>
         return new Order(customerId, items, address);
     }
 
-    public void Pay(PaymentInfo payment)
+    public void Pay(Payment payment)
     {
         if (Status != OrderStatus.Placed)
             throw new InvalidOperationException("Only placed orders can be paid.");

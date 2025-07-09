@@ -1,4 +1,4 @@
-namespace Shop.Domain;
+namespace SharedModule.Domain;
 
 public static class Currencies
 {
