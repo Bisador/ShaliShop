@@ -22,6 +22,7 @@
         <Using Include="Mapster"/>
         <Using Include="MediatR"/>
         <Using Include="Shared.Application"/>
-        <Using Include="Shared.Common"/> 
+        <Using Include="Shared.Common"/>
+        <Using Include="Shared.Application.Messaging"/>
     </ItemGroup>
 </Project>

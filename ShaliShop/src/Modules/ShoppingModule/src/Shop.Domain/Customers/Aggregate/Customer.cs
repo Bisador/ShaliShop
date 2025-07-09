@@ -5,8 +5,8 @@ namespace Shop.Domain.Customers.Aggregate;
 
 public sealed class Customer : AggregateRoot<Guid>
 {
-    public string FullName { get; private set; }
-    public string Email { get; private set; }
+    public string FullName { get; private set; } = null!;
+    public string Email { get; private set; } = null!;
     public bool IsActive { get; private set; }
     public DateTime RegisteredAt { get; private set; }
 

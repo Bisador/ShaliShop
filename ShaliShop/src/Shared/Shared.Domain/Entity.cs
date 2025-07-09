@@ -2,7 +2,7 @@
 
 public class Entity<TId>
 {
-    public TId Id { get; }
+    public TId Id { get; } = default!;
 
     protected Entity()
     {

@@ -8,7 +8,7 @@ public sealed class Payment : AggregateRoot<Guid>
 {
     public Guid OrderId { get; private set; }
     public Guid CustomerId { get; private set; }
-    public Money Amount { get; private set; }
+    public Money Amount { get; private set; } = null!;
     public PaymentStatus Status { get; private set; }
     public string? TransactionId { get; private set; }
     public DateTime InitiatedAt { get; private set; }

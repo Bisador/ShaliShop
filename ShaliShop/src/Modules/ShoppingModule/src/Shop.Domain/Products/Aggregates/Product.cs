@@ -5,11 +5,10 @@ namespace Shop.Domain.Products.Aggregates;
 
 public sealed class Product : AggregateRoot<Guid>
 {
-    public string Name { get; private set; }
-    public string Description { get; private set; }
+    public string Name { get; private set; } = null!;
+    public string Description { get; private set; } = null!;
 
-   
-    public Money Price { get; private set; }
+    public Money Price { get; private set; } = null!;
     public int AvailableStock { get; private set; }
     public bool IsActive { get; private set; }
 

@@ -5,8 +5,8 @@ namespace ProductModule.Domain.Products.Aggregates;
 
 public class ProductVariant
 {
-    public string Sku { get; private set; }
-    public IReadOnlyDictionary<string, string> Options { get; private set; }
+    public string Sku { get; private set; } = null!;
+    public IReadOnlyDictionary<string, string> Options { get; private set; } = null!;
     public Money? PriceOverride { get; private set; }
 
     private ProductVariant()

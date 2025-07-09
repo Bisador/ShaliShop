@@ -2,7 +2,7 @@ namespace Shop.Domain.Orders.ValueObjects;
 
 public class PaymentInfo : ValueObject
 {
-    public string TransactionId { get; }
+    public string TransactionId { get; } = null!;
     public PaymentMethod PaymentMethod { get; }
     public DateTime PaidAt { get; }
 

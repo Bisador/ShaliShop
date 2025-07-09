@@ -8,15 +8,15 @@ namespace ShipmentModule.Domain.Shipments.Aggregates;
 public class Shipment : AggregateRoot<Guid>
 {
     public Guid OrderId { get; private set; }
-    public string Carrier { get; private set; }
-    public string TrackingNumber { get; private set; }
+    public string Carrier { get; private set; } = null!;
+    public string TrackingNumber { get; private set; } = null!;
     public ShipmentStatus Status { get; private set; }
     public DateTime CreatedAt { get; private set; }
     public DateTime? DispatchedAt { get; private set; }
     public DateTime? DeliveredAt { get; private set; }
     public DateTime? CanceledAt { get; private set; }
-    
-    public int DeliveryAttempts { get; private set; } = 0;
+
+    public int DeliveryAttempts { get; private set; }
     public const int MaxDeliveryAttempts = 3;
 
     private Shipment()
@@ -76,7 +76,7 @@ public class Shipment : AggregateRoot<Guid>
 
         AddDomainEvent(new ShipmentDeliveryRetried(Id, DateTime.UtcNow));
     }
-     
+
     public void MarkDeliveryFailed()
     {
         DeliveryAttempts++;
@@ -85,5 +85,4 @@ public class Shipment : AggregateRoot<Guid>
 
         AddDomainEvent(new ShipmentDeliveryFailed(Id, DeliveryAttempts));
     }
-
 }

@@ -2,9 +2,9 @@ namespace Shop.Domain.Orders.ValueObjects;
 
 public class ShippingAddress : ValueObject
 {
-    public string Street { get; }
-    public string City { get; }
-    public string ZipCode { get; }
+    public string Street { get; } = null!;
+    public string City { get; } = null!;
+    public string ZipCode { get; } = null!;
     public string? State { get; }
     public string? Country { get; }
 
@@ -19,12 +19,12 @@ public class ShippingAddress : ValueObject
         ZipCode = zipCode;
     }
 
-    public ShippingAddress(string city, string street, string zipCode, string state, string country) : this()
+    public ShippingAddress(string city, string street, string zipCode, string? state, string? country) : this()
     {
         Street = street;
         City = city;
-        State = state;
         ZipCode = zipCode;
+        State = state;
         Country = country;
     }
 

@@ -1,8 +1,10 @@
-﻿using SharedModule.Domain.ValueObjects;
+﻿using Shared.Application.Messaging;
+using SharedModule.Domain.ValueObjects;
 using Shop.Application.Orders.Commands.Errors;
 using Shop.Application.Orders.Commands.OrderPlace;
 using Shop.Application.Tests.TestUtils;
 using Shop.Domain.Carts.Aggregates;
+using Shop.Domain.Orders.DomainEvents;
 
 namespace Shop.Application.Tests.Orders.Commands.OrderPlace;
 
@@ -12,6 +14,7 @@ public class OrderPlaceCommandHandlerTests
     private readonly Mock<ICartRepository> _carts = new();
     private readonly Mock<IOrderRepository> _orders = new();
     private readonly Mock<IInventoryService> _inventory = new();
+    private readonly Mock<IIntegrationEventPublisher> _eventPublisher = new();
 
     private readonly OrderPlaceCommandHandler _handler;
 
@@ -21,7 +24,8 @@ public class OrderPlaceCommandHandlerTests
             _customers.Object,
             _carts.Object,
             _orders.Object,
-            _inventory.Object);
+            _inventory.Object,
+            _eventPublisher.Object);
     }
 
     [Fact]
@@ -41,7 +45,7 @@ public class OrderPlaceCommandHandlerTests
 
         var command = new OrderPlaceCommand(customer.Id, FakeShippingAddressDto.Valid());
 
-        var result = await _handler.Handle(command, default);
+        var result = await _handler.Handle(command, CancellationToken.None);
 
         result.IsSuccess.Should().BeTrue();
         result.Value.Should().NotBeNull();
@@ -91,11 +95,12 @@ public class OrderPlaceCommandHandlerTests
             _customers.Object,
             _carts.Object,
             _orders.Object,
-            inventory);
+            inventory,
+            _eventPublisher.Object);
 
         var command = new OrderPlaceCommand(customer.Id, FakeShippingAddressDto.Valid());
 
-        var result = await handler.Handle(command, default);
+        var result = await handler.Handle(command, CancellationToken.None);
 
         result.IsSuccess.Should().BeFalse();
         result.Errors!.First().Code.Should().Be(StockUnavailableError.ErrorCode);
@@ -123,15 +128,15 @@ public class OrderPlaceCommandHandlerTests
 
         result.IsSuccess.Should().BeTrue();
 
-        _carts.Verify(c => c.SaveAsync(It.Is<Cart>(c => c.IsEmpty), It.IsAny<CancellationToken>()), Times.Once);
+        _carts.Verify(p => p.SaveAsync(It.Is<Cart>(c => c.IsEmpty), It.IsAny<CancellationToken>()), Times.Once);
     }
-    
+
     [Fact]
     public async Task Should_return_correct_total_in_order_placement_result()
     {
         var customer = FakeCustomer.Registered();
         var productId = Guid.NewGuid();
-        var cart = FakeCart.WithItem("Creatine", productId, quantity: 2,Money.Create(29.99m));
+        var cart = FakeCart.WithItem("Creatine", productId, quantity: 2, Money.Create(29.99m));
 
         _customers.Setup(c => c.LoadAsync(customer.Id, It.IsAny<CancellationToken>()))
             .ReturnsAsync(customer);
@@ -147,7 +152,46 @@ public class OrderPlaceCommandHandlerTests
         var result = await _handler.Handle(command, CancellationToken.None);
 
         result.IsSuccess.Should().BeTrue();
-        result.Value!.Total.Amount.Should().Be(59.98m); 
+        result.Value!.Total.Amount.Should().Be(59.98m);
     }
 
+    [Fact]
+    public async Task Should_publish_order_placed_event_on_success()
+    {
+        var productId = Guid.NewGuid();
+        var customer = FakeCustomer.Registered();
+        var cart = FakeCart.WithItem("Pre-Workout", productId, quantity: 2, Money.Create(29.99m));
+        var inventory = new FakeInventoryService();
+
+        _customers.Setup(c => c.LoadAsync(customer.Id, It.IsAny<CancellationToken>()))
+            .ReturnsAsync(customer);
+
+        _carts.Setup(c => c.LoadForCustomerAsync(customer.Id, It.IsAny<CancellationToken>()))
+            .ReturnsAsync(cart);
+
+        _inventory.Setup(i => i.TryReserveStockAsync(productId, 2, It.IsAny<CancellationToken>()))
+            .ReturnsAsync(Result.Success());
+
+        var handler = new OrderPlaceCommandHandler(
+            _customers.Object,
+            _carts.Object,
+            _orders.Object,
+            inventory,
+            _eventPublisher.Object
+        );
+
+        var command = new OrderPlaceCommand(customer.Id, FakeShippingAddressDto.Valid());
+
+        var result = await handler.Handle(command, CancellationToken.None);
+
+        result.IsSuccess.Should().BeTrue();
+
+        _eventPublisher.Verify(p => p.PublishAsync(
+                It.Is<OrderPlaced>(e =>
+                    e.OrderId == result.Value!.OrderId &&
+                    e.CustomerId == customer.Id &&
+                    e.TotalAmount == result.Value.Total),
+                It.IsAny<CancellationToken>()),
+            Times.Once);
+    }
 }

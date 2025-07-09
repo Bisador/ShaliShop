@@ -9,15 +9,15 @@ public sealed class Product : AggregateRoot<Guid>
 {
     #region Descriptive
 
-    public string Name { get; private set; }
-    public string Description { get; private set; }
-    public string Category { get; private set; }
+    public string Name { get; private set; } = null!;
+    public string Description { get; private set; } = null!;
+    public string Category { get; private set; } = null!;
 
     #endregion
      
     #region Commercial
 
-    public Money Price { get; private set; }
+    public Money Price { get; private set; } = null!;
     public bool IsPublished { get; private set; }
     public DateTime? PublishedAt { get; private set; }
     public bool IsDiscontinued { get; private set; }

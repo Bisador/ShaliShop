@@ -11,12 +11,12 @@ public sealed class Order : AggregateRoot<Guid>
     public Guid CustomerId { get; }
     public OrderStatus Status { get; private set; }
     public DateTime PlacedAt { get; private set; }
-    public ShippingAddress ShippingAddress { get; private set; }
+    public ShippingAddress ShippingAddress { get; private set; } = null!;
 
     private readonly List<OrderItem> _items = new();
     public IReadOnlyCollection<OrderItem> Items => _items.AsReadOnly();
 
-    public Money TotalAmount { get; }
+    public Money TotalAmount { get; } = null!;
     public PaymentInfo? PaymentInfo { get; private set; }
 
     private Order() : base()

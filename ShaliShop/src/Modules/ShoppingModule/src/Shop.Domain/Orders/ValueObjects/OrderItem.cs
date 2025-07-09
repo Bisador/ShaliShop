@@ -5,7 +5,7 @@ public class OrderItem : ValueObject
     public Guid ProductId { get; }
     public string ProductName { get; } = string.Empty;
     public decimal Quantity { get; }
-    public Money UnitPrice { get; }
+    public Money UnitPrice { get; } = null!;
 
     private OrderItem()
     {
