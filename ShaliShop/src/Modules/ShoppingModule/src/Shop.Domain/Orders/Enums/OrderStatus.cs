@@ -4,7 +4,8 @@ public enum OrderStatus
 {
     Placed,
     Paid,
+    Confirmed,
     Cancelled,
     Shipped,
-    Returned
+    Returned 
 }

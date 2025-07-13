@@ -3,7 +3,7 @@ using Shop.Domain.Orders.Enums;
 using Shop.Domain.Orders.ValueObjects;
 
 namespace Shop.Application.Tests.TestUtils;
- 
+
 public static class FakeOrder
 {
     public static Order Placed(out Guid orderId)
@@ -28,28 +28,37 @@ public static class FakeOrder
     public static Order Paid(out Guid orderId)
     {
         var order = Placed(out orderId);
-        var payment = new Payment("TXN001", PaymentMethod.CreditCard, DateTime.UtcNow);
+        var payment =  Payment();
         order.Pay(payment);
         return order;
     }
 
+    private static Payment Payment() => new("TXN001", PaymentMethod.CreditCard, DateTime.UtcNow);
+
     public static Order WithStatus(OrderStatus status, out Guid orderId)
     {
-        var order = Placed(out orderId);
-
-        if (status == OrderStatus.Paid)
+        var order = Placed(out orderId); 
+        var payment =  Payment();
+        switch (status)
         {
-            var payment = new Payment("TXN001", PaymentMethod.CreditCard, DateTime.UtcNow);
-            order.Pay(payment);
-        }
-        else if (status == OrderStatus.Shipped)
-        {
-            order.Pay(new Payment("TXN002", PaymentMethod.CreditCard, DateTime.UtcNow));
-            order.Ship();
-        }
-        else if (status == OrderStatus.Cancelled)
-        {
-            order.Cancel("Test cancel");
+            case OrderStatus.Paid:
+                order.Pay(payment);
+                break;
+            case OrderStatus.Confirmed:
+                order.Pay(payment);
+                order.Confirm();
+                break;
+            case OrderStatus.Shipped:
+                order.Confirm();
+                order.Ship();
+                break;
+            case OrderStatus.Cancelled:
+                order.Cancel("Test cancel");
+                break;
+            case OrderStatus.Placed:
+                break; 
+            default:
+                throw new ArgumentOutOfRangeException(nameof(status), status, null);
         }
 
         return order;

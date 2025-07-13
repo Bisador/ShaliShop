@@ -52,6 +52,17 @@ public sealed class Order : AggregateRoot<Guid>
 
         AddDomainEvent(new OrderPaid(Id, payment.TransactionId));
     }
+    
+    public void Confirm()
+    {
+        if (Status != OrderStatus.Paid)
+            throw new InvalidOperationException("Only paid orders can be confirmed.");
+
+        Status = OrderStatus.Confirmed;
+
+        AddDomainEvent(new OrderConfirmed(Id));
+    }
+
 
     public void Cancel(string reason)
     {
