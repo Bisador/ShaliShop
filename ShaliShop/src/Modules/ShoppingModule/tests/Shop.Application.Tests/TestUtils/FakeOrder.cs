@@ -49,7 +49,7 @@ public static class FakeOrder
                 order.Confirm();
                 break;
             case OrderStatus.Shipped:
-                order.Confirm();
+                order.Pay(payment); 
                 order.Ship();
                 break;
             case OrderStatus.Cancelled:
