@@ -1,11 +1,13 @@
-using System.Collections.Immutable; 
+using System.Collections.Immutable;
 
 namespace Shared.Common;
 
 public class Result
 {
     public bool IsSuccess { get; }
+    public bool IsFailure => !IsSuccess;
     public ImmutableList<Error>? Errors { get; }
+    public Error? Error => Errors?.FirstOrDefault();
 
     public static Result Success() => new();
 
