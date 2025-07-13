@@ -25,7 +25,7 @@ public class OrderPayCommandHandlerTests
         _orders.Setup(r => r.LoadAsync(command.OrderId, It.IsAny<CancellationToken>()))
             .ReturnsAsync((Order?)null);
 
-        var result = await _handler.Handle(command, default);
+        var result = await _handler.Handle(command, CancellationToken.None);
 
         result.IsSuccess.Should().BeFalse();
         result.Errors.Should().HaveCountGreaterThan(0);
@@ -40,7 +40,7 @@ public class OrderPayCommandHandlerTests
         _orders.Setup(r => r.LoadAsync(orderId, It.IsAny<CancellationToken>()))
             .ReturnsAsync(order);
 
-        var result = await _handler.Handle(new OrderPayCommand(orderId, dto), default);
+        var result = await _handler.Handle(new OrderPayCommand(orderId, dto), CancellationToken.None);
 
         result.IsSuccess.Should().BeFalse();
         result.Errors.Should().HaveCountGreaterThan(0); 
@@ -55,7 +55,7 @@ public class OrderPayCommandHandlerTests
         _orders.Setup(r => r.LoadAsync(orderId, It.IsAny<CancellationToken>()))
             .ReturnsAsync(order);
 
-        var result = await _handler.Handle(new OrderPayCommand(orderId, dto), default);
+        var result = await _handler.Handle(new OrderPayCommand(orderId, dto), CancellationToken.None);
 
         result.IsSuccess.Should().BeTrue();
         order.Status.Should().Be(OrderStatus.Paid);
