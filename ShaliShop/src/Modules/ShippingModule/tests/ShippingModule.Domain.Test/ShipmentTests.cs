@@ -4,7 +4,7 @@ using ShippingModule.Domain.Shipments.DomainEvents;
 using ShippingModule.Domain.Shipments.Enums;
 using ShippingModule.Domain.Shipments.Exceptions;
 
-namespace ShippingtModule.Domain.Test;
+namespace ShippingModule.Domain.Test;
 
 public class ShipmentTests
 {

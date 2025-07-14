@@ -1,6 +1,6 @@
 using ShippingModule.Domain.Shipments.Aggregates;
 
-namespace ShippingtModule.Domain.Test;
+namespace ShippingModule.Domain.Test;
 
 public static class ShipmentFixture
 {

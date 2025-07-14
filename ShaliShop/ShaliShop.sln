@@ -57,7 +57,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{7C676E81
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShippingModule.Domain", "src\Modules\ShippingModule\src\ShippingModule.Domain\ShippingModule.Domain.csproj", "{49E8007C-20C2-411C-A040-77DEFC1F4CA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShippingtModule.Domain.Test", "src\Modules\ShippingModule\tests\ShippingtModule.Domain.Test\ShippingtModule.Domain.Test.csproj", "{0306DC0A-59BE-4FE8-9F4E-DC646B3EA49E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShippingModule.Domain.Test", "src\Modules\ShippingModule\tests\ShippingModule.Domain.Test\ShippingModule.Domain.Test.csproj", "{0306DC0A-59BE-4FE8-9F4E-DC646B3EA49E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop.Application", "src\Modules\ShoppingModule\src\Shop.Application\Shop.Application.csproj", "{E8F8982B-3168-4D01-8CE5-B42DA5357F78}"
 EndProject
@@ -79,7 +79,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShippingModule.Persistence"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShippingModule.Application", "src\Modules\ShippingModule\src\ShippingModule.Application\ShippingModule.Application.csproj", "{64C2446C-B091-4628-9015-8ADB30A12F40}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShippingtModule.Application.Test", "src\Modules\ShippingModule\tests\ShippingtModule.Application.Test\ShippingtModule.Application.Test.csproj", "{4A4C410D-693E-4722-88EE-5A3751193899}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShippingModule.Application.Test", "src\Modules\ShippingModule\tests\ShippingModule.Application.Test\ShippingModule.Application.Test.csproj", "{4A4C410D-693E-4722-88EE-5A3751193899}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

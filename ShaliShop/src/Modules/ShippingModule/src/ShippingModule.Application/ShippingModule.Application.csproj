@@ -16,8 +16,7 @@
         <Using Include="ShippingModule.Domain.Shipments.Aggregates"/>
     </ItemGroup>
     
-    <ItemGroup>
-        <Using Include="Mapster"/>
+    <ItemGroup> 
         <Using Include="MediatR"/>
         <Using Include="Shared.Application"/>
         <Using Include="Shared.Common"/>

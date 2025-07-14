@@ -21,5 +21,14 @@
         <Using Include="FluentAssertions"/>
         <Using Include="Moq"/>
     </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\src\ShippingModule.Application\ShippingModule.Application.csproj" />
+      <ProjectReference Include="..\..\src\ShippingModule.Domain\ShippingModule.Domain.csproj" />
+    </ItemGroup>
     
+    <ItemGroup>
+        <Using Include="ShippingModule.Domain.Shipments.Repository"/>
+        <Using Include="ShippingModule.Domain.Shipments.Aggregates"/>
+    </ItemGroup>
 </Project>

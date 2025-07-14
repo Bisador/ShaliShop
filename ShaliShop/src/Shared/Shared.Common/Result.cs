@@ -23,8 +23,10 @@ public class Result
 public class Result<T>
 {
     public bool IsSuccess { get; }
+    public bool IsFailure => !IsSuccess;
     public T? Value { get; }
     public ImmutableList<Error>? Errors { get; }
+    public Error? Error => Errors?.FirstOrDefault();
 
     private Result(ImmutableList<Error> errors) => Errors = errors;
     private Result(T? value) => (Value, IsSuccess) = (value, true);
