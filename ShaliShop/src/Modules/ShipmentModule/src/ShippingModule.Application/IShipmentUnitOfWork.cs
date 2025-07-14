@@ -1,6 +1,6 @@
 ﻿using Shared.Application;
 
-namespace ShipmentModule.Application;
+namespace ShippingModule.Application;
 
 public interface IShipmentUnitOfWork : IUnitOfWork
 {

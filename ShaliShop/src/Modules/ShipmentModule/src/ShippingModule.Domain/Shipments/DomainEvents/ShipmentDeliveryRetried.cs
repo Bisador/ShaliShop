@@ -1,5 +1,5 @@
 using Shared.Domain;
 
-namespace ShipmentModule.Domain.Shipments.DomainEvents;
+namespace ShippingModule.Domain.Shipments.DomainEvents;
 
 public record ShipmentDeliveryRetried(Guid ShipmentId, DateTime RetriedAt) : DomainEvent;

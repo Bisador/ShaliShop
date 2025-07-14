@@ -21,7 +21,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\ShipmentModule.Domain\ShipmentModule.Domain.csproj" />
+      <ProjectReference Include="..\..\src\ShippingModule.Domain\ShippingModule.Domain.csproj" />
     </ItemGroup>
 
 </Project>

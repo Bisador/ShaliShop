@@ -1,7 +1,7 @@
 ﻿ 
-using ShipmentModule.Application;
+using ShippingModule.Application;
 
-namespace ShipmentModule.Persistence;
+namespace ShippingModule.Persistence;
 
 public class ShipmentUnitOfWork : IShipmentUnitOfWork
 {

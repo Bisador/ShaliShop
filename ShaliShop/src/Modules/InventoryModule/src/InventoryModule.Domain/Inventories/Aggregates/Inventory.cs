@@ -58,8 +58,7 @@ public sealed class Inventory : AggregateRoot<Guid>
             _hasBeenDepleted = true;
         }
         
-        if (_lowStockThreshold.HasValue &&
-            available < _lowStockThreshold.Value &&
+        if (available < _lowStockThreshold &&
             !_lowStockAlertFired)
         {
             AddDomainEvent(new LowStockDetected(Id, ProductId, available, _lowStockThreshold.Value));

@@ -1,6 +1,6 @@
-using ShipmentModule.Domain.Shipments.Aggregates;
+using ShippingModule.Domain.Shipments.Aggregates;
 
-namespace ShipmentModule.Persistence;
+namespace ShippingModule.Persistence;
 
 public class ShipmentDbContext : DbContext
 {
