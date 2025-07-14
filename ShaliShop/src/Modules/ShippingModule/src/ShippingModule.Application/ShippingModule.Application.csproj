@@ -21,6 +21,7 @@
         <Using Include="Shared.Application"/>
         <Using Include="Shared.Common"/>
         <Using Include="Shared.Application.Messaging"/>
+        <Using Include="ShippingModule.Domain.Shipments.Repository"/>
     </ItemGroup>
     
     <ItemGroup>
