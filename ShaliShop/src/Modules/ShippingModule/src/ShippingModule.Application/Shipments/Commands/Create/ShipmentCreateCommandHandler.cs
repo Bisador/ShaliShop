@@ -1,5 +1,4 @@
-using ShippingModule.Application.Shipments.Commands.Errors;
-using ShippingModule.Domain.Shipments.Repository;
+using ShippingModule.Application.Shipments.Commands.Errors; 
 
 namespace ShippingModule.Application.Shipments.Commands.Create;
 
