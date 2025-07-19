@@ -13,7 +13,7 @@ public class OrderPlaceCommandHandlerTests
     private readonly Mock<ICustomerRepository> _customers = new();
     private readonly Mock<ICartRepository> _carts = new();
     private readonly Mock<IOrderRepository> _orders = new();
-    private readonly Mock<IInventoryService> _inventory = new();
+    private readonly Mock<IInventoryRepository> _inventory = new();
     private readonly Mock<IIntegrationEventPublisher> _eventPublisher = new();
     private readonly Mock<IShoppingUnitOfWork> _unitOfWork = new();
 
@@ -84,7 +84,7 @@ public class OrderPlaceCommandHandlerTests
         var cart = FakeCart.WithItem("Whey Protein", productId, 2);
         var customer = FakeCustomer.Registered();
 
-        var inventory = new FakeInventoryService();
+        var inventory = new FakeInventoryRepository();
         inventory.SetUnavailable(productId);
 
         _customers.Setup(r => r.LoadAsync(customer.Id, It.IsAny<CancellationToken>()))
@@ -164,7 +164,7 @@ public class OrderPlaceCommandHandlerTests
         var productId = Guid.NewGuid();
         var customer = FakeCustomer.Registered();
         var cart = FakeCart.WithItem("Pre-Workout", productId, quantity: 2, Money.From(29.99m));
-        var inventory = new FakeInventoryService();
+        var inventory = new FakeInventoryRepository();
 
         _customers.Setup(c => c.LoadAsync(customer.Id, It.IsAny<CancellationToken>()))
             .ReturnsAsync(customer);

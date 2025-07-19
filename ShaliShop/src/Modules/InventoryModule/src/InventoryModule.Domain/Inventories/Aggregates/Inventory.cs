@@ -32,15 +32,7 @@ public sealed class Inventory : AggregateRoot<Guid>
         ArgumentOutOfRangeException.ThrowIfNegative(quantity);
         return new Inventory(productId, quantity);
     }
-    
-    public void SetLowStockThreshold(int quantity)
-    {
-        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(quantity);
-
-        _lowStockThreshold = quantity;
-        _lowStockAlertFired = false;  
-    }
-
+     
     public void Reserve(int quantity)
     {
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(quantity);
@@ -66,8 +58,7 @@ public sealed class Inventory : AggregateRoot<Guid>
             _lowStockAlertFired = true;
         }
     }
-     
-
+      
     public void Release(int quantity)
     {
         if (quantity <= 0 || quantity > Reserved)
@@ -93,5 +84,13 @@ public sealed class Inventory : AggregateRoot<Guid>
         AddDomainEvent(new InventoryRestocked(Id, ProductId, quantity));
     }
   
+    public void SetLowStockThreshold(int quantity)
+    {
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(quantity);
+
+        _lowStockThreshold = quantity;
+        _lowStockAlertFired = false;  
+    }
+    
     private decimal AvailableToReserve() => QuantityOnHand - Reserved;
 }

@@ -7,24 +7,21 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\..\Shared\Shared.Application\Shared.Application.csproj"/> 
+        <ProjectReference Include="..\..\..\..\Shared\Shared.Application\Shared.Application.csproj"/>
         <ProjectReference Include="..\..\..\..\Shared\Shared.Common\Shared.Common.csproj"/>
-        <ProjectReference Include="..\ShippingModule.Domain\ShippingModule.Domain.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <Using Include="ShippingModule.Domain.Shipments.Aggregates"/>
-        <Using Include="ShippingModule.Domain.Shipments.Repository"/>
+        <ProjectReference Include="..\InventoryModule.Domain\InventoryModule.Domain.csproj" />
     </ItemGroup>
     
-    <ItemGroup> 
+    <ItemGroup>
+        <Using Include="InventoryModule.Domain.Inventories.Repository"/> 
+    </ItemGroup>
+    
+    <ItemGroup>
         <Using Include="MediatR"/>
         <Using Include="Shared.Application"/>
         <Using Include="Shared.Common"/>
-        <Using Include="Shared.Application.Messaging"/> 
+        <Using Include="Shared.Application.Messaging"/>
     </ItemGroup>
-    
-    <ItemGroup>
-      <Folder Include="Shipments\" />
-    </ItemGroup>
+
+
 </Project>

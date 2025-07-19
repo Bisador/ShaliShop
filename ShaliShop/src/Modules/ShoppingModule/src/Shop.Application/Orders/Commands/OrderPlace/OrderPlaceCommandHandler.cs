@@ -15,7 +15,7 @@ public class OrderPlaceCommandHandler(
     ICustomerRepository customers,
     ICartRepository carts,
     IOrderRepository orders,
-    IInventoryService inventory,
+    IInventoryRepository inventory,
     IIntegrationEventPublisher eventPublisher,
     IShoppingUnitOfWork unitOfWork
 ) : IRequestHandler<OrderPlaceCommand, CommandResult>
