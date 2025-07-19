@@ -1,4 +1,5 @@
-using InventoryModule.Domain.Inventories.DomainEvents; 
+using InventoryModule.Domain.Inventories.DomainEvents;
+using InventoryModule.Domain.Inventories.Exceptions;
 using Shared.Domain;
 
 namespace InventoryModule.Domain.Inventories.Aggregates;
@@ -12,16 +13,7 @@ public sealed class Inventory : AggregateRoot<Guid>
     private decimal? _lowStockThreshold; 
     private bool _hasBeenDepleted;  
     private bool _lowStockAlertFired; 
-
  
-    public void SetLowStockThreshold(int quantity)
-    {
-        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(quantity);
-
-        _lowStockThreshold = quantity;
-        _lowStockAlertFired = false;  
-    }
-
     private Inventory()
     {
     }
@@ -40,16 +32,25 @@ public sealed class Inventory : AggregateRoot<Guid>
         ArgumentOutOfRangeException.ThrowIfNegative(quantity);
         return new Inventory(productId, quantity);
     }
+    
+    public void SetLowStockThreshold(int quantity)
+    {
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(quantity);
+
+        _lowStockThreshold = quantity;
+        _lowStockAlertFired = false;  
+    }
 
     public void Reserve(int quantity)
     {
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(quantity);
 
-        var available = AvailableToReserve();
-        if (quantity > available)
-            throw new BusinessRuleValidationException("Not enough available inventory to reserve.");
-
+        if (quantity > AvailableToReserve())
+            throw new NotEnoughAvailableInventoryToReserveException();
+        
         Reserved += quantity;
+        var available = AvailableToReserve();
+
         AddDomainEvent(new InventoryReserved(Id, ProductId, quantity));
 
         if (available == 0 && !_hasBeenDepleted)
@@ -70,7 +71,7 @@ public sealed class Inventory : AggregateRoot<Guid>
     public void Release(int quantity)
     {
         if (quantity <= 0 || quantity > Reserved)
-            throw new BusinessRuleValidationException("Invalid release quantity.");
+            throw new InvalidReleaseQuantityException();
 
         Reserved -= quantity;
         AddDomainEvent(new InventoryReleased(Id, ProductId, quantity));
