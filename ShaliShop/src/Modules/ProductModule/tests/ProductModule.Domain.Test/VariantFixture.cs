@@ -5,7 +5,7 @@ namespace ProductModule.Domain.Test;
 
 public static class VariantFixture
 {
-    public static ProductVariant Chocolate500g(
+    public static ProductVariant Chocolate500G(
         string sku = "CREAT-CHO-500",
         Money? priceOverride = null)
     {
@@ -19,7 +19,7 @@ public static class VariantFixture
             priceOverride);
     }
 
-    public static ProductVariant Vanilla1000g(
+    public static ProductVariant Vanilla1000G(
         string sku = "CREAT-VAN-1000",
         Money? priceOverride = null)
     {

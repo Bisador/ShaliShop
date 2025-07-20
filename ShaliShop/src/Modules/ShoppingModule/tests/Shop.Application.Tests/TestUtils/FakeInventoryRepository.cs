@@ -18,12 +18,12 @@ public class FakeInventoryRepository : IInventoryRepository
         return Task.FromResult(result);
     }
 
-    public Task<Inventory?> LoadAsync(Guid commandInventoryId, CancellationToken ct)
+    public Task<Inventory?> LoadAsync(Guid id, CancellationToken ct)
     {
         throw new NotImplementedException();
     }
 
-    public Task SaveAsync(Inventory shipment, CancellationToken ct)
+    public Task SaveAsync(Inventory item, CancellationToken ct)
     {
         throw new NotImplementedException();
     }

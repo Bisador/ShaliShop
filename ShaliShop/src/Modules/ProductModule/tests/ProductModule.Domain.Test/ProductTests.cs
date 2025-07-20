@@ -1,5 +1,6 @@
 ﻿using ProductModule.Domain.Products.Aggregates;
 using ProductModule.Domain.Products.DomainEvents;
+using ProductModule.Domain.Products.Exceptions;
 using ProductModule.Domain.Products.Rules;
 using Shared.Domain;
 using SharedModule.Domain.ValueObjects;
@@ -43,8 +44,7 @@ public class ProductTests
         var product = Product.Create("", "Invalid", new Money(0), "Test");
 
         FluentActions.Invoking(() => product.Publish())
-            .Should().Throw<BusinessRuleValidationException>()
-            .WithMessage("*name and price*");
+            .Should().Throw<CannotPublishWithoutNameAndPrice>();
     }
 
     [Fact]
@@ -100,11 +100,11 @@ public class ProductTests
     public void Adding_duplicate_sku_should_throw_and_not_store_variant()
     {
         var product = ProductFixture.CreateBasic();
-        var variant = VariantFixture.Chocolate500g();
+        var variant = VariantFixture.Chocolate500G();
 
         product.AddVariant(variant);
 
-        Action act = () => product.AddVariant(VariantFixture.Chocolate500g());
+        Action act = () => product.AddVariant(VariantFixture.Chocolate500G());
     
         act.Should().Throw<DuplicateVariantException>();
 
@@ -115,7 +115,7 @@ public class ProductTests
     public void Removing_variant_should_delete_it_and_raise_ProductVariantRemoved()
     {
         var product = ProductFixture.CreateBasic();
-        var variant = VariantFixture.Chocolate500g();
+        var variant = VariantFixture.Chocolate500G();
 
         product.AddVariant(variant);
         product.RemoveVariant(variant.Sku);

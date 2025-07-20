@@ -1,4 +1,5 @@
 using ProductModule.Domain.Products.DomainEvents;
+using ProductModule.Domain.Products.Exceptions;
 using ProductModule.Domain.Products.Rules;
 using Shared.Domain;
 using SharedModule.Domain.ValueObjects;
@@ -25,10 +26,10 @@ public sealed class Product : AggregateRoot<Guid>
     public void Publish()
     {
         if (string.IsNullOrWhiteSpace(Name) || Price.Amount <= 0)
-            throw new BusinessRuleValidationException("Cannot publish without name and price.");
+            throw new CannotPublishWithoutNameAndPrice();
 
         if (IsDiscontinued)
-            throw new BusinessRuleValidationException("Discontinued products cannot be published.");
+            throw new DiscontinuedProductsCannotBePublished();
 
         IsPublished = true;
         PublishedAt = DateTime.UtcNow;
@@ -130,11 +131,7 @@ public sealed class Product : AggregateRoot<Guid>
         // Could enforce rules here: price must be > 0, etc.
         return new Product(name, description, price, category);
     }
-
-    
-
-   
-    
+  
     public record Size(string Value)
     {
         public static readonly Size G500 = new("500g");
