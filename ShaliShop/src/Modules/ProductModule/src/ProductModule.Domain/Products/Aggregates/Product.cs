@@ -15,7 +15,7 @@ public sealed class Product : AggregateRoot<Guid>
     public string Category { get; private set; } = null!;
 
     #endregion
-     
+
     #region Commercial
 
     public Money Price { get; private set; } = null!;
@@ -59,6 +59,7 @@ public sealed class Product : AggregateRoot<Guid>
 
         AddDomainEvent(new ProductDiscontinued(Id));
     }
+
     #endregion
 
     #region Configurable
@@ -97,13 +98,12 @@ public sealed class Product : AggregateRoot<Guid>
         return variant.PriceOverride ?? Price;
     }
 
-    public ProductVariant? GetVariantBySku(string sku) => 
+    public ProductVariant? GetVariantBySku(string sku) =>
         _variants.FirstOrDefault(v => v.Sku == sku);
 
     #endregion
 
     #endregion
-   
 
     public DateTime CreatedAt { get; private set; }
     public DateTime? LastModifiedAt { get; private set; }
@@ -127,11 +127,13 @@ public sealed class Product : AggregateRoot<Guid>
     }
 
     public static Product Create(string name, string description, Money price, string category)
-    {
-        // Could enforce rules here: price must be > 0, etc.
+    { 
+        ArgumentException.ThrowIfNullOrEmpty(name, nameof(name));
+        ArgumentException.ThrowIfNullOrEmpty(category, nameof(category));
+        ArgumentOutOfRangeException.ThrowIfNegative(price.Amount, nameof(price));
         return new Product(name, description, price, category);
     }
-  
+
     public record Size(string Value)
     {
         public static readonly Size G500 = new("500g");
@@ -139,6 +141,4 @@ public sealed class Product : AggregateRoot<Guid>
 
         public override string ToString() => Value;
     }
-
-
 }
