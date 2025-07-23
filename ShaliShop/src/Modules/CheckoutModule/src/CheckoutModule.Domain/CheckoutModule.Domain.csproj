@@ -14,4 +14,5 @@
         <Using Include="Shared.Domain"/>
         <Using Include="SharedModule.Domain.ValueObjects"/>
     </ItemGroup>
+    
 </Project>

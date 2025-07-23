@@ -1,8 +1,6 @@
 using ProductModule.Domain.Products.DomainEvents;
 using ProductModule.Domain.Products.Exceptions;
-using ProductModule.Domain.Products.Rules;
-using Shared.Domain;
-using SharedModule.Domain.ValueObjects;
+using ProductModule.Domain.Products.Rules;  
 
 namespace ProductModule.Domain.Products.Aggregates;
 

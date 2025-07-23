@@ -13,8 +13,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\Modules\ShoppingModule\src\Shop.Application\Shop.Application.csproj" />
-        <ProjectReference Include="..\..\Modules\ShoppingModule\src\Shop.DependencyInjection\Shop.DependencyInjection.csproj" />
+        <ProjectReference Include="..\..\Modules\OrderModule\src\OrderModule.Application\OrderModule.Application.csproj" />
+        <ProjectReference Include="..\..\Modules\OrderModule\src\OrderModule.DependencyInjection\OrderModule.DependencyInjection.csproj" />
         <ProjectReference Include="..\..\Shared\Shared.Common\Shared.Common.csproj" />
     </ItemGroup>
 

@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="MediatR"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Using Include="MediatR"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\..\Shared\Shared.Application\Shared.Application.csproj" />
+        <ProjectReference Include="..\..\..\..\Shared\Shared.Common\Shared.Common.csproj"/>  
+    </ItemGroup>
+    
+    <ItemGroup>
+        <Using Include="Shared.Application"/>
+        <Using Include="Shared.Common"/>
+        <Using Include="Shared.Application.Messaging"/>
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="MediatR"/>
+        <PackageReference Include="Mapster"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\..\Shared\Shared.Application\Shared.Application.csproj" />
+        <ProjectReference Include="..\..\..\..\Shared\Shared.Common\Shared.Common.csproj"/> 
+        <ProjectReference Include="..\..\..\InventoryModule\src\InventoryModule.Domain\InventoryModule.Domain.csproj"/>
+        <ProjectReference Include="..\OrderModule.Domain\OrderModule.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Using Include="Mapster"/>
+        <Using Include="MediatR"/>
+        <Using Include="Shared.Application"/>
+        <Using Include="Shared.Common"/>
+        <Using Include="Shared.Application.Messaging"/>
+    </ItemGroup>
+</Project>

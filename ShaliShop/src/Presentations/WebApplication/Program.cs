@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Shared.Application.Behavior;
-using Shop.Application.Orders.Commands.OrderPlace;
-using Shop.Application.Orders.Models;
+using OrderModule.Application.Orders.Commands.OrderPlace;
+using OrderModule.Application.Orders.Models;
 using WebApplication;
 
 var builder = Microsoft.AspNetCore.Builder.WebApplication.CreateBuilder(args);

@@ -7,11 +7,10 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\SharedModule\src\SharedModule.Domain\SharedModule.Domain.csproj"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools"/>
     </ItemGroup>
 
-    <ItemGroup>
-        <Using Include="Shared.Domain"/>
-        <Using Include="SharedModule.Domain.ValueObjects"/>
-    </ItemGroup>
+
 </Project>

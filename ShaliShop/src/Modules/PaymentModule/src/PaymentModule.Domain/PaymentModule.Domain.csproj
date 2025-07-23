@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\..\..\..\Shared\Shared.Domain\Shared.Domain.csproj"/>
         <ProjectReference Include="..\..\..\SharedModule\src\SharedModule.Domain\SharedModule.Domain.csproj"/>
     </ItemGroup>
 
@@ -14,4 +15,5 @@
         <Using Include="Shared.Domain"/>
         <Using Include="SharedModule.Domain.ValueObjects"/>
     </ItemGroup>
+
 </Project>
