@@ -1,5 +1,4 @@
 ﻿ 
-using CheckoutModule.Domain.Carts.Aggregates;
 using OrderModule.Domain.Orders.DomainEvents;
 using OrderModule.Domain.Orders.Enums;
 using OrderModule.Domain.Orders.Rules;
@@ -12,17 +11,14 @@ public sealed class Order : AggregateRoot<Guid>
     public Guid CustomerId { get; }
     public OrderStatus Status { get; private set; }
     public DateTime PlacedAt { get; private set; }
-    public ShippingAddress ShippingAddress { get; private set; } = null!;
+    public ShippingAddress ShippingAddress { get; private set; }
 
-    private readonly List<OrderItem> _items = new();
+    private readonly List<OrderItem> _items = [];
     public IReadOnlyCollection<OrderItem> Items => _items.AsReadOnly();
 
-    public Money TotalAmount { get; } = null!;
+    public Money TotalAmount { get; }
     public Payment? PaymentInfo { get; private set; }
-
-    private Order() : base()
-    {
-    }
+ 
 
     private Order(Guid customerId, List<OrderItem> items, ShippingAddress address) : base(Guid.NewGuid())
     {
@@ -99,27 +95,5 @@ public sealed class Order : AggregateRoot<Guid>
     { 
         var total = _items.Sum(i => i.UnitPrice.Amount * i.Quantity);
         return new Money(total, "USD");
-    }
-
-    public static Order CreateFromCart(Cart cart, Guid customerId, ShippingAddress address)
-    {
-        if (cart.IsEmpty)
-            throw new BusinessRuleValidationException("Cannot create order from empty cart.");
-
-        var orderItems = cart.Items.Select(item =>
-            new OrderItem(
-                productId: item.ProductId,
-                productName: item.ProductName,
-                unitPrice: item.UnitPrice,
-                quantity: item.Quantity)).ToList();
-  
-        var order = new Order(
-            customerId: customerId,
-            address: address,
-            items: orderItems);
-
-        order.AddDomainEvent(new OrderPlaced(order.Id, customerId, order.Items, order.TotalAmount));
-
-        return order;
-    }
+    } 
 }

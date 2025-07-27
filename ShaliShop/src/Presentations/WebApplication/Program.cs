@@ -1,7 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
-using Shared.Application.Behavior;
-using OrderModule.Application.Orders.Commands.OrderPlace;
-using OrderModule.Application.Orders.Models;
+ 
 using WebApplication;
 
 var builder = Microsoft.AspNetCore.Builder.WebApplication.CreateBuilder(args);
@@ -12,13 +9,13 @@ builder.Services.AddOpenApi();
 
 
 // builder.Services.RegisterShopApplicationLayer();
-builder.Services.AddMediatR(cfg =>
-{
-    cfg.RegisterServicesFromAssemblies(
-        typeof(OrderPlaceCommandHandler).Assembly
-    );
-});
-builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(DomainExceptionPipelineBehavior<,>)); 
+// builder.Services.AddMediatR(cfg =>
+// {
+//     cfg.RegisterServicesFromAssemblies(
+//         typeof(OrderPlaceCommandHandler).Assembly
+//     );
+// });
+// builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(DomainExceptionPipelineBehavior<,>)); 
 
  
 
@@ -36,17 +33,17 @@ var summaries = new[]
 {
     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
 };
-app.MapGet("/PlaceOrder", async ([FromServices] IMediator mediator) =>
-    {
-        var result = await mediator.Send(new OrderPlaceCommand(Guid.NewGuid(), new ShippingAddressDto()
-        {
-            City = "",
-            Street = "",
-            ZipCode = "",
-        }));
-        return result.IsSuccess ? StatusCodes.Status200OK : StatusCodes.Status400BadRequest;
-    })
-    .WithName("PlaceOrder");
+// app.MapGet("/PlaceOrder", async ([FromServices] IMediator mediator) =>
+//     {
+//         var result = await mediator.Send(new OrderPlaceCommand(Guid.NewGuid(), new ShippingAddressDto()
+//         {
+//             City = "",
+//             Street = "",
+//             ZipCode = "",
+//         }));
+//         return result.IsSuccess ? StatusCodes.Status200OK : StatusCodes.Status400BadRequest;
+//     })
+//     .WithName("PlaceOrder");
 
 app.MapGet("/weatherforecast", () =>
     {

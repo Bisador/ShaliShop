@@ -1,6 +1,5 @@
 using System.Collections.ObjectModel;
 using ProductModule.Domain.Products.Exceptions;
-using SharedModule.Domain.ValueObjects;
 
 namespace ProductModule.Domain.Products.Aggregates;
 

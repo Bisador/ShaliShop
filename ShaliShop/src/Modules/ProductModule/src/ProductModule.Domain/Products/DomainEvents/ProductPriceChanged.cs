@@ -1,6 +1,3 @@
-using Shared.Domain;
-using SharedModule.Domain.ValueObjects;
-
 namespace ProductModule.Domain.Products.DomainEvents;
 
 public record ProductPriceChanged(

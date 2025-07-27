@@ -1,5 +1,3 @@
-using OrderModule.Domain.Orders.Enums;
-
 namespace OrderModule.Application.Orders.Commands.OrderPay;
  
 public record PaymentDto(

@@ -1,3 +1,4 @@
+
 using ShippingModule.Application.Shipments.Commands.Errors;
 
 namespace ShippingModule.Application.Shipments.Commands.Cancel;

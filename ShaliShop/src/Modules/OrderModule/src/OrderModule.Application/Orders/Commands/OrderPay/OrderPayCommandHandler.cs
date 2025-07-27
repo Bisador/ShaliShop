@@ -1,13 +1,10 @@
-using OrderModule.Application.Orders.Commands.Errors;
 using OrderModule.Domain.Orders.Enums;
-using OrderModule.Domain.Orders.Repository;
-using OrderModule.Domain.Orders.ValueObjects;
 
 namespace OrderModule.Application.Orders.Commands.OrderPay;
 
 public class OrderPayCommandHandler(
     IOrderRepository orders,
-    IShoppingUnitOfWork unitOfWork) : IRequestHandler<OrderPayCommand, Result>
+    IOrderUnitOfWork unitOfWork) : IRequestHandler<OrderPayCommand, Result>
 {
     public async Task<Result> Handle(OrderPayCommand command, CancellationToken ct)
     {

@@ -1,4 +1,5 @@
  
+using OrderModule.Application.Abstraction;
 using OrderModule.Application.Orders.Commands.OrderPay;
 using OrderModule.Application.Tests.TestUtils;
 using OrderModule.Domain.Orders.Aggregates;
@@ -11,7 +12,7 @@ namespace OrderModule.Application.Tests.Orders.Commands;
 public class OrderPayCommandHandlerTests
 {
     private readonly Mock<IOrderRepository> _orders = new();
-    private readonly Mock<IShoppingUnitOfWork> _unitOfWork = new();
+    private readonly Mock<IOrderUnitOfWork> _unitOfWork = new();
     private readonly OrderPayCommandHandler _handler;
 
     public OrderPayCommandHandlerTests()
@@ -78,7 +79,7 @@ public class OrderPayCommandHandlerTests
             orders: Mock.Of<IOrderRepository>(r =>
                 r.LoadAsync(orderId, It.IsAny<CancellationToken>()) == Task.FromResult(order)
             ),
-            unitOfWork: Mock.Of<IShoppingUnitOfWork>()
+            unitOfWork: Mock.Of<IOrderUnitOfWork>()
         );
 
         // Act

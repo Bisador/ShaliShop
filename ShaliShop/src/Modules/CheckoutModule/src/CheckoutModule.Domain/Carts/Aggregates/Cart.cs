@@ -10,7 +10,7 @@ public sealed class Cart : AggregateRoot<Guid>
     public DateTime CreatedAt { get; private set; }
     public DateTime LastModified { get; private set; }
 
-    private readonly List<CartItem> _items = new();
+    private readonly List<CartItem> _items = [];
     public IReadOnlyCollection<CartItem> Items => _items.AsReadOnly();
 
     private Cart()

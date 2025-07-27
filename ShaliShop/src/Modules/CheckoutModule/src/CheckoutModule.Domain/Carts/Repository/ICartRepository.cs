@@ -4,6 +4,6 @@ namespace CheckoutModule.Domain.Carts.Repository;
 
 public interface ICartRepository
 {
-    Task<Cart> LoadForCustomerAsync(Guid commandCustomerId, CancellationToken ct);
+    Task<Cart?> LoadAsync(Guid id, CancellationToken ct);
     Task SaveAsync(Cart item, CancellationToken ct);
 }

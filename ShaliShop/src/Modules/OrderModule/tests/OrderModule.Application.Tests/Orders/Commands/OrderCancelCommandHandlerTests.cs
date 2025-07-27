@@ -1,3 +1,4 @@
+using OrderModule.Application.Abstraction;
 using OrderModule.Application.Orders.Commands.Cancel;
 using OrderModule.Application.Orders.Commands.Errors;
 using OrderModule.Application.Tests.TestUtils;
@@ -11,7 +12,7 @@ namespace OrderModule.Application.Tests.Orders.Commands;
 public class OrderCancelCommandHandlerTests
 {
     private readonly Mock<IOrderRepository> _orders = new();
-    private readonly Mock<IShoppingUnitOfWork> _unitOfWork = new();
+    private readonly Mock<IOrderUnitOfWork> _unitOfWork = new();
     private readonly OrderCancelCommandHandler _handler;
 
     public OrderCancelCommandHandlerTests()

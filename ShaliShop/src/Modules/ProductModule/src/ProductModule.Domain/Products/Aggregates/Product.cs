@@ -125,10 +125,8 @@ public sealed class Product : AggregateRoot<Guid>
     }
 
     public static Product Create(string name, string description, Money price, string category)
-    { 
-        ArgumentException.ThrowIfNullOrEmpty(name, nameof(name));
-        ArgumentException.ThrowIfNullOrEmpty(category, nameof(category));
-        ArgumentOutOfRangeException.ThrowIfNegative(price.Amount, nameof(price));
+    {  
+        ArgumentException.ThrowIfNullOrEmpty(category, nameof(category)); 
         return new Product(name, description, price, category);
     }
 

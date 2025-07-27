@@ -1,4 +1,6 @@
-namespace OrderModule.Application.Orders.Commands.Errors;
+ 
+
+namespace CheckoutModule.Application.Carts.Errors;
 
 public record CartEmptyError() : Error(ErrorCode, "Cannot place order with an empty cart.")
 {

@@ -2,7 +2,6 @@
 using ProductModule.Domain.Products.DomainEvents;
 using ProductModule.Domain.Products.Exceptions;
 using ProductModule.Domain.Products.Rules;
-using Shared.Domain;
 using SharedModule.Domain.ValueObjects;
 
 namespace ProductModule.Domain.Test;

@@ -5,5 +5,30 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="MediatR"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Using Include="MediatR"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\..\Shared\Shared.Application\Shared.Application.csproj"/>
+        <ProjectReference Include="..\..\..\..\Shared\Shared.Common\Shared.Common.csproj"/>
+        <ProjectReference Include="..\..\..\InventoryModule\src\InventoryModule.Domain\InventoryModule.Domain.csproj"/>
+        <ProjectReference Include="..\..\..\OrderModule\src\OrderModule.Application.Abstraction\OrderModule.Application.Abstraction.csproj"/>
+        <ProjectReference Include="..\..\..\OrderModule\src\OrderModule.Domain\OrderModule.Domain.csproj"/>
+        <ProjectReference Include="..\..\..\SharedModule\src\SharedModule.Domain\SharedModule.Domain.csproj"/>
+        <ProjectReference Include="..\CheckoutModule.Application.Abstraction\CheckoutModule.Application.Abstraction.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Using Include="Shared.Common"/>
+        <Using Include="Shared.Application"/>
+        <Using Include="Shared.Application.Messaging"/>
+        <Using Include="CheckoutModule.Application.Abstraction"/>
+    </ItemGroup>
+
 
 </Project>

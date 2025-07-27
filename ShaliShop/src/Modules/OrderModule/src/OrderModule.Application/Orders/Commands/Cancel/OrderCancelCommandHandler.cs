@@ -1,11 +1,9 @@
-using OrderModule.Application.Orders.Commands.Errors;
-using OrderModule.Domain.Orders.Repository;
-
+ 
 namespace OrderModule.Application.Orders.Commands.Cancel;
 
 public class OrderCancelCommandHandler(
     IOrderRepository orders,
-    IShoppingUnitOfWork unitOfWork
+    IOrderUnitOfWork unitOfWork
 ) : IRequestHandler<OrderCancelCommand, Result>
 {
     public async Task<Result> Handle(OrderCancelCommand command, CancellationToken ct)

@@ -12,17 +12,29 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\..\Shared\Shared.Application\Shared.Application.csproj" />
+        <Using Include="Mapster"/>
+        <Using Include="MediatR"/>
+    </ItemGroup>
+
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\..\Shared\Shared.Application\Shared.Application.csproj"/>
         <ProjectReference Include="..\..\..\..\Shared\Shared.Common\Shared.Common.csproj"/> 
         <ProjectReference Include="..\..\..\InventoryModule\src\InventoryModule.Domain\InventoryModule.Domain.csproj"/>
-        <ProjectReference Include="..\OrderModule.Domain\OrderModule.Domain.csproj" />
+        <ProjectReference Include="..\OrderModule.Application.Abstraction\OrderModule.Application.Abstraction.csproj" />
+        <ProjectReference Include="..\OrderModule.Domain\OrderModule.Domain.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-        <Using Include="Mapster"/>
-        <Using Include="MediatR"/>
+        <Using Include="OrderModule.Domain.Orders.Aggregates"/>
+        <Using Include="OrderModule.Domain.Orders.DomainEvents"/>
+        <Using Include="OrderModule.Domain.Orders.ValueObjects"/>
+        <Using Include="OrderModule.Domain.Orders.Repository"/>
+        <Using Include="OrderModule.Application.Abstraction"/>
+        <Using Include="OrderModule.Application.Orders.Commands.Errors"/>
         <Using Include="Shared.Application"/>
         <Using Include="Shared.Common"/>
         <Using Include="Shared.Application.Messaging"/>
     </ItemGroup>
+
 </Project>

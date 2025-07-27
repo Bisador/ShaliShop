@@ -11,11 +11,15 @@
         <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions"/>
     </ItemGroup>
     <ItemGroup>
-        <Using Include="Microsoft.EntityFrameworkCore"/> 
+        <Using Include="Microsoft.EntityFrameworkCore"/>
     </ItemGroup>
     <ItemGroup>
-      <ProjectReference Include="..\ShippingModule.Application\ShippingModule.Application.csproj" />
-      <ProjectReference Include="..\ShippingModule.Domain\ShippingModule.Domain.csproj" />
+        <ProjectReference Include="..\ShippingModule.Application\ShippingModule.Application.csproj"/>
+        <ProjectReference Include="..\ShippingModule.Domain\ShippingModule.Domain.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Using Include="ShippingModule.Application.Abstraction"/>
     </ItemGroup>
 
 </Project>
