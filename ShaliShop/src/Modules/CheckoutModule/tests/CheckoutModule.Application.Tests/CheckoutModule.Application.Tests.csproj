@@ -23,6 +23,7 @@
     </ItemGroup>
     
     <ItemGroup>
+      <ProjectReference Include="..\..\..\InventoryModule\src\InventoryModule.Application\InventoryModule.Application.csproj" />
       <ProjectReference Include="..\..\src\CheckoutModule.Application\CheckoutModule.Application.csproj" />
     </ItemGroup>
 

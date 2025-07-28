@@ -11,7 +11,7 @@ public class InventoryRestockCommandHandler(
     {
         var inventory = await inventories.LoadAsync(command.InventoryId, ct);
         if (inventory is null)
-            return Result.Failure(new InventoryNotFoundError(command.InventoryId));  
+            return Result.Failure(new InventoryNotFoundError(command.InventoryId));
 
         inventory.Restock(command.Quantity);
 

@@ -1,8 +1,7 @@
+using InventoryModule.Application.Inventories.Errors;
 using InventoryModule.Domain.Inventories.Aggregates;
-using InventoryModule.Domain.Inventories.Errors;
 using InventoryModule.Domain.Inventories.Exceptions;
-using InventoryModule.Domain.Inventories.Repository;
-using Shared.Common;
+using InventoryModule.Domain.Inventories.Repository; 
 
 namespace InventoryModule.Persistence.Inventories;
 

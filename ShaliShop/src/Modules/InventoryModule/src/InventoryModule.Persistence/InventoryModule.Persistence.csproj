@@ -19,6 +19,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\InventoryModule.Domain\InventoryModule.Domain.csproj" />
+        <ProjectReference Include="..\InventoryModule.Application\InventoryModule.Application.csproj"/>
+        <ProjectReference Include="..\InventoryModule.Domain\InventoryModule.Domain.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Using Include="Shared.Common"/>
     </ItemGroup>
 </Project>

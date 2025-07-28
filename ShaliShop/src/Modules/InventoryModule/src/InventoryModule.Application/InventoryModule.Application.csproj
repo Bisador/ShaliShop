@@ -26,6 +26,10 @@
         <Using Include="Shared.Common"/>
         <Using Include="Shared.Application.Messaging"/>
     </ItemGroup>
+    
+    <ItemGroup>
+      <Folder Include="Inventories\Errors\" />
+    </ItemGroup>
 
 
 </Project>
