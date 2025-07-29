@@ -40,5 +40,8 @@ public class InventoryEntityTypeConfiguration : IEntityTypeConfiguration<Invento
 
         // Optional schema-wide configuration
         builder.HasIndex(i => i.ProductId).IsUnique(false);
+        
+        builder.Ignore(c => c.Events);  
+        
     }
 }

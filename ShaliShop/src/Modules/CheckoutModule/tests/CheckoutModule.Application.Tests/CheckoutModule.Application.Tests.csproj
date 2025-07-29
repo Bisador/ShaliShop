@@ -23,11 +23,13 @@
     </ItemGroup>
     
     <ItemGroup>
+      <ProjectReference Include="..\..\..\..\Shared\Shared.Test\Shared.Test.csproj" />
       <ProjectReference Include="..\..\..\InventoryModule\src\InventoryModule.Application\InventoryModule.Application.csproj" />
       <ProjectReference Include="..\..\src\CheckoutModule.Application\CheckoutModule.Application.csproj" />
     </ItemGroup>
     
     <ItemGroup>
+        <Using Include="Shared.Test"/>
         <Using Include="Shared.Common"/>
         <Using Include="Shared.Application.Messaging"/>
     </ItemGroup>

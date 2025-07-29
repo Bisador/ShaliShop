@@ -1,7 +1,6 @@
 ﻿using CheckoutModule.Domain.Carts.Aggregates;
 using CheckoutModule.Domain.Carts.DomainEvents;
-using CheckoutModule.Domain.Carts.Rules;
-using SharedModule.Domain.ValueObjects;
+using CheckoutModule.Domain.Carts.Rules; 
 
 namespace CheckoutModule.Domain.Tests;
 
@@ -14,8 +13,8 @@ public class CartTests
         var cart = Cart.Create(customerId);
 
         cart.CustomerId.Should().Be(customerId);
-        cart.CreatedAt.Should().BeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
-        cart.Events.Should().ContainSingle(e => e is CartCreated);
+        cart.CreatedAt.Should().BeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1)); 
+        cart.ShouldHaveDomainEvent<CartCreated>(); 
     }
 
     [Fact]
@@ -28,8 +27,8 @@ public class CartTests
         cart.AddItem(productId, "Mouse", price, 2);
 
         cart.Items.Should().ContainSingle(i => i.ProductId == productId);
-        cart.Items.First().Quantity.Should().Be(2);
-        cart.Events.Should().ContainSingle(e => e is ItemAddedToCart);
+        cart.Items.First().Quantity.Should().Be(2); 
+        cart.ShouldHaveDomainEvent<ItemAddedToCart>(); 
     }
 
     [Fact]
@@ -43,7 +42,7 @@ public class CartTests
         cart.AddItem(productId, "Keyboard", price, 2); // Adds total 3
 
         cart.Items.Single().Quantity.Should().Be(3);
-        cart.Events.Should().Contain(e => e is ItemQuantityUpdated);
+        cart.ShouldHaveDomainEvent<ItemQuantityUpdated>(); 
     }
 
     [Fact]
@@ -55,8 +54,8 @@ public class CartTests
         cart.AddItem(productId, "SSD", Money.From(120), 1);
         cart.RemoveItem(productId);
 
-        cart.Items.Should().BeEmpty();
-        cart.Events.Should().Contain(e => e is ItemRemovedFromCart);
+        cart.Items.Should().BeEmpty(); 
+        cart.ShouldHaveDomainEvent<ItemRemovedFromCart>();
     }
 
     [Fact]
@@ -79,8 +78,8 @@ public class CartTests
         cart.AddItem(productId, "Router", Money.From(150), 1);
         cart.UpdateItemQuantity(productId, 5);
 
-        cart.Items.Single().Quantity.Should().Be(5);
-        cart.Events.Should().Contain(e => e is ItemQuantityUpdatedFromCart);
+        cart.Items.Single().Quantity.Should().Be(5); 
+        cart.ShouldHaveDomainEvent<ItemQuantityUpdatedFromCart>();
     }
 
     [Fact]
@@ -92,7 +91,8 @@ public class CartTests
 
         cart.Clear();
 
-        cart.Items.Should().BeEmpty();
-        cart.Events.Should().Contain(e => e is CartCleared);
+        cart.Items.Should().BeEmpty(); 
+        cart.ShouldHaveDomainEvent<CartCleared>();
     }
 }
+

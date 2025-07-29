@@ -101,8 +101,7 @@ public class InventoryTests
         inventory.Events.Any(e =>
             e is LowStockDetected l &&
             l.InventoryId == inventory.Id &&
-            l.Available == 4 &&
-            l.Threshold == 5).Should().BeTrue();
+            l is {Available: 4, Threshold: 5}).Should().BeTrue();
 
         inventory.Reserve(1); // available = 3 → alert should NOT fire again
         inventory.Events.Count(e => e is LowStockDetected).Should().Be(1);

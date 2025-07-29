@@ -4,7 +4,6 @@
         <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <IsPackable>false</IsPackable>
     </PropertyGroup>
 
     <ItemGroup>
@@ -19,15 +18,9 @@
         <Using Include="Xunit"/>
         <Using Include="FluentAssertions"/>
     </ItemGroup>
-
+    
     <ItemGroup>
-        <ProjectReference Include="..\..\..\..\Shared\Shared.Test\Shared.Test.csproj"/>
-        <ProjectReference Include="..\..\src\CheckoutModule.Domain\CheckoutModule.Domain.csproj"/>
-    </ItemGroup>
-
-    <ItemGroup>
-        <Using Include="Shared.Test"/>
-        <Using Include="SharedModule.Domain.ValueObjects"/>
+      <ProjectReference Include="..\Shared.Domain\Shared.Domain.csproj" />
     </ItemGroup>
 
 </Project>
