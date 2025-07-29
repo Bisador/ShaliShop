@@ -31,9 +31,9 @@ public static class FakeCart
     public static Cart Empty(Guid? customerId = null) => Cart.Create(customerId ?? Guid.NewGuid());
 }
 
-public class FakeCartBuilder(Guid customerId)
+public class FakeCartBuilder(Guid? customerId = null)
 {
-    private Guid _customerId = customerId;
+    private readonly Guid _customerId = customerId ?? Guid.NewGuid();
     private readonly List<CartItem> _items = [];
 
     public FakeCartBuilder WithItem(Guid productId, int quantity, decimal unitPrice = 100, string name = "Test Product")

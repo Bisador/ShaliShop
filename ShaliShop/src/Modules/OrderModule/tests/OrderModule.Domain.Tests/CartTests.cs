@@ -1,5 +1,6 @@
 ﻿using CheckoutModule.Domain.Carts.Aggregates;
 using CheckoutModule.Domain.Carts.DomainEvents;
+using CheckoutModule.Domain.Carts.Rules;
 using Shared.Domain;
 using SharedModule.Domain.ValueObjects; 
 
@@ -35,7 +36,7 @@ public class CartTests
     {
         var cart = Cart.Create(Guid.NewGuid());
 
-        Assert.Throws<BusinessRuleValidationException>(() =>
+        Assert.Throws<QuantityMustBeGreaterThanZeroException>(() =>
             cart.AddItem(Guid.NewGuid(), "Invalid", Money.From(10m), 0));
     }
 

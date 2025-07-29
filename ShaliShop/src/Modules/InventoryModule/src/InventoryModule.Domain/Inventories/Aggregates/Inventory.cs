@@ -33,7 +33,7 @@ public sealed class Inventory : AggregateRoot<Guid>
         return new Inventory(productId, quantity);
     }
      
-    public void Reserve(int quantity)
+    public void Reserve(decimal quantity)
     {
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(quantity);
 
@@ -59,7 +59,7 @@ public sealed class Inventory : AggregateRoot<Guid>
         }
     }
       
-    public void Release(int quantity)
+    public void Release(decimal quantity)
     {
         if (quantity <= 0 || quantity > Reserved)
             throw new InvalidReleaseQuantityException();
@@ -73,7 +73,7 @@ public sealed class Inventory : AggregateRoot<Guid>
         }
     }
 
-    public void Restock(int quantity)
+    public void Restock(decimal quantity)
     {
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(quantity);
 

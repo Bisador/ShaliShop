@@ -1,13 +1,6 @@
 namespace CheckoutModule.Domain.Carts.Rules;
 
-public record QuantityMustBeGreaterThanZero(int Quantity) : IBusinessRule
+public class QuantityMustBeGreaterThanZeroException(decimal quantity) : BusinessRuleValidationException("Quantity must be greater than zero.")
 {
-    public bool IsBroken() => Quantity <= 0;
-    public string Message => "Quantity must be greater than zero.";
-}
-
-public record ProductNotFound(int ProductIndex) : IBusinessRule
-{
-    public bool IsBroken() => ProductIndex == -1;
-    public string Message => "Product not found.";
+    public override bool IsBroken() => quantity <= 0; 
 }

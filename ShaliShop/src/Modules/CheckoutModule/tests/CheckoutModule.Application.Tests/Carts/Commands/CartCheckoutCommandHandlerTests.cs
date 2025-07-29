@@ -1,49 +1,39 @@
-﻿using CheckoutModule.Application.Abstraction;
-using CheckoutModule.Application.Carts.Commands.Checkout;
+﻿using CheckoutModule.Application.Carts.Commands.Checkout;
 using CheckoutModule.Application.Carts.Errors;
 using CheckoutModule.Application.Tests.TestUtils;
 using CheckoutModule.Domain.Carts.Aggregates;
-using CheckoutModule.Domain.Carts.Repository;
 using InventoryModule.Domain.Inventories.Repository;
 using OrderModule.Application.Abstraction;
 using OrderModule.Domain.Orders.DomainEvents;
 using OrderModule.Domain.Orders.Repository;
 using OrderModule.Domain.Orders.ValueObjects;
-using Shared.Application.Messaging;
-using Shared.Common;
 
-namespace CheckoutModule.Application.Tests;
+namespace CheckoutModule.Application.Tests.Carts.Commands;
 
 public class CartCheckoutCommandHandlerTests
 {
     [Fact]
     public async Task Handle_ShouldCheckoutSuccessfully_WhenCartAndInventoryValid()
     {
-        //  
-        var customerId = Guid.NewGuid();
+        // Arrange
         var shippingAddress = FakeShippingAddressDto.FakeAddress();
-        var cart = new FakeCartBuilder(customerId).WithDefaultItems().Build();
+        var cart = new FakeCartBuilder().WithDefaultItems().Build();
         var command = new CartCheckoutCommand(cart.Id, shippingAddress);
 
-        var cartRepo = new Mock<ICartRepository>();
-        cartRepo.Setup(r => r.LoadAsync(cart.Id, It.IsAny<CancellationToken>()))
-            .ReturnsAsync(cart);
-
         var inventory = new Mock<IInventoryRepository>();
-        inventory.Setup(i => i.TryReserveStockAsync(It.IsAny<Guid>(), It.IsAny<int>(), It.IsAny<CancellationToken>()))
+        inventory.Setup(i => i.TryReserveStockAsync(It.IsAny<Guid>(), It.IsAny<decimal>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(Result.Success());
 
         var order = FakeOrder.FromCart(cart, shippingAddress);
         var orderFactory = new Mock<IOrderFactory>();
-        orderFactory.Setup(f => f.CreateFromCart(cart, customerId, It.IsAny<ShippingAddress>()))
+        orderFactory.Setup(f => f.CreateFromCart(cart, cart.CustomerId, It.IsAny<ShippingAddress>()))
             .Returns(order);
-
         var orderRepo = new Mock<IOrderRepository>();
         var eventPublisher = new Mock<IIntegrationEventPublisher>();
-
-        var checkoutUow = new Mock<ICheckoutUnitOfWork>();
         var orderUow = new Mock<IOrderUnitOfWork>();
 
+        var checkoutUow = FakeCheckoutUnitOfWork.Make();
+        var cartRepo = FakeCartRepository.Make(cart);
         var handler = new CartCheckoutCommandHandler(
             cartRepo.Object, inventory.Object, orderFactory.Object, orderRepo.Object,
             eventPublisher.Object, checkoutUow.Object, orderUow.Object
@@ -68,29 +58,25 @@ public class CartCheckoutCommandHandlerTests
     public async Task Handle_ShouldFail_WhenCheckoutCommitFails()
     {
         // Arrange
-        var shippingAddress = FakeShippingAddressDto.FakeAddress(); 
-        var customerId = Guid.NewGuid();
-        var cart = new FakeCartBuilder(customerId).WithDefaultItems().Build();
+        var shippingAddress = FakeShippingAddressDto.FakeAddress();
+        var cart = new FakeCartBuilder().WithDefaultItems().Build();
 
         var command = new CartCheckoutCommand(cart.Id, shippingAddress);
 
-        var cartRepo = new Mock<ICartRepository>();
-        cartRepo.Setup(r => r.LoadAsync(cart.Id, It.IsAny<CancellationToken>()))
-            .ReturnsAsync(cart);
-  
+        var cartRepo = FakeCartRepository.Make(cart);
+
         var inventory = new Mock<IInventoryRepository>();
-        inventory.Setup(i => i.TryReserveStockAsync(It.IsAny<Guid>(), It.IsAny<int>(), It.IsAny<CancellationToken>()))
+        inventory.Setup(i => i.TryReserveStockAsync(It.IsAny<Guid>(), It.IsAny<decimal>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(Result.Success());
 
         var order = FakeOrder.FromCart(cart, shippingAddress);
         var orderFactory = new Mock<IOrderFactory>();
-        orderFactory.Setup(f => f.CreateFromCart(cart, customerId, It.IsAny<ShippingAddress>()))
+        orderFactory.Setup(f => f.CreateFromCart(cart, cart.CustomerId, It.IsAny<ShippingAddress>()))
             .Returns(order);
-
         var orderRepo = new Mock<IOrderRepository>();
         var eventPublisher = new Mock<IIntegrationEventPublisher>();
 
-        var checkoutUow = new Mock<ICheckoutUnitOfWork>();
+        var checkoutUow = FakeCheckoutUnitOfWork.Make();
         checkoutUow.Setup(u => u.CommitAsync(It.IsAny<CancellationToken>()))
             .ThrowsAsync(new Exception("Simulated commit failure"));
 
@@ -111,14 +97,11 @@ public class CartCheckoutCommandHandlerTests
     [Fact]
     public async Task Checkout_Fails_WhenCartNotFound()
     {
-        // Arrange
-        var customerId = Guid.NewGuid();
+        // Arrange 
         var shippingAddress = FakeShippingAddressDto.FakeAddress();
-        var cart = new FakeCartBuilder(customerId).Build();
+        var cart = new FakeCartBuilder().Build();
         var command = new CartCheckoutCommand(cart.Id, shippingAddress);
-        var cartRepo = new Mock<ICartRepository>();
-        cartRepo.Setup(r => r.LoadAsync(cart.Id, It.IsAny<CancellationToken>()))
-            .ReturnsAsync((Cart?) null);
+        var cartRepo = FakeCartRepository.Make();
 
         var handler = new CartCheckoutCommandHandler(cartRepo.Object, null!, null!, null!, null!, null!, null!);
 

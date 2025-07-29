@@ -20,4 +20,8 @@
         <Using Include="FluentAssertions"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\src\CheckoutModule.Domain\CheckoutModule.Domain.csproj" />
+    </ItemGroup>
+
 </Project>

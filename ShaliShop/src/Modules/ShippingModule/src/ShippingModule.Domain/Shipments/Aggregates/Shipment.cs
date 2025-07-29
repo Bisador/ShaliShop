@@ -50,8 +50,7 @@ public class Shipment : AggregateRoot<Guid>
 
     public void ConfirmDelivery()
     {
-        if (!IsDispatched)
-            throw new ShipmentMustBeDispatchedBeforeDeliveryException();
+        CheckRule(new ShipmentMustBeDispatchedBeforeDeliveryException(IsDispatched)); 
 
         Status = ShipmentStatus.Delivered;
         DeliveredAt = DateTime.UtcNow;
@@ -62,8 +61,7 @@ public class Shipment : AggregateRoot<Guid>
 
     public void Cancel()
     {
-        if (IsDelivered)
-            throw new CannotCancelDeliveredShipmentException();
+        CheckRule(new CannotCancelDeliveredShipmentException(IsDelivered)); 
 
         Status = ShipmentStatus.Canceled;
         CanceledAt = DateTime.UtcNow;
@@ -72,8 +70,7 @@ public class Shipment : AggregateRoot<Guid>
 
     public void RetryDelivery()
     {
-        if (!IsDispatched)
-            throw new RetryOnlyAllowedForDispatchedShipmentsException();
+        CheckRule(new RetryOnlyAllowedForDispatchedShipmentsException(IsDispatched));  
 
         AddDomainEvent(new ShipmentDeliveryRetried(Id, DateTime.UtcNow));
     }
@@ -82,7 +79,7 @@ public class Shipment : AggregateRoot<Guid>
     {
         DeliveryAttempts++;
         if (DeliveryAttempts > MaxDeliveryAttempts)
-            throw new BusinessRuleValidationException("Maximum delivery attempts exceeded");
+            throw new MaximumDeliveryAttemptsExceededException();
 
         AddDomainEvent(new ShipmentDeliveryFailed(Id, DeliveryAttempts));
     }

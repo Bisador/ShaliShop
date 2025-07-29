@@ -5,6 +5,7 @@ using OrderModule.Application.Tests.TestUtils;
 using OrderModule.Domain.Orders.Aggregates;
 using OrderModule.Domain.Orders.DomainEvents;
 using OrderModule.Domain.Orders.Enums;
+using OrderModule.Domain.Orders.Exceptions;
 using OrderModule.Domain.Orders.Repository;
 
 namespace OrderModule.Application.Tests.Orders.Commands;
@@ -45,8 +46,7 @@ public class OrderConfirmCommandHandlerTests
         var command = new OrderConfirmCommand(orderId);
         var act = () => _handler.Handle(command, CancellationToken.None);
 
-        await act.Should().ThrowAsync<InvalidOperationException>()
-            .WithMessage("Only paid orders can be confirmed.");
+        await act.Should().ThrowAsync<OnlyPaidOrdersCanBeConfirmedException>();
     }
 
     [Fact]

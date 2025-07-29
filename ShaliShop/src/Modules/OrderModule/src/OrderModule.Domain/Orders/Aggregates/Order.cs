@@ -1,7 +1,7 @@
 ﻿ 
 using OrderModule.Domain.Orders.DomainEvents;
 using OrderModule.Domain.Orders.Enums;
-using OrderModule.Domain.Orders.Rules;
+using OrderModule.Domain.Orders.Exceptions;
 using OrderModule.Domain.Orders.ValueObjects; 
 
 namespace OrderModule.Domain.Orders.Aggregates;
@@ -34,15 +34,14 @@ public sealed class Order : AggregateRoot<Guid>
 
     public static Order Place(Guid customerId, List<OrderItem> items, ShippingAddress address)
     {
-        CheckRule(new OrderMustHaveAtLeastOneItem(items));
+        CheckRule(new OrderMustHaveAtLeastOneItemException(items));
 
         return new Order(customerId, items, address);
     }
 
     public void Pay(Payment payment)
     {
-        if (Status != OrderStatus.Placed)
-            throw new InvalidOperationException("Only placed orders can be paid.");
+        CheckRule(new OnlyPlacedOrdersCanBePaidException(Status)); 
 
         PaymentInfo = payment;
         Status = OrderStatus.Paid;
@@ -52,29 +51,24 @@ public sealed class Order : AggregateRoot<Guid>
     
     public void Confirm()
     {
-        if (Status != OrderStatus.Paid)
-            throw new InvalidOperationException("Only paid orders can be confirmed.");
-
-        Status = OrderStatus.Confirmed;
-
+        CheckRule(new OnlyPaidOrdersCanBeConfirmedException(Status));   
+        Status = OrderStatus.Confirmed; 
         AddDomainEvent(new OrderConfirmed(Id));
     }
 
 
     public void Cancel(string reason)
     {
-        if (Status != OrderStatus.Placed)
-            throw new InvalidOperationException("Only placed orders can be cancelled.");
-
-        Status = OrderStatus.Cancelled;
-
+        CheckRule(new OnlyPlacedOrdersCanBeCancelledException(Status));   
+        
+        Status = OrderStatus.Cancelled; 
+        
         AddDomainEvent(new OrderCancelled(Id, reason));
     }
 
     public void Ship()
     {
-        if (Status != OrderStatus.Paid)
-            throw new InvalidOperationException("Only paid orders can be shipped.");
+        CheckRule(new OnlyPaidOrdersCanBeShippedException(Status));    
 
         Status = OrderStatus.Shipped;
 
@@ -83,8 +77,7 @@ public sealed class Order : AggregateRoot<Guid>
 
     public void Return(List<OrderItem> returnedItems)
     {
-        if (Status != OrderStatus.Shipped)
-            throw new InvalidOperationException("Only shipped orders can be returned.");
+        CheckRule(new OnlyShippedOrdersCanBeReturnedException(Status));   
 
         Status = OrderStatus.Returned;
 

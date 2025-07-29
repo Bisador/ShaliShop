@@ -2,9 +2,7 @@ using PaymentModule.Domain.Payments.Enums;
 
 namespace PaymentModule.Domain.Payments.Rules;
 
-public record OnlySucceededPaymentsCanBeRefunded(PaymentStatus Status) : IBusinessRule
+public class OnlySucceededPaymentsCanBeRefunded(PaymentStatus status) : BusinessRuleValidationException("Only succeeded payments can be refunded")
 {
-    public bool IsBroken() => Status != PaymentStatus.Succeeded;
-
-    public string Message => "Only succeeded payments can be refunded";
+    public override bool IsBroken() => status != PaymentStatus.Succeeded;
 }

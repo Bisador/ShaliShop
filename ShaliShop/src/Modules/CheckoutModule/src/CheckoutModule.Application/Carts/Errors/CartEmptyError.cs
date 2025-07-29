@@ -2,7 +2,7 @@
 
 namespace CheckoutModule.Application.Carts.Errors;
 
-public record CartEmptyError() : Error(ErrorCode, "Cannot place order with an empty cart.")
+public record CartEmptyError() : Error(ErrorCode, "Cart is empty.")
 {
     public static string ErrorCode { get; } = "CART_EMPTY";
 }

@@ -27,10 +27,11 @@ public abstract class AggregateRoot<TId> : Entity<TId>, IAuditableEntity
 
     public void ClearDomainEvents() => _events.Clear();
 
-    protected static void CheckRule(IBusinessRule rule)
+     
+    protected static void CheckRule(BusinessRuleValidationException rule)
     {
         if (rule.IsBroken())
-            throw new BusinessRuleValidationException(rule);
+            throw rule;
     }
 }
 

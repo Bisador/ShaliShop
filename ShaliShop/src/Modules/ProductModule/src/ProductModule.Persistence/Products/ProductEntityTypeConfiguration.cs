@@ -14,9 +14,7 @@ public class ProductEntityTypeConfiguration : IEntityTypeConfiguration<Product>
         builder.Property(p => p.Description).HasMaxLength(512);
         builder.Property(p => p.Category).IsRequired();
         builder.Property(p => p.IsPublished);
-        builder.Property(p => p.IsDiscontinued);
-        builder.Property(p => p.CreatedAt);
-        builder.Property(p => p.LastModifiedAt);
+        builder.Property(p => p.IsDiscontinued);  
         builder.Property(p => p.PublishedAt);
 
         builder.OwnsOne(p => p.Price, price =>

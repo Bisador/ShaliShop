@@ -16,7 +16,7 @@ public class EfInventoryRepository(InventoryDbContext context) : IInventoryRepos
         return Task.CompletedTask;
     }
 
-    public async Task<Result> TryReleaseStockAsync(Guid productId, int quantity, CancellationToken ct)
+    public async Task<Result> TryReleaseStockAsync(Guid productId, decimal quantity, CancellationToken ct)
     {
         var inventory = await LoadAsync(productId, ct);
         if (inventory is null)
@@ -34,7 +34,7 @@ public class EfInventoryRepository(InventoryDbContext context) : IInventoryRepos
         }
     }
 
-    public async Task<Result> TryReserveStockAsync(Guid productId, int quantity, CancellationToken ct)
+    public async Task<Result> TryReserveStockAsync(Guid productId, decimal quantity, CancellationToken ct)
     {
         var inventory = await LoadAsync(productId, ct);
         if (inventory is null) 
@@ -46,7 +46,7 @@ public class EfInventoryRepository(InventoryDbContext context) : IInventoryRepos
         return Result.Success();
     }
 
-    public async Task<Result> RestockAsync(Guid productId, int quantity, CancellationToken ct)
+    public async Task<Result> RestockAsync(Guid productId, decimal quantity, CancellationToken ct)
     {
         var inventory = await LoadAsync(productId, ct);
         if (inventory is null)

@@ -27,9 +27,9 @@ public sealed class Cart : AggregateRoot<Guid>
 
     public static Cart Create(Guid customerId) => new(customerId);
 
-    public void AddItem(Guid productId, string productName, Money unitPrice, int quantity)
+    public void AddItem(Guid productId, string productName, Money unitPrice, decimal quantity)
     {
-        CheckRule(new QuantityMustBeGreaterThanZero(quantity));
+        CheckRule(new QuantityMustBeGreaterThanZeroException(quantity));
 
         var existing = _items.FirstOrDefault(i => i.ProductId == productId);
 
@@ -51,16 +51,29 @@ public sealed class Cart : AggregateRoot<Guid>
     public void RemoveItem(Guid productId)
     {
         var index = _items.FindIndex(i => i.ProductId == productId);
-        CheckRule(new ProductNotFound(index)); 
+        CheckRule(new ProductNotFoundException(index));
         _items.RemoveAt(index);
         AddDomainEvent(new ItemRemovedFromCart(Id, productId));
-        LastModified = DateTime.UtcNow; }
+        LastModified = DateTime.UtcNow;
+    }
+
+    public void UpdateItemQuantity(Guid productId, decimal newQuantity)
+    {
+        var index = _items.FindIndex(i => i.ProductId == productId);
+        CheckRule(new ProductNotFoundException(index));
+        var item = _items[index];
+        var oldQuantity = item.Quantity;
+        _items[index].UpdateQuantity(newQuantity);
+        AddDomainEvent(new ItemQuantityUpdatedFromCart(Id, productId, item.Quantity, oldQuantity));
+        LastModified = DateTime.UtcNow;
+    }
 
     public void Clear()
     {
         _items.Clear();
         AddDomainEvent(new CartCleared(Id));
-        LastModified = DateTime.UtcNow;}
+        LastModified = DateTime.UtcNow;
+    }
 
     public bool IsEmpty => !_items.Any();
 }

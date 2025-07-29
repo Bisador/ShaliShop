@@ -1,26 +1,10 @@
 namespace Shared.Domain;
 
-public class BusinessRuleValidationException : Exception
+public class BusinessRuleValidationException(string message) : Exception(message)
 {
-    public static string ErrorCode { get; set; } = "Business_Rule";
-    public BusinessRuleValidationException(string message) : base(message)
-    {
-        
-    }
-    
-    public BusinessRuleValidationException(IBusinessRule rule) : base(rule.Message)
-    {
-        BrokenRule = rule;
-    }
+    public static string ErrorCode => "BUSINESS_RULE";
 
-    public IBusinessRule? BrokenRule { get; }
+    public virtual bool IsBroken() => true;
 }
- 
-
-
-public interface IBusinessRule
-{
-    bool IsBroken();
-    string Message { get; }
-}
+  
  

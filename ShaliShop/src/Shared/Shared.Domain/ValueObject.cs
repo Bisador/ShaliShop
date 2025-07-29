@@ -17,9 +17,9 @@ public abstract class ValueObject: IEquatable<ValueObject>
         GetEqualityComponents()
             .Aggregate(1, HashCode.Combine);
     
-    protected static void CheckRule(IBusinessRule rule)
+    protected static void CheckRule(BusinessRuleValidationException rule)
     {
         if (rule.IsBroken())
-            throw new BusinessRuleValidationException(rule);
+            throw rule;
     }
 }

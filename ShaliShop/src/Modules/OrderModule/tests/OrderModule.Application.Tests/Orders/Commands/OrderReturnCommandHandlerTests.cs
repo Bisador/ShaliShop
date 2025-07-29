@@ -5,6 +5,7 @@ using OrderModule.Application.Tests.TestUtils;
 using OrderModule.Domain.Orders.Aggregates;
 using OrderModule.Domain.Orders.DomainEvents;
 using OrderModule.Domain.Orders.Enums;
+using OrderModule.Domain.Orders.Exceptions;
 using OrderModule.Domain.Orders.Repository;
 
 namespace OrderModule.Application.Tests.Orders.Commands;
@@ -45,8 +46,7 @@ public class OrderReturnCommandHandlerTests
 
         Func<Task> act = async () => await _handler.Handle(new OrderReturnCommand(orderId, items), CancellationToken.None);
 
-        await act.Should().ThrowAsync<InvalidOperationException>()
-            .WithMessage("Only shipped orders can be returned.");
+        await act.Should().ThrowAsync<OnlyShippedOrdersCanBeReturnedException>();
     }
 
     [Fact]

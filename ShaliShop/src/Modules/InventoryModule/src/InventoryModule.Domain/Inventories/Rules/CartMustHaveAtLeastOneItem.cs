@@ -1,12 +1,8 @@
- 
-
 using Shared.Domain;
 
 namespace InventoryModule.Domain.Inventories.Rules;
 
-public record NotEnoughAvailableInventoryToReserve(decimal Quantity) : IBusinessRule
+public class NotEnoughAvailableInventoryToReserve(decimal quantity) : BusinessRuleValidationException("Not enough available inventory to reserve.")
 {
-    public bool IsBroken() => Quantity <= 0;
-    public string Message => "Not enough available inventory to reserve.";
+    public override bool IsBroken() => quantity <= 0;
 }
- 

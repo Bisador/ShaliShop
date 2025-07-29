@@ -5,6 +5,7 @@ using OrderModule.Application.Tests.TestUtils;
 using OrderModule.Domain.Orders.Aggregates;
 using OrderModule.Domain.Orders.DomainEvents;
 using OrderModule.Domain.Orders.Enums;
+using OrderModule.Domain.Orders.Exceptions;
 using OrderModule.Domain.Orders.Repository;
 
 namespace OrderModule.Application.Tests.Orders.Commands;
@@ -46,8 +47,7 @@ public class OrderCancelCommandHandlerTests
 
         Func<Task> act = async () => await _handler.Handle(command, CancellationToken.None);
 
-        await act.Should().ThrowAsync<InvalidOperationException>()
-            .WithMessage("Only placed orders can be cancelled.");
+        await act.Should().ThrowAsync<OnlyPlacedOrdersCanBeCancelledException>();
     }
 
     [Fact]

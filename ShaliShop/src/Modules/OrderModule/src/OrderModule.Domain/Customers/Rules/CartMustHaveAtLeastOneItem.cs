@@ -1,11 +1,6 @@
- 
-
 namespace OrderModule.Domain.Customers.Rules;
 
-public record FullNameIsRequired(string FullName) : IBusinessRule
+public class FullNameIsRequired(string fullName) : BusinessRuleValidationException("FullName is required.")
 {
-    public bool IsBroken() => string.IsNullOrWhiteSpace(FullName);
-    public string Message => "FullName is required.";
+    public override bool IsBroken() => string.IsNullOrWhiteSpace(fullName);
 }
-
- 

@@ -6,10 +6,10 @@ public class CartItem : ValueObject
 {
     public Guid ProductId { get; }
     public string ProductName { get; }
-    public int Quantity { get; private set; }
+    public decimal Quantity { get; private set; }
     public Money UnitPrice { get; }
 
-    public CartItem(Guid productId, string productName, int quantity, Money unitPrice)
+    public CartItem(Guid productId, string productName, decimal quantity, Money unitPrice)
     {
         ProductId = productId;
         ProductName = productName;
@@ -17,9 +17,15 @@ public class CartItem : ValueObject
         UnitPrice = unitPrice;
     }
 
-    public void IncreaseQuantity(int by)
+    public void UpdateQuantity(decimal by)
     {
-        CheckRule(new QuantityMustBeGreaterThanZero(by));
+        CheckRule(new QuantityMustBeGreaterThanZeroException(by));
+        Quantity = by;
+    }
+
+    public void IncreaseQuantity(decimal by)
+    {
+        CheckRule(new QuantityMustBeGreaterThanZeroException(by));
         Quantity += by;
     }
 

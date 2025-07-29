@@ -3,6 +3,7 @@ using SharedModule.Domain.ValueObjects;
 using OrderModule.Domain.Orders.Aggregates;
 using OrderModule.Domain.Orders.DomainEvents;
 using OrderModule.Domain.Orders.Enums;
+using OrderModule.Domain.Orders.Exceptions;
 using OrderModule.Domain.Orders.ValueObjects; 
 
 namespace OrderModule.Domain.Tests;
@@ -70,6 +71,6 @@ public class OrderTests
 
         var paymentInfo = new Payment("txn-123", PaymentMethod.Cash, DateTime.UtcNow);
         var act = () => order.Pay(paymentInfo);
-        act.Should().Throw<InvalidOperationException>();
+        act.Should().Throw<OnlyPlacedOrdersCanBePaidException>();
     }
 }

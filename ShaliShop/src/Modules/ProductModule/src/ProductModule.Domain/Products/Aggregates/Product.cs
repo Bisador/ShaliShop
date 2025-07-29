@@ -26,12 +26,10 @@ public sealed class Product : AggregateRoot<Guid>
         if (string.IsNullOrWhiteSpace(Name) || Price.Amount <= 0)
             throw new CannotPublishWithoutNameAndPrice();
 
-        if (IsDiscontinued)
-            throw new DiscontinuedProductsCannotBePublished();
+        CheckRule(new DiscontinuedProductsCannotBePublishedException(IsDiscontinued)); 
 
         IsPublished = true;
-        PublishedAt = DateTime.UtcNow;
-        LastModifiedAt = DateTime.UtcNow;
+        PublishedAt = DateTime.UtcNow; 
 
         AddDomainEvent(new ProductPublished(Id));
     }
@@ -41,8 +39,7 @@ public sealed class Product : AggregateRoot<Guid>
         if (newPrice.Equals(Price))
             return;
 
-        Price = newPrice;
-        LastModifiedAt = DateTime.UtcNow;
+        Price = newPrice; 
 
         AddDomainEvent(new ProductPriceChanged(Id, newPrice));
     }
@@ -102,10 +99,7 @@ public sealed class Product : AggregateRoot<Guid>
     #endregion
 
     #endregion
-
-    public DateTime CreatedAt { get; private set; }
-    public DateTime? LastModifiedAt { get; private set; }
-
+   
     private Product()
     {
     }
@@ -115,9 +109,7 @@ public sealed class Product : AggregateRoot<Guid>
         Name = name;
         Description = description;
         Price = price;
-        Category = category;
-
-        CreatedAt = DateTime.UtcNow;
+        Category = category; 
         IsPublished = false;
         IsDiscontinued = false;
 
