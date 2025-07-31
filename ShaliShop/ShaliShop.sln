@@ -31,15 +31,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryModule.Domain", "s
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryModule.Domain.Test", "src\Modules\InventoryModule\tests\InventoryModule.Domain.Test\InventoryModule.Domain.Test.csproj", "{7277ABF1-0CC9-4E3F-86DB-BFA88405FCB8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProductModule", "ProductModule", "{B6ABB051-C661-4ED0-B275-38AC6429D94A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CatalogModule", "CatalogModule", "{B6ABB051-C661-4ED0-B275-38AC6429D94A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{8C69954E-E716-4A95-98C4-4B520847D179}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{CDEBC8BB-A9CF-4274-B84F-B72975BE01AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductModule.Domain", "src\Modules\ProductModule\src\ProductModule.Domain\ProductModule.Domain.csproj", "{F2543C28-F9BA-418A-9AC9-192D269BF12D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogModule.Domain", "src\Modules\ProductModule\src\CatalogModule.Domain\CatalogModule.Domain.csproj", "{F2543C28-F9BA-418A-9AC9-192D269BF12D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductModule.Domain.Test", "src\Modules\ProductModule\tests\ProductModule.Domain.Test\ProductModule.Domain.Test.csproj", "{93A83A4A-D0CA-4256-9506-018BEFB8ADB9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogModule.Domain.Test", "src\Modules\ProductModule\tests\CatalogModule.Domain.Test\CatalogModule.Domain.Test.csproj", "{93A83A4A-D0CA-4256-9506-018BEFB8ADB9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedModule", "SharedModule", "{CC490DAB-6923-4661-98DB-6200CF2E47B5}"
 EndProject
@@ -87,11 +87,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryModule.Persistence
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryModule.Application.Test", "src\Modules\InventoryModule\tests\InventoryModule.Application.Test\InventoryModule.Application.Test.csproj", "{CD57E37E-0943-4FD3-9ACC-1150209F813C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductModule.Application", "src\Modules\ProductModule\src\ProductModule.Application\ProductModule.Application.csproj", "{418F33F4-1831-411B-82F7-87B035B3AADB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogModule.Application", "src\Modules\ProductModule\src\CatalogModule.Application\CatalogModule.Application.csproj", "{418F33F4-1831-411B-82F7-87B035B3AADB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductModule.Application.Test", "src\Modules\ProductModule\tests\ProductModule.Application.Test\ProductModule.Application.Test.csproj", "{A1295163-F246-4E78-A5F4-495E264EBC73}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogModule.Application.Test", "src\Modules\ProductModule\tests\CatalogModule.Application.Test\CatalogModule.Application.Test.csproj", "{A1295163-F246-4E78-A5F4-495E264EBC73}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductModule.Persistence", "src\Modules\ProductModule\src\ProductModule.Persistence\ProductModule.Persistence.csproj", "{BEFAB23B-807A-4055-8AF1-B1E8851B6DF6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogModule.Persistence", "src\Modules\ProductModule\src\CatalogModule.Persistence\CatalogModule.Persistence.csproj", "{BEFAB23B-807A-4055-8AF1-B1E8851B6DF6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.Persistence", "src\Shared\Shared.Persistence\Shared.Persistence.csproj", "{84E0693D-36D8-42C2-ADB1-D1FD501AF141}"
 EndProject
@@ -138,6 +138,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CheckoutModule.Persistence.DependencyInjection", "src\Modules\CheckoutModule\src\CheckoutModule.Persistence.DependencyInjection\CheckoutModule.Persistence.DependencyInjection.csproj", "{CE521561-56DB-4D81-8A2F-D483024BA419}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryModule.Persistence.DependencyInjection", "src\Modules\InventoryModule\src\InventoryModule.Persistence.DependencyInjection\InventoryModule.Persistence.DependencyInjection.csproj", "{4C8045E8-C79D-4306-A9B4-2F52E7DF2043}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogModule.Persistence.DependencyInjection", "src\Modules\ProductModule\src\CatalogModule.Persistence.DependencyInjection\CatalogModule.Persistence.DependencyInjection.csproj", "{0E75929C-DC2E-4971-A3A6-22BA651BFE61}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -317,6 +319,10 @@ Global
 		{4C8045E8-C79D-4306-A9B4-2F52E7DF2043}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C8045E8-C79D-4306-A9B4-2F52E7DF2043}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C8045E8-C79D-4306-A9B4-2F52E7DF2043}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E75929C-DC2E-4971-A3A6-22BA651BFE61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E75929C-DC2E-4971-A3A6-22BA651BFE61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E75929C-DC2E-4971-A3A6-22BA651BFE61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E75929C-DC2E-4971-A3A6-22BA651BFE61}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{A4A13A16-106D-4205-8ABF-E7EB35381B98} = {D836EDF8-5846-4D71-8855-37DA492C84D2}
@@ -385,5 +391,6 @@ Global
 		{D7001FA4-BC24-4548-A246-F6D54B22FC92} = {8CF7D7A0-0012-450A-9C01-8CEA698EBB4D}
 		{CE521561-56DB-4D81-8A2F-D483024BA419} = {AC7496AA-6B33-442D-A127-FF9C5A217170}
 		{4C8045E8-C79D-4306-A9B4-2F52E7DF2043} = {C13FF93B-CDEF-4015-89FE-235467587A47}
+		{0E75929C-DC2E-4971-A3A6-22BA651BFE61} = {8C69954E-E716-4A95-98C4-4B520847D179}
 	EndGlobalSection
 EndGlobal

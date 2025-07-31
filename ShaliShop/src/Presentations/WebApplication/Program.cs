@@ -1,3 +1,4 @@
+using CatalogModule.Persistence.DependencyInjection;
 using CheckoutModule.Persistence.DependencyInjection;
 using InventoryModule.Persistence.DependencyInjection;
 using WebApplication;
@@ -11,6 +12,7 @@ builder.Services.AddOpenApi();
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("DefaultConnection not found");
 builder.Services.AddCheckoutModulePersistence(connectionString);
 builder.Services.AddInventoryModulePersistence(connectionString);
+builder.Services.AddCatalogModulePersistence(connectionString);
 // builder.Services.RegisterShopApplicationLayer();
 // builder.Services.AddMediatR(cfg =>
 // {

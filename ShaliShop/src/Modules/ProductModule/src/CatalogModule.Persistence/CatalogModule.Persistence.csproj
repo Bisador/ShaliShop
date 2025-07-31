@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.EntityFrameworkCore"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Using Include="Microsoft.EntityFrameworkCore"/> 
+        <Using Include="Microsoft.EntityFrameworkCore.Metadata.Builders"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\..\Shared\Shared.Persistence\Shared.Persistence.csproj" />
+        <ProjectReference Include="..\CatalogModule.Application\CatalogModule.Application.csproj" />
+        <ProjectReference Include="..\CatalogModule.Domain\CatalogModule.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Using Include="CatalogModule.Domain.Products.Aggregates"/>
+    </ItemGroup>
+</Project>
