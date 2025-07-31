@@ -1,4 +1,5 @@
 using CheckoutModule.Persistence.DependencyInjection;
+using InventoryModule.Persistence.DependencyInjection;
 using WebApplication;
 
 var builder = Microsoft.AspNetCore.Builder.WebApplication.CreateBuilder(args);
@@ -9,6 +10,7 @@ builder.Services.AddOpenApi();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("DefaultConnection not found");
 builder.Services.AddCheckoutModulePersistence(connectionString);
+builder.Services.AddInventoryModulePersistence(connectionString);
 // builder.Services.RegisterShopApplicationLayer();
 // builder.Services.AddMediatR(cfg =>
 // {

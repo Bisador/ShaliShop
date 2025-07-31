@@ -2,7 +2,7 @@ using InventoryModule.Domain.Inventories.Aggregates;
 
 namespace InventoryModule.Persistence.Inventories;
 
-public class InventoryEntityTypeConfiguration : IEntityTypeConfiguration<Inventory>
+public class InventoryConfiguration : IEntityTypeConfiguration<Inventory>
 {
     public void Configure(EntityTypeBuilder<Inventory> builder)
     {

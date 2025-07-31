@@ -5,7 +5,7 @@ using InventoryModule.Domain.Inventories.Repository;
 
 namespace InventoryModule.Persistence.Inventories;
 
-public class EfInventoryRepository(InventoryDbContext context) : IInventoryRepository
+public class InventoryRepository(InventoryDbContext context) : IInventoryRepository
 {
     public Task<Inventory?> LoadAsync(Guid id, CancellationToken ct) =>
         context.Inventories.FindAsync([id], ct).AsTask();

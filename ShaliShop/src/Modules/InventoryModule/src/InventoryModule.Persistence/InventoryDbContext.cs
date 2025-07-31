@@ -1,6 +1,7 @@
 ﻿using InventoryModule.Domain.Inventories.Aggregates;
+using InventoryModule.Persistence.Inventories;
 
-namespace InventoryModule.Persistence.Inventories;
+namespace InventoryModule.Persistence;
 
 public class InventoryDbContext(DbContextOptions<InventoryDbContext> options) : DbContext(options)
 {
@@ -8,7 +9,7 @@ public class InventoryDbContext(DbContextOptions<InventoryDbContext> options) : 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.HasDefaultSchema("InventoryModule");
-        modelBuilder.ApplyConfiguration(new InventoryEntityTypeConfiguration());
+        modelBuilder.HasDefaultSchema("inventory");
+        modelBuilder.ApplyConfiguration(new InventoryConfiguration());
     }
 }
