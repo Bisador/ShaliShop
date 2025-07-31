@@ -11,6 +11,7 @@
         <PackageReference Include="Microsoft.EntityFrameworkCore"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -19,6 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\..\..\Shared\Shared.Persistence\Shared.Persistence.csproj" />
       <ProjectReference Include="..\CheckoutModule.Application.Abstraction\CheckoutModule.Application.Abstraction.csproj" />
       <ProjectReference Include="..\CheckoutModule.Domain\CheckoutModule.Domain.csproj" />
     </ItemGroup>

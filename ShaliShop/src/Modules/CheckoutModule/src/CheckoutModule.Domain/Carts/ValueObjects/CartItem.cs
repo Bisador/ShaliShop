@@ -4,10 +4,13 @@ namespace CheckoutModule.Domain.Carts.ValueObjects;
 
 public class CartItem : ValueObject
 {
-    public Guid ProductId { get; }
-    public string ProductName { get; }
+    public Guid ProductId { get; private set;}
+    public string ProductName { get; private set;}
     public decimal Quantity { get; private set; }
-    public Money UnitPrice { get; }
+    public Money UnitPrice { get; private set;}
+    
+    // 👇 THIS is required by EF
+    private CartItem() { }
 
     public CartItem(Guid productId, string productName, decimal quantity, Money unitPrice)
     {

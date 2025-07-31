@@ -1,4 +1,4 @@
- 
+using CheckoutModule.Persistence.DependencyInjection;
 using WebApplication;
 
 var builder = Microsoft.AspNetCore.Builder.WebApplication.CreateBuilder(args);
@@ -7,7 +7,8 @@ var builder = Microsoft.AspNetCore.Builder.WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
-
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("DefaultConnection not found");
+builder.Services.AddCheckoutModulePersistence(connectionString);
 // builder.Services.RegisterShopApplicationLayer();
 // builder.Services.AddMediatR(cfg =>
 // {
@@ -16,8 +17,6 @@ builder.Services.AddOpenApi();
 //     );
 // });
 // builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(DomainExceptionPipelineBehavior<,>)); 
-
- 
 
 var app = builder.Build();
 
