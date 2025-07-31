@@ -4,29 +4,29 @@ namespace CatalogModule.Persistence.Products;
 
 public static class ProductReadRepositoryExtensions
 {
-    public static IQueryable<Product> ApplyOrder(this IQueryable<Product> products, IStandardQuery query)
+    public static IQueryable<Product> ApplyOrder(this IQueryable<Product> query, IStandardQuery parameter)
     {
-        products = query.SortBy switch
+        query = parameter.SortBy switch
         {
-            "Price" => query.Descending
-                ? products.OrderByDescending(p => p.Price)
-                : products.OrderBy(p => p.Price),
-            _ => query.Descending
-                ? products.OrderByDescending(p => p.Name)
-                : products.OrderBy(p => p.Name)
+            "Price" => parameter.Descending
+                ? query.OrderByDescending(p => p.Price)
+                : query.OrderBy(p => p.Price),
+            _ => parameter.Descending
+                ? query.OrderByDescending(p => p.Name)
+                : query.OrderBy(p => p.Name)
         };
-        return products;
+        return query;
     }
 
-    public static IQueryable<Product> ApplyFilter(this IQueryable<Product> products, IStandardQuery query)
+    public static IQueryable<Product> ApplyFilter(this IQueryable<Product> query, IStandardQuery parameter)
     {
         // Filtering
-        if (!string.IsNullOrWhiteSpace(query.SearchTerm))
+        if (!string.IsNullOrWhiteSpace(parameter.SearchTerm))
         {
-            products = products.Where(p =>
-                p.Name.Contains(query.SearchTerm) ||
-                p.Description.Contains(query.SearchTerm));
+            query = query.Where(p =>
+                p.Name.Contains(parameter.SearchTerm) ||
+                p.Description.Contains(parameter.SearchTerm));
         }
-        return products;
+        return query;
     }
 }

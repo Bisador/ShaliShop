@@ -23,14 +23,14 @@ public class CartCheckoutCommandHandler(
         // 1. Load Cart
         var cart = await carts.LoadAsync(command.CartId, ct);
         if (cart is null || cart.IsEmpty)
-            return Result<CartCheckoutResult>.Failure(new CartEmptyError());
+            return Result.Failure<CartCheckoutResult>(new CartEmptyError());
 
         // 2. Reserve Inventory
         foreach (var item in cart.Items)
         {
             var reserve = await inventory.TryReserveStockAsync(item.ProductId, item.Quantity, ct);
             if (!reserve.IsSuccess)
-                return Result<CartCheckoutResult>.Failure(new StockUnavailableError(item.ProductName));
+                return Result.Failure<CartCheckoutResult>(new StockUnavailableError(item.ProductName));
         }
 
         // 3. Create Order
@@ -53,6 +53,6 @@ public class CartCheckoutCommandHandler(
 
         await checkoutUnitOfWork.CommitAsync(ct);
 
-        return Result<CartCheckoutResult>.Success(new CartCheckoutResult(order.Id, order.TotalAmount));
+        return new CartCheckoutResult(order.Id, order.TotalAmount);
     }
 }

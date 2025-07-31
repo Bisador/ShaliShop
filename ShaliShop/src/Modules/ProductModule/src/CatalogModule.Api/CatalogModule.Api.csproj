@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Routing"/>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi"/>
+        <PackageReference Include="MediatR"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Using Include="Microsoft.AspNetCore.Routing"/>
+        <Using Include="Microsoft.AspNetCore.OpenApi"/>
+        <Using Include="Microsoft.AspNetCore.Builder"/>
+        <Using Include="Microsoft.AspNetCore.Http"/>
+        <Using Include="Microsoft.AspNetCore.Mvc"/>
+        <Using Include="MediatR"/>
+        <Using Include="Microsoft.AspNetCore.Http.HttpResults"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\..\Shared\Shared.Presentation\Shared.Presentation.csproj" />
+      <ProjectReference Include="..\CatalogModule.Application\CatalogModule.Application.csproj" />
+    </ItemGroup>
+    
+    <ItemGroup>
+        <Using Include="Shared.Application.Queries"/>
+        <Using Include="Shared.Presentation"/>
+        <Using Include="SharedModule.Domain.ValueObjects"/>
+    </ItemGroup>
+
+</Project>

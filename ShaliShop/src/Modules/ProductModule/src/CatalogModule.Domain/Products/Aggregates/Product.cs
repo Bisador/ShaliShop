@@ -121,12 +121,5 @@ public sealed class Product : AggregateRoot<Guid>
         ArgumentException.ThrowIfNullOrEmpty(category, nameof(category)); 
         return new Product(name, description, price, category);
     }
-
-    public record Size(string Value)
-    {
-        public static readonly Size G500 = new("500g");
-        public static readonly Size G1000 = new("1kg");
-
-        public override string ToString() => Value;
-    }
+ 
 }

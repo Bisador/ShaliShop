@@ -35,7 +35,6 @@ public class ProductReadRepository(CatalogDbContext db) : IProductReadRepository
 
     public async Task<int> GetTotalAsync(IStandardQuery query, CancellationToken cancellationToken = default) =>
         await db.Products
-            .ApplyFilter(query)
-            .ApplyOrder(query)
+            .ApplyFilter(query) 
             .CountAsync(cancellationToken);
 }

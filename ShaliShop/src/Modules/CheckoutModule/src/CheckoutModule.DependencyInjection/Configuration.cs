@@ -1,10 +1,11 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using CheckoutModule.Persistence;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace CheckoutModule.Persistence.DependencyInjection;
+namespace CheckoutModule.DependencyInjection;
 
 public static class Configuration
 {
-    public static IServiceCollection AddCheckoutModulePersistence(this IServiceCollection services, string connectionString)
+    public static IServiceCollection AddCheckoutModule(this IServiceCollection services, string connectionString)
     {
         services.AddDbContext<CheckoutDbContext>(options =>
             options.UseSqlServer(connectionString, 

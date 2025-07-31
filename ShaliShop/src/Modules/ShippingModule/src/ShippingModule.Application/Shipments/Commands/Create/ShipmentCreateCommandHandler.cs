@@ -11,13 +11,13 @@ public class CreateShipmentCommandHandler(
     {
         var existing = await shipments.FindByOrderIdAsync(command.OrderId, ct);
         if (existing is not null)
-            return Result<Guid>.Failure(new ShipmentAlreadyExistsError(command.OrderId));
+            return Result.Failure<Guid>(new ShipmentAlreadyExistsError(command.OrderId));
 
         var shipment = Shipment.Create(command.OrderId);
 
         await shipments.SaveAsync(shipment, ct);
         await unitOfWork.CommitAsync(ct);
 
-        return Result<Guid>.Success(shipment.Id);
+        return shipment.Id;
     }
 }
