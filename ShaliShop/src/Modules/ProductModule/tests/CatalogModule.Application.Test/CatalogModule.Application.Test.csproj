@@ -23,16 +23,17 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\CatalogModule.Application\CatalogModule.Application.csproj" />
-      <ProjectReference Include="..\..\src\CatalogModule.Domain\CatalogModule.Domain.csproj" />
+        <ProjectReference Include="..\..\src\CatalogModule.Application\CatalogModule.Application.csproj"/>
+        <ProjectReference Include="..\..\src\CatalogModule.Domain\CatalogModule.Domain.csproj"/>
     </ItemGroup>
-    
+
     <ItemGroup>
         <Using Include="SharedModule.Domain.ValueObjects"/>
         <Using Include="CatalogModule.Domain.Products.Rules"/>
         <Using Include="CatalogModule.Domain.Products.Repository"/>
         <Using Include="CatalogModule.Domain.Products.DomainEvents"/>
         <Using Include="CatalogModule.Domain.Products.Aggregates"/>
+        <Using Include="CatalogModule.Application.Abstraction"/>
         <Using Include="CatalogModule.Application.Errors"/>
         <Using Include="CatalogModule.Application.Products.Commands.AddVariant"/>
     </ItemGroup>

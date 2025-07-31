@@ -1,4 +1,5 @@
-using CatalogModule.Application;
+ 
+using CatalogModule.Application.Abstraction;
 
 namespace CatalogModule.Persistence;
 
@@ -11,3 +12,4 @@ public sealed class CatalogUnitOfWork(CatalogDbContext dbContext) : ICatalogUnit
         await _dbContext.SaveChangesAsync(ct);
     }
 }
+ 
