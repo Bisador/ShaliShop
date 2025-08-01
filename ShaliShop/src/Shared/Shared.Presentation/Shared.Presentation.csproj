@@ -9,7 +9,11 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Routing"/>
         <PackageReference Include="Microsoft.AspNetCore.OpenApi"/>
+        <PackageReference Include="Microsoft.AspNetCore"/>
         <PackageReference Include="MediatR"/>
+        <PackageReference Include="FluentValidation"/>
+        <PackageReference Include="AspNetCore.HealthChecks.UI"/>
+        <PackageReference Include="AspNetCore.HealthChecks.UI.InMemory.Storage"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -19,10 +23,12 @@
         <Using Include="Microsoft.AspNetCore.Http"/>
         <Using Include="Microsoft.AspNetCore.Mvc"/>
         <Using Include="MediatR"/>
+        <Using Include="FluentValidation"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Shared.Common\Shared.Common.csproj" />
+        <ProjectReference Include="..\Shared.Common\Shared.Common.csproj"/>
+        <ProjectReference Include="..\Shared.Domain\Shared.Domain.csproj"/>
     </ItemGroup>
 
 </Project>

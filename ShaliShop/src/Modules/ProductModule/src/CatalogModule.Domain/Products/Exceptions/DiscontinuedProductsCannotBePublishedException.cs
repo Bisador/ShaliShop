@@ -1,6 +1,6 @@
 namespace CatalogModule.Domain.Products.Exceptions;
 
-public class DiscontinuedProductsCannotBePublishedException(bool isDiscontinued) : BusinessRuleValidationException("Discontinued products cannot be published.")
+public class DiscontinuedProductsCannotBePublishedException(bool isDiscontinued) : DomainException("Discontinued products cannot be published.")
 {
     public override bool IsBroken()
     {

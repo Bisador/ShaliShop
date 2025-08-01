@@ -95,9 +95,9 @@ public class OrderReturnCommandHandlerTests
 
         await _handler.Handle(new OrderReturnCommand(orderId, dto), CancellationToken.None);
 
-        order.Events.Any(e =>
+        order.DomainEvents.Any(e =>
             e is OrderReturned returned &&
-            returned.OrderId == orderId &&
+            returned.AggregateId == orderId &&
             returned.ReturnedItems.All(i => dto.Any(d => d.ProductId == i.ProductId))
         ).Should().BeTrue();
     }

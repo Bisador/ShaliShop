@@ -79,9 +79,9 @@ public class OrderCancelCommandHandlerTests
 
         await _handler.Handle(new OrderCancelCommand(orderId, reason), CancellationToken.None);
 
-        order.Events.Any(e =>
+        order.DomainEvents.Any(e =>
             e is OrderCancelled oc &&
-            oc.OrderId == orderId &&
+            oc.AggregateId == orderId &&
             oc.Reason == reason
         ).Should().BeTrue();
     }

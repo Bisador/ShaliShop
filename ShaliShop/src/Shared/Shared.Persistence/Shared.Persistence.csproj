@@ -16,6 +16,11 @@
         <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools"/>
     </ItemGroup>
+     
+
+    <ItemGroup>
+      <ProjectReference Include="..\Shared.Application\Shared.Application.csproj" />
+    </ItemGroup>
   
 
 </Project>

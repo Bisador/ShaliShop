@@ -76,8 +76,8 @@ public class OrderConfirmCommandHandlerTests
 
         await _handler.Handle(new OrderConfirmCommand(orderId), CancellationToken.None);
 
-        order.Events.Any(e =>
+        order.DomainEvents.Any(e =>
             e is OrderConfirmed confirmed &&
-            confirmed.OrderId == orderId).Should().BeTrue();
+            confirmed.AggregateId == orderId).Should().BeTrue();
     }
 }

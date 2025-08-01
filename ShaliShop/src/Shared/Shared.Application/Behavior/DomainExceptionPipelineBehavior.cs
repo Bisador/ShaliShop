@@ -17,14 +17,14 @@ public class DomainExceptionPipelineBehavior<TRequest, TResponse>
         {
             return await next(cancellationToken);
         }
-        catch (BusinessRuleValidationException ex)
+        catch (DomainException ex)
         {
             var responseType = typeof(TResponse);
 
             if (!responseType.IsGenericType ||
                 responseType.GetGenericTypeDefinition() != typeof(Result<>)) throw; // Not a Result<T> — rethrow
 
-            var error = new Error(BusinessRuleValidationException.ErrorCode, ex.Message);
+            var error = new Error(DomainException.ErrorCode, ex.Message);
             var innerType = responseType.GetGenericArguments()[0];
 
             // Get the generic Result<T>

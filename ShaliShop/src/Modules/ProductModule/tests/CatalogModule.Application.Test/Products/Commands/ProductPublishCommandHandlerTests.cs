@@ -56,9 +56,9 @@ public class ProductPublishCommandHandlerTests
 
         await _handler.Handle(new ProductPublishCommand(product.Id), CancellationToken.None);
 
-        product.Events.Any(e =>
+        product.DomainEvents.Any(e =>
             e is ProductPublished published &&
-            published.ProductId == product.Id
+            published.AggregateId == product.Id
         ).Should().BeTrue();
     }
 

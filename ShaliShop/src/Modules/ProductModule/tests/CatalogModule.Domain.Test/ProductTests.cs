@@ -11,15 +11,15 @@ public class ProductTests
     [Fact]
     public void Creating_product_should_initialize_state_and_raise_ProductCreated()
     {
-        var product = ProductFixture.CreateBasic("Whey Protein", 59.99m, "Supplements");
+        var product = ProductFixture.CreateBasic("Whey Protein", 59.99m);
 
         product.Name.Should().Be("Whey Protein");
         product.Category.Should().Be("Supplements");
         product.Price.Amount.Should().Be(59.99m);
         product.IsPublished.Should().BeFalse();
 
-        product.Events.OfType<ProductCreated>().Single().Should().Match<ProductCreated>(e =>
-            e.ProductId == product.Id &&
+        product.DomainEvents.OfType<ProductCreated>().Single().Should().Match<ProductCreated>(e =>
+            e.AggregateId == product.Id &&
             e.Name == "Whey Protein" &&
             e.Category == "Supplements");
     }
@@ -34,7 +34,7 @@ public class ProductTests
         product.IsPublished.Should().BeTrue();
         product.PublishedAt.Should().NotBeNull();
 
-        product.Events.OfType<ProductPublished>().Single().ProductId.Should().Be(product.Id);
+        product.DomainEvents.OfType<ProductPublished>().Single().AggregateId.Should().Be(product.Id);
     }
 
     [Fact]
@@ -55,8 +55,8 @@ public class ProductTests
 
         product.Price.Amount.Should().Be(25);
 
-        var @event = product.Events.OfType<ProductPriceChanged>().Single();
-        @event.ProductId.Should().Be(product.Id);
+        var @event = product.DomainEvents.OfType<ProductPriceChanged>().Single();
+        @event.AggregateId.Should().Be(product.Id);
         @event.NewPrice.Amount.Should().Be(25);
     }
 
@@ -70,7 +70,7 @@ public class ProductTests
         product.IsDiscontinued.Should().BeTrue();
         product.IsPublished.Should().BeFalse();
 
-        product.Events.OfType<ProductDiscontinued>().Single().ProductId.Should().Be(product.Id);
+        product.DomainEvents.OfType<ProductDiscontinued>().Single().AggregateId.Should().Be(product.Id);
     }
     
     [Fact]
@@ -91,7 +91,7 @@ public class ProductTests
         product.AddVariant(variant);
 
         product.Variants.Should().ContainSingle(v => v.Sku == "CREAT-CHO-500");
-        product.Events.OfType<ProductVariantAdded>()
+        product.DomainEvents.OfType<ProductVariantAdded>()
             .Single().Sku.Should().Be("CREAT-CHO-500");
     }
     
@@ -120,7 +120,7 @@ public class ProductTests
         product.RemoveVariant(variant.Sku);
 
         product.Variants.Should().BeEmpty();
-        product.Events.OfType<ProductVariantRemoved>()
+        product.DomainEvents.OfType<ProductVariantRemoved>()
             .Single().Sku.Should().Be(variant.Sku);
     }
     

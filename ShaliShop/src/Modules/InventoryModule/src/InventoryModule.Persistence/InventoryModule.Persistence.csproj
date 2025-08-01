@@ -20,6 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\..\..\..\Shared\Shared.Persistence\Shared.Persistence.csproj" />
         <ProjectReference Include="..\InventoryModule.Application\InventoryModule.Application.csproj"/>
         <ProjectReference Include="..\InventoryModule.Domain\InventoryModule.Domain.csproj"/>
     </ItemGroup>

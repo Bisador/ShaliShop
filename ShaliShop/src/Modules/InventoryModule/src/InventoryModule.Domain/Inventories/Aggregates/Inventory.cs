@@ -4,7 +4,7 @@ using Shared.Domain;
 
 namespace InventoryModule.Domain.Inventories.Aggregates;
 
-public sealed class Inventory : AggregateRoot<Guid>
+public sealed class Inventory : AggregateRoot
 {
     public Guid ProductId { get; private set; }
     public decimal QuantityOnHand { get; private set; }

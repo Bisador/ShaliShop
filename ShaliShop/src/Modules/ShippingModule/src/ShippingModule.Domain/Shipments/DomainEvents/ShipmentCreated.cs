@@ -3,5 +3,5 @@ using Shared.Domain;
 namespace ShippingModule.Domain.Shipments.DomainEvents;
 
 public record ShipmentCreated(
-    Guid ShipmentId,
-    Guid OrderId) : DomainEvent;
+    Guid AggregateId,
+    Guid OrderId) : DomainEvent(AggregateId);

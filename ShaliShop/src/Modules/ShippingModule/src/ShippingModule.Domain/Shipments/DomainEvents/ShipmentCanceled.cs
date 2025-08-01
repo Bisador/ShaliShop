@@ -3,5 +3,5 @@ using Shared.Domain;
 namespace ShippingModule.Domain.Shipments.DomainEvents;
 
 public record ShipmentCanceled(
-    Guid ShipmentId,
-    DateTime CanceledAt) : DomainEvent;
+    Guid AggregateId,
+    DateTime CanceledAt) : DomainEvent(AggregateId);

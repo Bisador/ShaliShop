@@ -72,9 +72,9 @@ public class InventoryReleaseCommandHandlerTests
         var releaseQuantity = 4;
         await _handler.Handle(new InventoryReleaseCommand(inventory.Id, releaseQuantity), CancellationToken.None);
 
-        inventory.Events.Any(e =>
+        inventory.DomainEvents.Any(e =>
             e is InventoryReleased released &&
-            released.InventoryId == inventory.Id &&
+            released.AggregateId == inventory.Id &&
             released.ProductId == inventory.ProductId &&
             released.QuantityReleased == releaseQuantity
         ).Should().BeTrue();

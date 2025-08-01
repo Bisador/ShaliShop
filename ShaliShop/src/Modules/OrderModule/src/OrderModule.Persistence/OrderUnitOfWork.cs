@@ -1,7 +1,7 @@
-﻿namespace OrderModule.Persistence;
+﻿using Shared.Application.Events;
+using Shared.Persistence;
 
-public class OrderUnitOfWork(OrderDbContext context) : IOrderUnitOfWork
-{
-    public Task CommitAsync(CancellationToken ct = default)
-        => context.SaveChangesAsync(ct);
-}
+namespace OrderModule.Persistence;
+
+public class OrderUnitOfWork(OrderDbContext dbContext, DomainEventDispatcher dispatcher)
+    : UnitOfWorkBase(dbContext, dispatcher);

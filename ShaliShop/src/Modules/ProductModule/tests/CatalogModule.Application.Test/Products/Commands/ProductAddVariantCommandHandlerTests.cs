@@ -71,9 +71,9 @@ public class ProductAddVariantCommandHandlerTests
 
         await _handler.Handle(command, CancellationToken.None);
 
-        product.Events.Any(e =>
+        product.DomainEvents.Any(e =>
             e is ProductVariantAdded added &&
-            added.Id == product.Id &&
+            added.AggregateId == product.Id &&
             added.Sku == "SKU-003"
         ).Should().BeTrue();
     }

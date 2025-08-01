@@ -3,7 +3,7 @@ using OrderModule.Domain.Products.Rules;
 
 namespace OrderModule.Domain.Products.Aggregates;
 
-public sealed class Product : AggregateRoot<Guid>
+public sealed class Product : AggregateRoot
 {
     public string Name { get; private set; } = null!;
     public string Description { get; private set; } = null!;

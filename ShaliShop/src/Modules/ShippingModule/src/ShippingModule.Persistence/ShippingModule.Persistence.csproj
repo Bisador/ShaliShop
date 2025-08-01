@@ -14,6 +14,7 @@
         <Using Include="Microsoft.EntityFrameworkCore"/>
     </ItemGroup>
     <ItemGroup>
+        <ProjectReference Include="..\..\..\..\Shared\Shared.Persistence\Shared.Persistence.csproj" />
         <ProjectReference Include="..\ShippingModule.Application\ShippingModule.Application.csproj"/>
         <ProjectReference Include="..\ShippingModule.Domain\ShippingModule.Domain.csproj"/>
     </ItemGroup>

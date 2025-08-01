@@ -1,12 +1,12 @@
 namespace Shared.Domain;
 
-public abstract class AggregateRoot<TId> : Entity<TId>, IAuditableEntity
+public abstract class AggregateRoot : Entity<Guid>, IAuditableEntity
 {
     protected AggregateRoot() : base()
     {
     }
 
-    public AggregateRoot(TId id) : base(id)
+    public AggregateRoot(Guid id) : base(id)
     {
     }
 
@@ -20,19 +20,20 @@ public abstract class AggregateRoot<TId> : Entity<TId>, IAuditableEntity
 
     #endregion
 
-    private readonly List<IDomainEvent> _events = [];
-    public IReadOnlyCollection<IDomainEvent> Events => _events.AsReadOnly();
+    #region DomainEvent
 
-    protected void AddDomainEvent(IDomainEvent domainEvent) => _events.Add(domainEvent);
+    private readonly List<IDomainEvent> _domainEvents = [];
+    public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
 
-    public void ClearDomainEvents() => _events.Clear();
+    protected void AddDomainEvent(IDomainEvent domainEvent) => _domainEvents.Add(domainEvent);
 
-     
-    protected static void CheckRule(BusinessRuleValidationException rule)
+    public void ClearDomainEvents() => _domainEvents.Clear();
+
+    #endregion
+
+    protected static void CheckRule(DomainException rule)
     {
         if (rule.IsBroken())
             throw rule;
     }
 }
-
- 

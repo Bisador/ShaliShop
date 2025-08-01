@@ -54,9 +54,9 @@ public class InventoryRestockCommandHandlerTests
 
         await _handler.Handle(new InventoryRestockCommand(inventory.Id, restockQty), CancellationToken.None);
 
-        inventory.Events.Any(e =>
+        inventory.DomainEvents.Any(e =>
             e is InventoryRestocked r &&
-            r.InventoryId == inventory.Id &&
+            r.AggregateId == inventory.Id &&
             r.ProductId == inventory.ProductId &&
             r.QuantityAdded == restockQty
         ).Should().BeTrue();

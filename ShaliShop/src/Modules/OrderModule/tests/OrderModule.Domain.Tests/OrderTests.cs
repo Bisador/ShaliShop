@@ -18,7 +18,7 @@ public class OrderTests
 
         Action act = () => Order.Place(customerId, [], shipping);
 
-        act.Should().Throw<BusinessRuleValidationException>()
+        act.Should().Throw<DomainException>()
             .WithMessage("*at least one item*"); // Adjust to your rule’s message
     }
 
@@ -53,8 +53,8 @@ public class OrderTests
         order.Status.Should().Be(OrderStatus.Paid);
         order.PaymentInfo.Should().BeEquivalentTo(paymentInfo);
 
-        order.Events.Any(e =>
-            e is OrderPaid paid && paid.OrderId == order.Id && paid.TransactionId == paymentInfo.TransactionId)
+        order.DomainEvents.Any(e =>
+            e is OrderPaid paid && paid.AggregateId == order.Id && paid.TransactionId == paymentInfo.TransactionId)
             .Should().BeTrue();
     }
 

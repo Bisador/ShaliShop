@@ -1,6 +1,6 @@
 namespace CatalogModule.Domain.Products.DomainEvents;
 
 public record ProductPriceChanged(
-    Guid ProductId,
+    Guid AggregateId,
     Money NewPrice
-) : DomainEvent;
+) : DomainEvent(AggregateId);

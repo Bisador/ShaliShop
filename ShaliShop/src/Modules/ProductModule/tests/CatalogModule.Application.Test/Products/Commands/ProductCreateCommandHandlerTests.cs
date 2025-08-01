@@ -55,9 +55,9 @@ public class ProductCreateCommandHandlerTests
         await _handler.Handle(command, CancellationToken.None);
 
         captured.Should().NotBeNull();
-        captured!.Events.Any(e =>
+        captured!.DomainEvents.Any(e =>
             e is ProductCreated created &&
-            created.ProductId == captured.Id &&
+            created.AggregateId == captured.Id &&
             created is {Name: "Camera", Category: "Photography"}
         ).Should().BeTrue();
     }

@@ -1,3 +1,3 @@
 namespace CheckoutModule.Domain.Carts.DomainEvents;
 
-public record ItemQuantityUpdatedFromCart(Guid CartId, Guid ProductId, decimal NewQuantity, decimal OldQuantity) : DomainEvent;
+public record ItemQuantityUpdatedFromCart(Guid AggregateId, Guid ProductId, decimal NewQuantity, decimal OldQuantity) : DomainEvent(AggregateId);

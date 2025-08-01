@@ -79,9 +79,9 @@ public class ShipmentDispatchCommandHandlerTests
 
         await _handler.Handle(command, CancellationToken.None);
 
-        shipment.Events.Any(e =>
+        shipment.DomainEvents.Any(e =>
             e is ShipmentDispatched dispatched &&
-            dispatched.ShipmentId == shipment.Id &&
+            dispatched.AggregateId == shipment.Id &&
             dispatched.DispatchedAt != default
         ).Should().BeTrue();
     }

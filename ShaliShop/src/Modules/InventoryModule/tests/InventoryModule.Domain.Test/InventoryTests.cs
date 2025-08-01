@@ -17,9 +17,9 @@ public class InventoryTests
         inventory.QuantityOnHand.Should().Be(50);
         inventory.Reserved.Should().Be(0);
 
-        inventory.Events.Any(e =>
+        inventory.DomainEvents.Any(e =>
             e is InventoryInitialized i &&
-            i.InventoryId == inventory.Id &&
+            i.AggregateId == inventory.Id &&
             i.ProductId == productId &&
             i.InitialQuantity == initialQuantity).Should().BeTrue();
     }
@@ -34,9 +34,9 @@ public class InventoryTests
 
         inventory.Reserved.Should().Be(10);
         inventory.QuantityOnHand.Should().Be(20); // still total on hand
-        inventory.Events.Any(e =>
+        inventory.DomainEvents.Any(e =>
             e is InventoryReserved reserved &&
-            reserved.InventoryId == inventory.Id &&
+            reserved.AggregateId == inventory.Id &&
             reserved.ProductId == productId &&
             reserved.QuantityReserved == 10).Should().BeTrue();
     }
@@ -49,7 +49,7 @@ public class InventoryTests
 
         var act = () => inventory.Reserve(6); // Exceeds available
 
-        act.Should().Throw<BusinessRuleValidationException>();
+        act.Should().Throw<DomainException>();
     }
 
     [Fact]
@@ -62,9 +62,9 @@ public class InventoryTests
         inventory.Release(4);
 
         inventory.Reserved.Should().Be(2); // originally 6, released 4
-        inventory.Events.Any(e =>
+        inventory.DomainEvents.Any(e =>
             e is InventoryReleased released &&
-            released.InventoryId == inventory.Id &&
+            released.AggregateId == inventory.Id &&
             released.ProductId == productId &&
             released.QuantityReleased == 4).Should().BeTrue();
     }
@@ -80,9 +80,9 @@ public class InventoryTests
         inventory.QuantityOnHand.Should().Be(25);
         inventory.Reserved.Should().Be(0); // unchanged
 
-        inventory.Events.Any(e =>
+        inventory.DomainEvents.Any(e =>
             e is InventoryRestocked restocked &&
-            restocked.InventoryId == inventory.Id &&
+            restocked.AggregateId == inventory.Id &&
             restocked.ProductId == productId &&
             restocked.QuantityAdded == 10).Should().BeTrue();
     }
@@ -95,16 +95,16 @@ public class InventoryTests
         inventory.SetLowStockThreshold(5); // alert if <5 available
 
         inventory.Reserve(4); // available = 6 → alert should NOT fire
-        inventory.Events.Should().NotContain(e => e is LowStockDetected);
+        inventory.DomainEvents.Should().NotContain(e => e is LowStockDetected);
 
         inventory.Reserve(2); // available = 4 → alert SHOULD fire
-        inventory.Events.Any(e =>
+        inventory.DomainEvents.Any(e =>
             e is LowStockDetected l &&
-            l.InventoryId == inventory.Id &&
+            l.AggregateId == inventory.Id &&
             l is {Available: 4, Threshold: 5}).Should().BeTrue();
 
         inventory.Reserve(1); // available = 3 → alert should NOT fire again
-        inventory.Events.Count(e => e is LowStockDetected).Should().Be(1);
+        inventory.DomainEvents.Count(e => e is LowStockDetected).Should().Be(1);
     }
 
     [Fact]
@@ -115,15 +115,15 @@ public class InventoryTests
         inventory.SetLowStockThreshold(5);
 
         inventory.Reserve(6); // available = 4 → alert fires
-        inventory.Events.Any(e => e is LowStockDetected).Should().BeTrue();
+        inventory.DomainEvents.Any(e => e is LowStockDetected).Should().BeTrue();
 
         inventory.Reserve(1); // available = 3 → alert should NOT fire again
-        inventory.Events.Count(e => e is LowStockDetected).Should().Be(1);
+        inventory.DomainEvents.Count(e => e is LowStockDetected).Should().Be(1);
 
         inventory.Restock(5); // available = 8 → resets alert flag
         inventory.Reserve(4); // available = 4 → alert fires AGAIN
 
-        inventory.Events.Count(e => e is LowStockDetected).Should().Be(2);
+        inventory.DomainEvents.Count(e => e is LowStockDetected).Should().Be(2);
     }
     
     [Fact]
@@ -135,19 +135,19 @@ public class InventoryTests
 
         // Cross threshold once
         inventory.Reserve(6); // Available = 4
-        inventory.Events.Any(e => e is LowStockDetected).Should().BeTrue();
+        inventory.DomainEvents.Any(e => e is LowStockDetected).Should().BeTrue();
 
         // Fire suppression confirmed
         inventory.Reserve(1); // Available = 3
-        inventory.Events.Count(e => e is LowStockDetected).Should().Be(1);
+        inventory.DomainEvents.Count(e => e is LowStockDetected).Should().Be(1);
 
         // Reset by restock
         inventory.Restock(5); // Available = 8
-        inventory.Events.Any(e => e is InventoryRestocked).Should().BeTrue();
+        inventory.DomainEvents.Any(e => e is InventoryRestocked).Should().BeTrue();
 
         // Cross threshold again
         inventory.Reserve(4); // Available = 4
-        inventory.Events.Count(e => e is LowStockDetected).Should().Be(2);
+        inventory.DomainEvents.Count(e => e is LowStockDetected).Should().Be(2);
     }
 
 }

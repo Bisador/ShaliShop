@@ -1,3 +1,3 @@
 namespace OrderModule.Domain.Products.DomainEvents;
 
-public record ProductOutOfStock(Guid ProductId) : DomainEvent;
+public record ProductOutOfStock(Guid AggregateId) : DomainEvent(AggregateId);

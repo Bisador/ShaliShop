@@ -71,7 +71,7 @@ public class ShipmentCreateCommandHandlerTests
         await _handler.Handle(command, CancellationToken.None);
 
         createdShipment.Should().NotBeNull();
-        createdShipment!.Events.Any(e =>
+        createdShipment!.DomainEvents.Any(e =>
             e is ShipmentCreated created &&
             created.OrderId == orderId
         ).Should().BeTrue();

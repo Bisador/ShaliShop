@@ -33,6 +33,6 @@ public sealed class CartConfiguration : IEntityTypeConfiguration<Cart>
             });
         });
 
-        builder.Ignore(c => c.Events);
+        builder.Ignore(c => c.DomainEvents);
     }
 }

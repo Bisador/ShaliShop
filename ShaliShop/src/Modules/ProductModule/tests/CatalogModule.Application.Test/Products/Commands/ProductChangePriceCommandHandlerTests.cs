@@ -55,9 +55,9 @@ public class ProductChangePriceCommandHandlerTests
 
         result.IsSuccess.Should().BeTrue();
 
-        product.Events.Any(e =>
+        product.DomainEvents.Any(e =>
             e is ProductPriceChanged changed &&
-            changed.ProductId == product.Id &&
+            changed.AggregateId == product.Id &&
             changed.NewPrice.Equals(new Money(99.00m))
         ).Should().BeTrue();
     }
@@ -73,7 +73,7 @@ public class ProductChangePriceCommandHandlerTests
         var result = await _handler.Handle(new ProductChangePriceCommand(product.Id, price), CancellationToken.None);
 
         result.IsSuccess.Should().BeTrue(); // still success, but no effect
-        product.Events.Should().NotContain(e => e is ProductPriceChanged);
+        product.DomainEvents.Should().NotContain(e => e is ProductPriceChanged);
     }
 
 }

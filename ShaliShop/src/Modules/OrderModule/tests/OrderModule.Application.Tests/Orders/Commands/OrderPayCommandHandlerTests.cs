@@ -88,9 +88,9 @@ public class OrderPayCommandHandlerTests
         // Assert
         result.IsSuccess.Should().BeTrue();
  
-        order.Events.Any(e =>
+        order.DomainEvents.Any(e =>
             e is OrderPaid paidEvent &&
-            paidEvent.OrderId == order.Id &&
+            paidEvent.AggregateId == order.Id &&
             paidEvent.TransactionId == "TX-ORDER-999")
             .Should().BeTrue();
     }

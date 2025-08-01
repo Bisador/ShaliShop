@@ -1,7 +1,7 @@
 namespace CatalogModule.Domain.Products.DomainEvents;
 
 public record ProductCreated(
-    Guid ProductId,
+    Guid AggregateId,
     string Name,
     string Category
-) : DomainEvent;
+) : DomainEvent(AggregateId);

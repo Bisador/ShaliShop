@@ -4,7 +4,7 @@ using CheckoutModule.Domain.Carts.ValueObjects;
 
 namespace CheckoutModule.Domain.Carts.Aggregates;
 
-public sealed class Cart : AggregateRoot<Guid>
+public sealed class Cart : AggregateRoot
 {
     public Guid CustomerId { get; private set; }
     public DateTime CreatedAt { get; private set; }

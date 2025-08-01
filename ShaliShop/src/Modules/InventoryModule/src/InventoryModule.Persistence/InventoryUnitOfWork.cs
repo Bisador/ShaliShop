@@ -1,13 +1,7 @@
-using InventoryModule.Application;
+using Shared.Application.Events;
+using Shared.Persistence;
 
 namespace InventoryModule.Persistence;
 
-public sealed class InventoryUnitOfWork(InventoryDbContext dbContext) : IInventoryUnitOfWork
-{
-    private readonly InventoryDbContext _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
-
-    public async Task CommitAsync(CancellationToken ct)
-    {
-        await _dbContext.SaveChangesAsync(ct);
-    }
-}
+public sealed class InventoryUnitOfWork(InventoryDbContext dbContext, DomainEventDispatcher dispatcher)
+    : UnitOfWorkBase(dbContext, dispatcher);

@@ -3,7 +3,7 @@ using OrderModule.Domain.Customers.Rules;
 
 namespace OrderModule.Domain.Customers.Aggregate;
 
-public sealed class Customer : AggregateRoot<Guid>
+public sealed class Customer : AggregateRoot
 {
     public string FullName { get; private set; } = null!;
     public string Email { get; private set; } = null!;

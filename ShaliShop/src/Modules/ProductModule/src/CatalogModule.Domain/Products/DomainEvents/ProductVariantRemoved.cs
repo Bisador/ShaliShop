@@ -1,3 +1,3 @@
 namespace CatalogModule.Domain.Products.DomainEvents;
 
-public record ProductVariantRemoved(Guid Id, string Sku) : DomainEvent;
+public record ProductVariantRemoved(Guid AggregateId, string Sku) : DomainEvent(AggregateId);

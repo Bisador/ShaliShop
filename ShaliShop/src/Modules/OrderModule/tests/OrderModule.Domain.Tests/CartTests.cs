@@ -93,7 +93,7 @@ public class CartTests
 
         Action act = () => cart.RemoveItem(nonexistentProductId);
 
-        act.Should().Throw<BusinessRuleValidationException>();
+        act.Should().Throw<DomainException>();
     }
 
     [Fact]
@@ -105,7 +105,7 @@ public class CartTests
         cart.AddItem(productId, "Bench", Money.From(299.99m), 1);
         cart.AddItem(productId, "Bench", Money.From(299.99m), 2);
 
-        var domainEvents = cart.Events;
+        var domainEvents = cart.DomainEvents;
 
         domainEvents.Any(e =>
             e is ItemQuantityUpdated updated &&
@@ -121,7 +121,7 @@ public class CartTests
         cart.AddItem(Guid.NewGuid(), "Row Machine", Money.From(450m), 1);
         cart.Clear();
 
-        var domainEvents = cart.Events;
+        var domainEvents = cart.DomainEvents;
 
         domainEvents.Should().ContainSingle(e => e is CartCleared);
     }

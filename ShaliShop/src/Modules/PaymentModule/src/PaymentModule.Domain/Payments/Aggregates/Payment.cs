@@ -4,7 +4,7 @@ using PaymentModule.Domain.Payments.Rules;
 
 namespace PaymentModule.Domain.Payments.Aggregates;
 
-public sealed class Payment : AggregateRoot<Guid>
+public sealed class Payment : AggregateRoot
 {
     public Guid OrderId { get; private set; }
     public Guid CustomerId { get; private set; }

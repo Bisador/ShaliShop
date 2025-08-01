@@ -1,3 +1,3 @@
 namespace OrderModule.Domain.Products.DomainEvents;
 
-public record ProductPriceChanged(Guid ProductId, Money NewPrice) : DomainEvent;
+public record ProductPriceChanged(Guid AggregateId, Money NewPrice) : DomainEvent(AggregateId);

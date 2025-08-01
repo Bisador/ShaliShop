@@ -3,8 +3,8 @@ using Shared.Domain;
 namespace InventoryModule.Domain.Inventories.DomainEvents;
 
 public record LowStockDetected(
-    Guid InventoryId,
+    Guid AggregateId,
     Guid ProductId,
     decimal Available,
     decimal Threshold
-) : DomainEvent;
+) : DomainEvent(AggregateId);

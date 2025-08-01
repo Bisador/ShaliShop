@@ -55,9 +55,9 @@ public class ProductDiscontinueCommandHandlerTests
 
         await _handler.Handle(new ProductDiscontinueCommand(product.Id), CancellationToken.None);
 
-        product.Events.Any(e =>
+        product.DomainEvents.Any(e =>
             e is ProductDiscontinued discontinued &&
-            discontinued.ProductId == product.Id
+            discontinued.AggregateId == product.Id
         ).Should().BeTrue();
     }
 
@@ -72,6 +72,6 @@ public class ProductDiscontinueCommandHandlerTests
 
         await _handler.Handle(new ProductDiscontinueCommand(product.Id), CancellationToken.None);
 
-        product.Events.Count(e => e is ProductDiscontinued).Should().Be(1);
+        product.DomainEvents.Count(e => e is ProductDiscontinued).Should().Be(1);
     }
 }

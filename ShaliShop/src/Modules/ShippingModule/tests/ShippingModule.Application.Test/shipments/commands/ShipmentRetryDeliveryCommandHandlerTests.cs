@@ -73,9 +73,9 @@ public class ShipmentRetryDeliveryCommandHandlerTests
 
         await _handler.Handle(new ShipmentRetryDeliveryCommand(shipment.Id), CancellationToken.None);
 
-        shipment.Events.Any(e =>
+        shipment.DomainEvents.Any(e =>
             e is ShipmentDeliveryRetried retried &&
-            retried.ShipmentId == shipment.Id &&
+            retried.AggregateId == shipment.Id &&
             retried.RetriedAt != default
         ).Should().BeTrue();
     }

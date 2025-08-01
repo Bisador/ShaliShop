@@ -1,3 +1,3 @@
 namespace CatalogModule.Domain.Products.Exceptions;
 
-public class CannotPublishWithoutNameAndPrice() : BusinessRuleValidationException("Cannot publish without name and price.");
+public class CannotPublishWithoutNameAndPrice() : DomainException("Cannot publish without name and price.");

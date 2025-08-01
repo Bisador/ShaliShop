@@ -16,8 +16,8 @@ public class PaymentTests
         payment.Status.Should().Be(PaymentStatus.Pending);
         payment.InitiatedAt.Should().BeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
 
-        payment.Events.Any(e =>
-                e is PaymentInitiated pi && pi.PaymentId == payment.Id)
+        payment.DomainEvents.Any(e =>
+                e is PaymentInitiated pi && pi.AggregateId == payment.Id)
             .Should().BeTrue();
     }
 
@@ -33,8 +33,8 @@ public class PaymentTests
         payment.TransactionId.Should().Be(txnId);
         payment.CompletedAt.Should().BeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
 
-        payment.Events.Any(e =>
-                e is PaymentSucceeded ps && ps.PaymentId == payment.Id && ps.TransactionId == txnId)
+        payment.DomainEvents.Any(e =>
+                e is PaymentSucceeded ps && ps.AggregateId == payment.Id && ps.TransactionId == txnId)
             .Should().BeTrue();
     }
 
@@ -48,8 +48,8 @@ public class PaymentTests
         payment.Status.Should().Be(PaymentStatus.Failed);
         payment.CompletedAt.Should().BeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
 
-        payment.Events.Any(e =>
-                e is PaymentFailed pf && pf.PaymentId == payment.Id && pf.Reason == "Card declined")
+        payment.DomainEvents.Any(e =>
+                e is PaymentFailed pf && pf.AggregateId == payment.Id && pf.Reason == "Card declined")
             .Should().BeTrue();
     }
 
@@ -60,7 +60,7 @@ public class PaymentTests
 
         Action act = () => payment.IssueRefund("Customer request");
 
-        act.Should().Throw<BusinessRuleValidationException>();
+        act.Should().Throw<DomainException>();
     }
 
     [Fact]
@@ -73,8 +73,8 @@ public class PaymentTests
 
         payment.Status.Should().Be(PaymentStatus.Refunded);
 
-        payment.Events.Any(e =>
-                e is RefundIssued r && r.PaymentId == payment.Id && r.Reason == "Returned item")
+        payment.DomainEvents.Any(e =>
+                e is RefundIssued r && r.AggregateId == payment.Id && r.Reason == "Returned item")
             .Should().BeTrue();
     }
 
@@ -86,6 +86,6 @@ public class PaymentTests
 
         Action act = () => payment.Succeed("txn-late");
 
-        act.Should().Throw<BusinessRuleValidationException>();
+        act.Should().Throw<DomainException>();
     }
 }

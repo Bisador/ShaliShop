@@ -6,7 +6,7 @@ using OrderModule.Domain.Orders.ValueObjects;
 
 namespace OrderModule.Domain.Orders.Aggregates;
 
-public sealed class Order : AggregateRoot<Guid>
+public sealed class Order : AggregateRoot
 {
     public Guid CustomerId { get; }
     public OrderStatus Status { get; private set; }

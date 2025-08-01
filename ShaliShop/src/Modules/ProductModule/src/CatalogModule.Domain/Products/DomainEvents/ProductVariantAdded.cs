@@ -1,3 +1,3 @@
 namespace CatalogModule.Domain.Products.DomainEvents;
 
-public record ProductVariantAdded(Guid Id, string Sku) : DomainEvent;
+public record ProductVariantAdded(Guid AggregateId, string Sku) : DomainEvent(AggregateId);

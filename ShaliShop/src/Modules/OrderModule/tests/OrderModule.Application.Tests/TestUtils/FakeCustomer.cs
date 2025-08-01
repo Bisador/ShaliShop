@@ -23,7 +23,7 @@ public static class FakeCustomer
             email ?? "ali@example.com");
 
         // Simulate fixed ID for test consistency (uses reflection to set private base class prop)
-        typeof(AggregateRoot<Guid>)
+        typeof(AggregateRoot)
             .GetProperty("Id")!
             .SetValue(customer, fixedId);
 

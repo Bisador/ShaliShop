@@ -73,9 +73,9 @@ public class InventoryReserveCommandHandlerTests
 
         await _handler.Handle(command, CancellationToken.None);
 
-        inventory.Events.Any(e =>
+        inventory.DomainEvents.Any(e =>
             e is InventoryReserved reserved &&
-            reserved.InventoryId == inventory.Id &&
+            reserved.AggregateId == inventory.Id &&
             reserved.ProductId == inventory.ProductId &&
             reserved.QuantityReserved == 10
         ).Should().BeTrue();

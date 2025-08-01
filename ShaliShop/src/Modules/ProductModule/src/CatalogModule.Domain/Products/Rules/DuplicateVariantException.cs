@@ -1,3 +1,3 @@
 namespace CatalogModule.Domain.Products.Rules;
 
-public class DuplicateVariantException() : BusinessRuleValidationException($"SKU must be unique");
+public class DuplicateVariantException() : DomainException($"SKU must be unique");

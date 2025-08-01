@@ -76,9 +76,9 @@ public class OrderShipCommandHandlerTests
 
         await _handler.Handle(new OrderShipCommand(orderId), CancellationToken.None);
 
-        order.Events.Any(e =>
+        order.DomainEvents.Any(e =>
             e is OrderShipped shipped &&
-            shipped.OrderId == orderId
+            shipped.AggregateId == orderId
         ).Should().BeTrue();
     }
 }

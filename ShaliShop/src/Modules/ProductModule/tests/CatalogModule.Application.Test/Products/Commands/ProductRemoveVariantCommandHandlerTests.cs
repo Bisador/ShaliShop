@@ -57,9 +57,9 @@ public class ProductRemoveVariantCommandHandlerTests
 
         await _handler.Handle(new ProductRemoveVariantCommand(product.Id, "SKU-White42"), CancellationToken.None);
 
-        product.Events.Any(e =>
+        product.DomainEvents.Any(e =>
             e is ProductVariantRemoved removed &&
-            removed.Id == product.Id &&
+            removed.AggregateId == product.Id &&
             removed.Sku == "SKU-White42"
         ).Should().BeTrue();
     }

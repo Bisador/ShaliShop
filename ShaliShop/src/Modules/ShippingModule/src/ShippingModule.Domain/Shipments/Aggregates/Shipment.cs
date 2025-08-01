@@ -5,7 +5,7 @@ using ShippingModule.Domain.Shipments.Exceptions;
 
 namespace ShippingModule.Domain.Shipments.Aggregates;
 
-public class Shipment : AggregateRoot<Guid>
+public class Shipment : AggregateRoot
 {
     public Guid OrderId { get; private set; }
     public ShipmentStatus Status { get; private set; }

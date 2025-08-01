@@ -16,7 +16,7 @@ public class ShipmentTests
 
         shipment.Status.Should().Be(ShipmentStatus.Created);
         shipment.CreatedAt.Should().BeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
-        shipment.Events.OfType<ShipmentCreated>().Should().ContainSingle();
+        shipment.DomainEvents.OfType<ShipmentCreated>().Should().ContainSingle();
     }
 
     [Fact]
@@ -28,7 +28,7 @@ public class ShipmentTests
 
         shipment.Status.Should().Be(ShipmentStatus.Dispatched);
         shipment.DispatchedAt.Should().NotBeNull();
-        shipment.Events.OfType<ShipmentDispatched>().Should().ContainSingle();
+        shipment.DomainEvents.OfType<ShipmentDispatched>().Should().ContainSingle();
     }
 
     [Fact]
@@ -40,7 +40,7 @@ public class ShipmentTests
 
         shipment.Status.Should().Be(ShipmentStatus.Delivered);
         shipment.DeliveredAt.Should().NotBeNull();
-        shipment.Events.OfType<ShipmentDelivered>().Should().ContainSingle();
+        shipment.DomainEvents.OfType<ShipmentDelivered>().Should().ContainSingle();
     }
 
     [Fact]
@@ -83,7 +83,7 @@ public class ShipmentTests
             shipment.MarkDeliveryFailed();
 
         FluentActions.Invoking(() => shipment.MarkDeliveryFailed())
-            .Should().Throw<BusinessRuleValidationException>()
+            .Should().Throw<DomainException>()
             .WithMessage("*maximum delivery attempts*");
     }
 }

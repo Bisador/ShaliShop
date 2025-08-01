@@ -4,7 +4,7 @@ using CatalogModule.Domain.Products.Rules;
 
 namespace CatalogModule.Domain.Products.Aggregates;
 
-public sealed class Product : AggregateRoot<Guid>
+public sealed class Product : AggregateRoot
 {
     #region Descriptive
 
