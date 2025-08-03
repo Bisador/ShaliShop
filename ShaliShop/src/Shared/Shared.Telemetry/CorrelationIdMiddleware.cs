@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Http;
 
 namespace Shared.Telemetry;
 
-public class CorrelationIdMiddleware
+public class CorrelationIdMiddleware(RequestDelegate next)
 {
-    public async Task InvokeAsync(HttpContext context, RequestDelegate next)
+    public async Task InvokeAsync(HttpContext context)
     {
         var correlationId = context.Request.Headers["X-Correlation-ID"].FirstOrDefault() ?? Guid.NewGuid().ToString();
         context.Items["CorrelationId"] = correlationId;

@@ -3,6 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D836EDF8-5846-4D71-8855-37DA492C84D2}"
 	ProjectSection(SolutionItems) = preProject
 		src\Directory.Packages.props = src\Directory.Packages.props
+		src\Dockerfile = src\Dockerfile
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{A4A13A16-106D-4205-8ABF-E7EB35381B98}"

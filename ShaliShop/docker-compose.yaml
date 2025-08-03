@@ -1,0 +1,37 @@
+services:
+  shalishop-api:
+    build:
+      context: ./src
+      dockerfile: Dockerfile
+    container_name: shalishop-api
+    environment:
+      ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
+      ASPNETCORE_URLS: http://+:8080
+      ConnectionStrings__DefaultConnection: Server=sqlserver;Database=${DB_NAME};User Id=${DB_USER};Password=${SQL_SA_PASSWORD};
+    ports:
+        - "${ASPNETCORE_PORT}:8080"
+    depends_on:
+      - sqlserver
+    networks:
+      - shalishop-net
+
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver
+    environment:
+      SA_PASSWORD: ${SQL_SA_PASSWORD}
+      ACCEPT_EULA: "Y"
+    ports:
+      - "${SQL_PORT}:1433"
+    volumes:
+      - sql_data:/var/opt/mssql
+    networks:
+      - shalishop-net
+
+
+volumes:
+  sql_data:
+
+networks:
+  shalishop-net:

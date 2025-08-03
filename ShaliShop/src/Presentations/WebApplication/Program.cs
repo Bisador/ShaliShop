@@ -1,14 +1,15 @@
+ 
 using CatalogModule.Api;
 using CatalogModule.DependencyInjection;
 using CheckoutModule.DependencyInjection;
-using InventoryModule.DependencyInjection;
-using Microsoft.AspNetCore.Mvc;
+using InventoryModule.DependencyInjection;  
+using Microsoft.OpenApi.Models;
 using Shared.Application.Behavior;
-using Shared.Application.Events; 
+using Shared.Application.Events;
 using Shared.Presentation.Cors;
 using Shared.Presentation.ExceptionHandling;
 using Shared.Presentation.HeathCheck;
-using Shared.Telemetry;
+using Shared.Telemetry; 
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,17 +22,17 @@ builder.Services
     .AddInventoryModule(connectionString)
     .AddCatalogModule(connectionString)
     .AddTransient(typeof(IPipelineBehavior<,>), typeof(DomainExceptionPipelineBehavior<,>))
-    .AddSwaggerGen(p => p.EnableAnnotations())
+    .AddEndpointsApiExplorer()
+    .AddSwaggerGen(options =>
+    {
+        options.EnableAnnotations();
+        options.SwaggerDoc("v1", new OpenApiInfo {Title = "ShaliShop API", Version = "v1"});
+    })
     .AddCorsServices()
     .AddApplicationInsightsTelemetry()
-    .AddApiVersioning(options =>
-    {
-        options.DefaultApiVersion = new ApiVersion(1, 0);
-        options.AssumeDefaultVersionWhenUnspecified = true;
-        options.ReportApiVersions = true;
-    })
     .AddHealthChecksServices()
     .AddSqlServer(connectionString, name: "SQL Server");
+  
 
 builder.Services.AddSingleton<IDomainEventPublisher, TelemetryDomainEventPublisher>();
 builder.Services.AddScoped<DomainEventDispatcher>();
@@ -53,18 +54,18 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(options =>
     {
         options.DocumentTitle = "ShaliShop API";
-        options.RoutePrefix = "docs";
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "ShaliShop API V1");
     });
 
     app.MapOpenApi();
 }
 app.UseHttpsRedirection();
-app.UseCorrelationId();
 
 if (!app.Environment.IsDevelopment())
 {
     app.UseCustomExceptionHandler();
 }
+app.UseCorrelationId();
 
 app.MapCatalogEndpoints();
 app.UseCustomHealthChecks(pageTitle: "Shali Shop Health check.");

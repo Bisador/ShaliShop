@@ -12,8 +12,8 @@
         <PackageReference Include="Microsoft.AspNetCore.OpenApi"/>
         <PackageReference Include="Microsoft.AspNetCore.Routing"/>
         <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore"/>
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning"/>
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer"/>
+        <PackageReference Include="Asp.Versioning.Mvc"/>
+        <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer"/>
         <PackageReference Include="AspNetCore.HealthChecks.SqlServer"/>
         <PackageReference Include="AspNetCore.HealthChecks.UI"/>
         <PackageReference Include="Swashbuckle.AspNetCore"/>
@@ -28,7 +28,7 @@
         <ProjectReference Include="..\..\Modules\ProductModule\src\CatalogModule.Api\CatalogModule.Api.csproj"/>
         <ProjectReference Include="..\..\Modules\ProductModule\src\CatalogModule.DependencyInjection\CatalogModule.DependencyInjection.csproj"/>
         <ProjectReference Include="..\..\Shared\Shared.Common\Shared.Common.csproj"/>
-        <ProjectReference Include="..\..\Shared\Shared.Telemetry\Shared.Telemetry.csproj" />
+        <ProjectReference Include="..\..\Shared\Shared.Telemetry\Shared.Telemetry.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -36,12 +36,6 @@
         <Using Include="Microsoft.AspNetCore.Routing"/>
         <Using Include="Shared.Common"/>
         <Using Include="MediatR"/>
-    </ItemGroup>
-
-    <ItemGroup>
-        <Content Include="..\..\..\.dockerignore">
-            <Link>.dockerignore</Link>
-        </Content>
     </ItemGroup>
 
 
