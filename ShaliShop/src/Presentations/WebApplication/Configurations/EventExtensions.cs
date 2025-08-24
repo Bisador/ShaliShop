@@ -16,6 +16,7 @@ public static class EventExtensions
         services.AddSingleton<IDomainEventPublisher, MessageBusDomainEventPublisher>(); 
         services.Decorate<IDomainEventPublisher, TelemetryDomainEventPublisherDecorator>();
         
+        
         services.AddScoped<IDomainEventDispatcher,DomainEventDispatcher>();
         return services;
     }
