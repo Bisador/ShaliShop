@@ -1,5 +1,5 @@
- 
-using Shared.Application.Events;
+  
+using Shared.Eventing;
 using Shared.Persistence;
 
 namespace CheckoutModule.Persistence;

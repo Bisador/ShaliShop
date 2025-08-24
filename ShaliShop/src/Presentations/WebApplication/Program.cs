@@ -1,17 +1,17 @@
- 
 using CatalogModule.Api;
 using CatalogModule.DependencyInjection;
 using CheckoutModule.DependencyInjection;
-using InventoryModule.DependencyInjection;  
+using InventoryModule.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Shared.Application.Behavior;
-using Shared.Application.Events;
 using Shared.Presentation.Cors;
 using Shared.Presentation.ExceptionHandling;
 using Shared.Presentation.HeathCheck;
-using Shared.Telemetry; 
+using Shared.Telemetry;
+using WebApplication.Configurations;
+using static Microsoft.AspNetCore.Builder.WebApplication;
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = CreateBuilder(args);
 
 builder.Services.AddOpenApi();
 // Configure Services.
@@ -30,12 +30,9 @@ builder.Services
     })
     .AddCorsServices()
     .AddApplicationInsightsTelemetry()
-    .AddHealthChecksServices()
-    .AddSqlServer(connectionString, name: "SQL Server");
-  
+    .AddHealthChecksServices(connectionString);
 
-builder.Services.AddSingleton<IDomainEventPublisher, TelemetryDomainEventPublisher>();
-builder.Services.AddScoped<DomainEventDispatcher>();
+builder.Services.RegisterEventHandling(builder.Environment, "");
 
 //
 // builder.Logging.AddConsole();

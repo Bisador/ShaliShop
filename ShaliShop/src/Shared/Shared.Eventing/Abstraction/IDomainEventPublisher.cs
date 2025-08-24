@@ -1,6 +1,6 @@
 using Shared.Domain;
 
-namespace Shared.Application.Events;
+namespace Shared.Eventing.Abstraction;
 
 public interface IDomainEventPublisher
 {

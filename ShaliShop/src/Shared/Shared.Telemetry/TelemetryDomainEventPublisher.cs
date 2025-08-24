@@ -1,21 +1,22 @@
 using Microsoft.ApplicationInsights;
-using Shared.Application.Events;
 using Shared.Domain;
+using Shared.Eventing.Abstraction;
 
 namespace Shared.Telemetry;
 
-public class TelemetryDomainEventPublisher(TelemetryClient telemetry) : IDomainEventPublisher
+public class TelemetryDomainEventPublisherDecorator(
+    IDomainEventPublisher inner,
+    TelemetryClient telemetry) : IDomainEventPublisher
 {
-    public Task PublishAsync(IDomainEvent domainEvent, CancellationToken cancellationToken = default)
+    public async Task PublishAsync(IDomainEvent domainEvent, CancellationToken cancellationToken = default)
     {
-        var properties = new Dictionary<string, string>
+        telemetry.TrackEvent("DomainEventPublished", new Dictionary<string, string>
         {
             {"EventType", domainEvent.GetType().Name},
             {"AggregateId", domainEvent.AggregateId.ToString()},
             {"Timestamp", DateTime.UtcNow.ToString("o")}
-        };
+        });
 
-        telemetry.TrackEvent("DomainEventPublished", properties);
-        return Task.CompletedTask;
+        await inner.PublishAsync(domainEvent, cancellationToken);
     }
 }

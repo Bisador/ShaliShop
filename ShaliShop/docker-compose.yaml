@@ -7,7 +7,13 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
       ASPNETCORE_URLS: http://+:8080
-      ConnectionStrings__DefaultConnection: Server=sqlserver;Database=${DB_NAME};User Id=${DB_USER};Password=${SQL_SA_PASSWORD};
+      ConnectionStrings__DefaultConnection: >
+        Server=sqlserver;
+        Database=${DB_NAME};
+        User Id=${DB_USER};
+        Password=${SQL_SA_PASSWORD};
+        Encrypt=False;
+        TrustServerCertificate=True;
     ports:
         - "${ASPNETCORE_PORT}:8080"
     depends_on:

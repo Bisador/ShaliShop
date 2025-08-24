@@ -1,11 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using Shared.Application;
-using Shared.Application.Events;
 using Shared.Domain;
+using Shared.Eventing.Abstraction;
 
 namespace Shared.Persistence;
 
-public abstract class UnitOfWorkBase(DbContext dbContext, DomainEventDispatcher dispatcher) : IUnitOfWork
+public abstract class UnitOfWorkBase(DbContext dbContext, IDomainEventDispatcher dispatcher) : IUnitOfWork
 {
     public async Task CommitAsync(CancellationToken cancellationToken = default)
     {
@@ -21,9 +21,6 @@ public abstract class UnitOfWorkBase(DbContext dbContext, DomainEventDispatcher 
             .Select(e => e.Entity)
             .ToList();
 
-        foreach (var aggregate in aggregates)
-        {
-            await dispatcher.DispatchAsync(aggregate, cancellationToken);
-        }
+        await dispatcher.DispatchAsync(aggregates, cancellationToken);
     }
 }

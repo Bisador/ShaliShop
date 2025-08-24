@@ -5,14 +5,20 @@ namespace Shared.Presentation.HeathCheck;
 
 public static class HealthCheckExtensions
 {
-    public static IHealthChecksBuilder AddHealthChecksServices(this IServiceCollection services)
-    { 
+    public static IHealthChecksBuilder AddHealthChecksServices(this IServiceCollection services, string connectionString)
+    {
+        services.AddSingleton<IHealthCheck>(sp => new SqlServerCustomHealthCheck(connectionString));
+        
         services.AddHealthChecksUI()
             .AddInMemoryStorage();
-        return services.AddHealthChecks();
+        return services
+            .AddHealthChecks()
+            //.AddCheck<SqlServerCustomHealthCheck>("SQL Server")
+            .AddSqlServer(connectionString, name: "SQL Server Connection");
+        ;
     }
 
-    public static IApplicationBuilder UseCustomHealthChecks(this IApplicationBuilder app,string path = "/healthcheck",string pageTitle = "Health check")
+    public static IApplicationBuilder UseCustomHealthChecks(this IApplicationBuilder app, string path = "/healthcheck", string pageTitle = "Health check")
     {
         return app.UseHealthChecksUI(options =>
         {

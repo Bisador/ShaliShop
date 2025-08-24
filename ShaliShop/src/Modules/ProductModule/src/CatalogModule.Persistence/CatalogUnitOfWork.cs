@@ -1,5 +1,5 @@
-using CatalogModule.Application.Abstraction; 
-using Shared.Application.Events;
+using CatalogModule.Application.Abstraction;  
+using Shared.Eventing;
 using Shared.Persistence;
 
 namespace CatalogModule.Persistence;

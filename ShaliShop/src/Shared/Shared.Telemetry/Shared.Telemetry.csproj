@@ -14,6 +14,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Shared.Application\Shared.Application.csproj"/>
+        <ProjectReference Include="..\Shared.Eventing\Shared.Eventing.csproj" />
     </ItemGroup>
  
 
