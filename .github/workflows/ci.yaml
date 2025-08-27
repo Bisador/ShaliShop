@@ -20,11 +20,14 @@ jobs:
       with:
         dotnet-version: '9.0.x'    
 
+    - name: Debug workspace (list files)
+      run: ls -R
+
     - name: Restore dependencies
-      run: dotnet restore ShaliShop.sln
+      run: dotnet restore ShaliShop/ShaliShop.sln 
 
     - name: Build
-      run: dotnet build ShaliShop.sln --no-restore --configuration Release
+      run: dotnet build ShaliShop/ShaliShop.sln  --no-restore --configuration Release
 
     - name: Run tests
-      run: dotnet test ShaliShop.sln --no-build --verbosity normal
+      run: dotnet test ShaliShop/ShaliShop.sln  --no-build --verbosity normal
