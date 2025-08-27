@@ -29,9 +29,5 @@ jobs:
       working-directory: ShaliShop
 
     - name: Run tests
-      run: |
-        for proj in $(find src -name '*.Test.csproj' -o -name '*.Tests.csproj'); do
-          echo "➡️ Running tests in $proj"
-          dotnet test $proj --no-build --verbosity normal
-        done
+      run: dotnet test ShaliShop.sln --configuration Release --verbosity normal
       working-directory: ShaliShop
