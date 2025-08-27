@@ -11,7 +11,7 @@ public class Shipment : AggregateRoot
     public ShipmentStatus Status { get; private set; }
     public string? Carrier { get; private set; }
     public string? TrackingNumber { get; private set; }
-    public DateTime CreatedAt { get; private set; }
+    public new DateTime CreatedAt { get; private set; }
     public DateTime? DispatchedAt { get; private set; }
     public DateTime? DeliveredAt { get; private set; }
     public DateTime? CanceledAt { get; private set; }
