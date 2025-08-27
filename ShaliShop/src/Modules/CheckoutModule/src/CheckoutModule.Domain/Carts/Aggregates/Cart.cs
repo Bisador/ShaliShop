@@ -7,7 +7,7 @@ namespace CheckoutModule.Domain.Carts.Aggregates;
 public sealed class Cart : AggregateRoot
 {
     public Guid CustomerId { get; private set; }
-    public DateTime CreatedAt { get; private set; }
+    public new DateTime CreatedAt { get; private set; }
     public DateTime LastModified { get; private set; }
 
     private readonly List<CartItem> _items = [];
