@@ -19,12 +19,19 @@ jobs:
 
     - name: Debug workspace (list files)
       run: ls -R
-
+  
     - name: Restore dependencies
-      run: dotnet restore ShaliShop/ShaliShop.sln 
+      run: dotnet restore ShaliShop.sln
+      working-directory: ShaliShop
 
     - name: Build
-      run: dotnet build ShaliShop/ShaliShop.sln  --no-restore --configuration Release
+      run: dotnet build ShaliShop.sln --no-restore --configuration Release
+      working-directory: ShaliShop
 
     - name: Run tests
-      run: dotnet test ShaliShop/ShaliShop.sln  --no-build --verbosity normal
+      run: |
+        for proj in $(find src -name '*.Test.csproj' -o -name '*.Tests.csproj'); do
+          echo "➡️ Running tests in $proj"
+          dotnet test $proj --no-build --verbosity normal
+        done
+      working-directory: ShaliShop
