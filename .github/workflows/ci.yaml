@@ -8,18 +8,27 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest 
 
+    strategy:
+      matrix:
+        test-project: []
+    
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+      
+    - name: Cache NuGet packages
+      uses: actions/cache@v3
+      with:
+        path: ~/.nuget/packages
+        key: nuget-${{ runner.os }}-${{ hashFiles('**/ShaliShop.sln') }}
+        restore-keys: |
+          nuget-${{ runner.os }}-
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '9.0.x'    
-
-    - name: Debug workspace (list files)
-      run: ls -R
-  
+ 
     - name: Restore dependencies
       run: dotnet restore ShaliShop.sln
       working-directory: ShaliShop
@@ -28,10 +37,20 @@ jobs:
       run: dotnet build ShaliShop.sln --no-restore --configuration Release
       working-directory: ShaliShop
 
-    - name: Run tests
+    # Discover test projects using pure bash
+    - id: get-test-projects
       run: |
-        for proj in $(find src -name '*.Test.csproj' -o -name '*.Tests.csproj'); do
+        echo "TEST_PROJECTS=$(find ShaliShop/src -name '*.Test.csproj' -o -name '*.Tests.csproj' | tr '\n' ' ')" >> $GITHUB_ENV
+
+    # Run tests in parallel using & and wait
+    - name: Run tests in parallel
+      run: |
+        for proj in $TEST_PROJECTS; do
           echo "➡️ Running tests in $proj"
-          dotnet test $proj --no-build --verbosity normal
+          dotnet test "$proj" --configuration Release --verbosity normal &
         done
-      working-directory: ShaliShop
+        wait
+
+    # - name: Run tests
+    #   run: dotnet test ShaliShop.sln --configuration Release --verbosity normal
+    #   working-directory: ShaliShop
