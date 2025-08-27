@@ -6,10 +6,7 @@ on:
 
 jobs:
   build-and-test:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ShaliShop
+    runs-on: ubuntu-latest 
 
     steps:
     - name: Checkout code
