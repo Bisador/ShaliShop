@@ -45,10 +45,13 @@ jobs:
 
     - name: Generate HTML coverage report
       run: |
+        echo "---- found coverage files ----"
+        find . -type f -path "*/TestResults/*/coverage.cobertura.xml" -print || true
+        echo "---- generating report ----"
         reportgenerator \
-          -reports:**/TestResults/**/coverage.cobertura.xml \
+          -reports:"**/TestResults/**/coverage.cobertura.xml" \
           -targetdir:coveragereport \
-          -reporttypes:Html:Cobertura
+          -reporttypes:"Html;Cobertura"
       working-directory: ShaliShop
 
     - name: Upload coverage artifact
