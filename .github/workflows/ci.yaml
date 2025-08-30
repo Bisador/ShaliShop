@@ -32,7 +32,30 @@ jobs:
     - name: Build
       run: dotnet build ShaliShop.sln --no-restore --configuration Release
       working-directory: ShaliShop
-
-    - name: Run tests
-      run: dotnet test ShaliShop.sln --configuration Release --verbosity normal
+ 
+    - name: Run tests + collect coverage
+      run: dotnet test ShaliShop.sln --collect:"XPlat Code Coverage" --configuration Release --verbosity normal
       working-directory: ShaliShop
+
+    - name: Install ReportGenerator
+      run: dotnet tool install -g dotnet-reportgenerator-globaltool
+
+    - name: Add dotnet tools to PATH
+      run: echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
+
+    - name: Generate HTML coverage report
+      run: |
+        echo "---- found coverage files ----"
+        find . -type f -path "*/TestResults/*/coverage.cobertura.xml" -print || true
+        echo "---- generating report ----"
+        reportgenerator \
+          -reports:"**/TestResults/**/coverage.cobertura.xml" \
+          -targetdir:coveragereport \
+          -reporttypes:"Html;Cobertura"
+      working-directory: ShaliShop
+
+    - name: Upload coverage artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage-report
+        path: ShaliShop/coveragereport
