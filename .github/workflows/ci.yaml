@@ -48,7 +48,7 @@ jobs:
         reportgenerator \
           -reports:**/TestResults/**/coverage.cobertura.xml \
           -targetdir:coveragereport \
-          -reporttypes:Html;Cobertura
+          -reporttypes:Html:Cobertura
       working-directory: ShaliShop
 
     - name: Upload coverage artifact
