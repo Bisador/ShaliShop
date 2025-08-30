@@ -20,6 +20,7 @@ jobs:
         restore-keys: |
           nuget-${{ runner.os }}-
 
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
@@ -59,3 +60,26 @@ jobs:
       with:
         name: coverage-report
         path: ShaliShop/coveragereport
+  
+  publish-coverage:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  
+          
+          
+      - name: Download coverage artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: coverage-report
+          path: coveragereport
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: coveragereport
