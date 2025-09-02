@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
-<coverage line-rate="0.7865470852017937" branch-rate="0.6883116883116883" lines-covered="877" lines-valid="1115" branches-covered="106" branches-valid="154" complexity="566" version="0" timestamp="1756803230">
+<coverage line-rate="0.7865470852017937" branch-rate="0.6883116883116883" lines-covered="877" lines-valid="1115" branches-covered="106" branches-valid="154" complexity="566" version="0" timestamp="1756803238">
   <sources>
     <source>/home/runner/work/ShaliShop/ShaliShop/ShaliShop/src/</source>
   </sources>
