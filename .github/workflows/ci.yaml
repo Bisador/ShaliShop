@@ -38,11 +38,7 @@ jobs:
     - name: Build
       run: dotnet build ShaliShop.sln --no-restore --configuration Release
       working-directory: ShaliShop
- 
-    - name: Run tests + collect coverage
-      run: dotnet test ShaliShop.sln --collect:"XPlat Code Coverage" --configuration Release --verbosity normal --results-directory ./TestResults
-      working-directory: ShaliShop
- 
+   
     - name: Run tests + collect coverage
       run: dotnet test ShaliShop.sln \
         --collect:"XPlat Code Coverage" \
