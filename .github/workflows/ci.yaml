@@ -8,6 +8,7 @@ on:
     
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
   build-and-test:
@@ -15,7 +16,7 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v4 
  
     - name: Cache NuGet packages
       uses: actions/cache@v3
@@ -24,8 +25,7 @@ jobs:
         key: nuget-${{ runner.os }}-${{ hashFiles('**/ShaliShop.sln') }}
         restore-keys: |
           nuget-${{ runner.os }}-
-
-
+    
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
@@ -49,7 +49,7 @@ jobs:
     - name: Add dotnet tools to PATH
       run: echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
 
-    - name: Generate HTML coverage report
+    - name: Generate HTML + Cobertura coverage report
       run: |
         echo "---- found coverage files ----"
         find . -type f -path "*/TestResults/*/coverage.cobertura.xml" -print || true
@@ -59,27 +59,25 @@ jobs:
           -targetdir:coveragereport \
           -reporttypes:"Html;Cobertura"
       working-directory: ShaliShop
-    
-    - name: List coverage report outputs
-      run: ls -R ShaliShop/coveragereport
-       
+
     - name: Upload coverage artifact
       uses: actions/upload-artifact@v4
       with:
         name: coverage-report
         path: ShaliShop/coveragereport
-        
-    - name: Generate coverage summary (Markdown)
+          
+    - name: Generate coverage summary (Markdown file)
       uses: irongut/CodeCoverageSummary@v1.3.0
       with:
         filename: ShaliShop/coveragereport/Cobertura.xml
         badge: true
         format: markdown
-        output: both
-
+        output: file
+    
     - name: Add or update PR comment with coverage
       uses: marocchino/sticky-pull-request-comment@v2
       with:
+        header: coverage
         path: code-coverage-results.md
   
   publish-coverage:
