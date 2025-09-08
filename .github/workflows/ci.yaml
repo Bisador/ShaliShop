@@ -42,6 +42,15 @@ jobs:
     - name: Run tests + collect coverage
       run: dotnet test ShaliShop.sln --collect:"XPlat Code Coverage" --configuration Release --verbosity normal --results-directory ./TestResults
       working-directory: ShaliShop
+ 
+    - name: Run tests + collect coverage
+      run: dotnet test ShaliShop.sln \
+        --collect:"XPlat Code Coverage" \
+        --configuration Release \
+        --verbosity normal \
+        --results-directory ./TestResults \
+        /p:Exclude="[*.Abstraction*]*,[*Test*]*" 
+      working-directory: ShaliShop
 
     - name: Install ReportGenerator
       run: dotnet tool install -g dotnet-reportgenerator-globaltool
@@ -69,10 +78,12 @@ jobs:
     - name: Generate coverage summary (Markdown file)
       uses: irongut/CodeCoverageSummary@v1.3.0
       with:
-        filename: ShaliShop/coveragereport/Cobertura.xml
+        filename: ShaliShop/TestResults/**/coverage.cobertura.xml
         badge: true
         format: markdown
-        output: file
+        output: both
+        thresholds: '50 70'
+        fail_below_min: true
     
     - name: Add or update PR comment with coverage
       uses: marocchino/sticky-pull-request-comment@v2
