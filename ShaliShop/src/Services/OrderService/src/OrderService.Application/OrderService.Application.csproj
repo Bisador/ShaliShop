@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="MediatR"/>
+        <PackageReference Include="Mapster"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Using Include="Mapster"/>
+        <Using Include="MediatR"/>
+    </ItemGroup>
+
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\..\Shared\Shared.Application\Shared.Application.csproj"/>
+        <ProjectReference Include="..\..\..\..\Shared\Shared.Common\Shared.Common.csproj"/> 
+        <ProjectReference Include="..\..\..\InventoryService\src\InventoryService.Domain\InventoryService.Domain.csproj"/>
+        <ProjectReference Include="..\OrderService.Application.Abstraction\OrderService.Application.Abstraction.csproj" />
+        <ProjectReference Include="..\OrderService.Domain\OrderService.Domain.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Using Include="OrderService.Domain.Orders.Aggregates"/>
+        <Using Include="OrderService.Domain.Orders.DomainEvents"/>
+        <Using Include="OrderService.Domain.Orders.ValueObjects"/>
+        <Using Include="OrderService.Domain.Orders.Repository"/>
+        <Using Include="OrderService.Application.Abstraction"/>
+        <Using Include="OrderService.Application.Orders.Commands.Errors"/>
+        <Using Include="Shared.Application"/>
+        <Using Include="Shared.Common"/>
+        <Using Include="Shared.Application.Messaging"/>
+    </ItemGroup>
+
+</Project>

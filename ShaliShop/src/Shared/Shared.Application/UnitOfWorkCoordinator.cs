@@ -4,7 +4,7 @@ namespace Shared.Application;
 
 /// <summary>
 /// Coordinates multiple unit-of-work commits into a single transactional scope.
-/// Ensures atomicity across module boundaries.
+/// Ensures atomicity across Service boundaries.
 /// </summary> 
 public static class UnitOfWorkCoordinator
 {

@@ -1,7 +1,7 @@
-using CatalogModule.Api;
-using CatalogModule.DependencyInjection;
-using CheckoutModule.DependencyInjection;
-using InventoryModule.DependencyInjection;
+using CatalogService.Api;
+using CatalogService.DependencyInjection;
+using CheckoutService.DependencyInjection;
+using InventoryService.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Shared.Application.Behavior;
 using Shared.Presentation.Cors;
@@ -18,9 +18,9 @@ builder.Services.AddOpenApi();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("DefaultConnection not found");
 builder.Services
-    .AddCheckoutModule(connectionString)
-    .AddInventoryModule(connectionString)
-    .AddCatalogModule(connectionString)
+    .AddCheckoutService(connectionString)
+    .AddInventoryService(connectionString)
+    .AddCatalogService(connectionString)
     .AddTransient(typeof(IPipelineBehavior<,>), typeof(DomainExceptionPipelineBehavior<,>))
     .AddEndpointsApiExplorer()
     .AddSwaggerGen(options =>
@@ -40,7 +40,7 @@ builder.Services.RegisterEventHandling(builder.Environment, "");
 //
 // var logger = builder.Logging.CreateLogger("Startup");
 // logger.LogInformation("Environment: {env}", builder.Environment.EnvironmentName);
-// logger.LogInformation("Modules loaded: Catalog, Inventory, Checkout");
+// logger.LogInformation("Services loaded: Catalog, Inventory, Checkout");
 
 var app = builder.Build();
 

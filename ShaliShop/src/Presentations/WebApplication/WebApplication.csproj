@@ -21,12 +21,12 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\Modules\CheckoutModule\src\CheckoutModule.DependencyInjection\CheckoutModule.DependencyInjection.csproj"/>
-        <ProjectReference Include="..\..\Modules\InventoryModule\src\InventoryModule.DependencyInjection\InventoryModule.DependencyInjection.csproj"/>
-        <ProjectReference Include="..\..\Modules\OrderModule\src\OrderModule.Application\OrderModule.Application.csproj"/>
-        <ProjectReference Include="..\..\Modules\OrderModule\src\OrderModule.DependencyInjection\OrderModule.DependencyInjection.csproj"/>
-        <ProjectReference Include="..\..\Modules\ProductModule\src\CatalogModule.Api\CatalogModule.Api.csproj"/>
-        <ProjectReference Include="..\..\Modules\ProductModule\src\CatalogModule.DependencyInjection\CatalogModule.DependencyInjection.csproj"/>
+        <ProjectReference Include="..\..\Services\CheckoutService\src\CheckoutService.DependencyInjection\CheckoutService.DependencyInjection.csproj"/>
+        <ProjectReference Include="..\..\Services\InventoryService\src\InventoryService.DependencyInjection\InventoryService.DependencyInjection.csproj"/>
+        <ProjectReference Include="..\..\Services\OrderService\src\OrderService.Application\OrderService.Application.csproj"/>
+        <ProjectReference Include="..\..\Services\OrderService\src\OrderService.DependencyInjection\OrderService.DependencyInjection.csproj"/>
+        <ProjectReference Include="..\..\Services\ProductService\src\CatalogService.Api\CatalogService.Api.csproj"/>
+        <ProjectReference Include="..\..\Services\ProductService\src\CatalogService.DependencyInjection\CatalogService.DependencyInjection.csproj"/>
         <ProjectReference Include="..\..\Shared\Shared.Common\Shared.Common.csproj"/>
         <ProjectReference Include="..\..\Shared\Shared.Messaging\Shared.Messaging.csproj"/>
         <ProjectReference Include="..\..\Shared\Shared.Telemetry\Shared.Telemetry.csproj"/>

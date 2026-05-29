@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Routing"/>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi"/>
+        <PackageReference Include="MediatR"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Using Include="Microsoft.AspNetCore.Routing"/>
+        <Using Include="Microsoft.AspNetCore.OpenApi"/>
+        <Using Include="Microsoft.AspNetCore.Builder"/>
+        <Using Include="Microsoft.AspNetCore.Http"/>
+        <Using Include="Microsoft.AspNetCore.Mvc"/>
+        <Using Include="MediatR"/>
+        <Using Include="Microsoft.AspNetCore.Http.HttpResults"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\..\Shared\Shared.Application\Shared.Application.csproj" />
+      <ProjectReference Include="..\..\..\..\Shared\Shared.Presentation\Shared.Presentation.csproj" />
+      <ProjectReference Include="..\CatalogService.Application\CatalogService.Application.csproj" />
+      <ProjectReference Include="..\CatalogService.Application.Abstraction\CatalogService.Application.Abstraction.csproj" />
+      <ProjectReference Include="..\CatalogService.Application\CatalogService.Application.csproj" />
+    </ItemGroup>
+    
+    <ItemGroup>
+        <Using Include="Shared.Application.Queries"/>
+        <Using Include="Shared.Presentation"/>
+        <Using Include="SharedService.Domain.ValueObjects"/>
+    </ItemGroup>
+
+</Project>

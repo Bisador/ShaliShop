@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="xunit"/>
+        <PackageReference Include="xunit.runner.visualstudio"/>
+        <PackageReference Include="FluentAssertions"/>
+        <PackageReference Include="moq"/>
+        <PackageReference Include="coverlet.collector"/>
+        <PackageReference Include="Microsoft.NET.Test.Sdk"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Using Include="Xunit"/>
+        <Using Include="FluentAssertions"/>
+        <Using Include="Moq"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\src\CatalogService.Application\CatalogService.Application.csproj"/>
+        <ProjectReference Include="..\..\src\CatalogService.Domain\CatalogService.Domain.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Using Include="SharedService.Domain.ValueObjects"/>
+        <Using Include="CatalogService.Domain.Products.Rules"/>
+        <Using Include="CatalogService.Domain.Products.Repository"/>
+        <Using Include="CatalogService.Domain.Products.DomainEvents"/>
+        <Using Include="CatalogService.Domain.Products.Aggregates"/>
+        <Using Include="CatalogService.Application.Abstraction"/>
+        <Using Include="CatalogService.Application.Errors"/>
+        <Using Include="CatalogService.Application.Products.Commands.AddVariant"/>
+    </ItemGroup>
+
+</Project>

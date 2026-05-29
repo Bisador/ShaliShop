@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="xunit"/>
+        <PackageReference Include="xunit.runner.visualstudio"/>
+        <PackageReference Include="FluentAssertions"/>
+        <PackageReference Include="moq"/>
+        <PackageReference Include="coverlet.collector"/>
+        <PackageReference Include="Microsoft.NET.Test.Sdk"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Using Include="Xunit"/>
+        <Using Include="FluentAssertions"/>
+        <Using Include="Moq"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\src\InventoryService.Application\InventoryService.Application.csproj"/>
+        <ProjectReference Include="..\..\src\InventoryService.Domain\InventoryService.Domain.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Using Include="InventoryService.Domain.Inventories.Repository"/>
+        <Using Include="InventoryService.Domain.Inventories.Aggregates"/>
+        <Using Include="InventoryService.Domain.Inventories.DomainEvents"/>
+        <Using Include="InventoryService.Domain.Inventories.Exceptions"/>
+    </ItemGroup>
+
+</Project>
